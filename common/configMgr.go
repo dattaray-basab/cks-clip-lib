@@ -1,18 +1,16 @@
 package common
 
 import (
-	"github.com/dattaray-basab/cks-ckip-lib/globals"
+	"github.com/dattaray-basab/cks-clip-lib/globals"
 	"github.com/spf13/viper"
 )
 
 func GetRecipePath(absPathToRecipe string, reset bool) string {
 
 	viper.SetConfigFile("config.yaml")
-	if err := viper.ReadInConfig(); err != nil  || reset {
+	if err := viper.ReadInConfig(); err != nil || reset {
 		viper.Set(globals.RecipePathKey, absPathToRecipe)
 		viper.WriteConfig()
 	}
 	return viper.GetString(globals.RecipePathKey)
 }
-
-

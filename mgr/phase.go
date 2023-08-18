@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/dattaray-basab/cks-ckip-lib/common"
+	"github.com/dattaray-basab/cks-clip-lib/common"
 )
 
 func CreatePhase(

@@ -7,10 +7,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/dattaray-basab/cks-ckip-lib/common"
+	"github.com/dattaray-basab/cks-clip-lib/common"
 )
 
-func CreateRecipe(absPathToSource string, absPathToRecipeParent string) string {
+func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrite bool) string {
 	pathToRecipe := prolog(absPathToRecipeParent, absPathToSource)
 	// err := CreatePathIfAbsent(pathToRecipe)
 	// if err != nil {

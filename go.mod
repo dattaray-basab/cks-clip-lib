@@ -1,4 +1,4 @@
-module github.com/dattaray-basab/cks-ckip-lib
+module github.com/dattaray-basab/cks-clip-lib
 
 go 1.20
 
