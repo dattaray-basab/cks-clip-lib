@@ -21,7 +21,7 @@ func CreatePhase(
 	fmt.Println("templaterDirpath::", templaterDirpath)
 	fmt.Println("recipePath::", recipePath)
 	if templaterDirpath != recipePath && !strings.HasPrefix(templaterDirpath, recipePath) {
-		_ = fmt.Errorf("Recipe path %s is not a subdirectory of %s", templaterDirpath, recipePath)
+		fmt.Printf("Recipe path %s is not a subdirectory of %s", templaterDirpath, recipePath)
 	}
 	fmt.Println(">>> CreatePhase")
 	fmt.Println()
