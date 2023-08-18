@@ -21,13 +21,13 @@ func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrit
 
 func prolog(absPathToRecipeParent string, absPathToSource string) string {
 	fmt.Println()
-	fmt.Println("<<< CreateRecipe/n")
+	fmt.Println("<<< Create Recipe/n")
 	fmt.Println("absPathToRecipeParent::", absPathToRecipeParent)
 	fmt.Println("absPathToSource::", absPathToSource)
 	absPathToRecipe := filepath.Join(absPathToRecipeParent, "__recipe")
 	pathToRecipe := common.GetRecipePath(absPathToRecipe, true)
 	fmt.Println("pathToRecipe::", pathToRecipe)
-	fmt.Println(">>> CreateRecipe")
+	fmt.Println(">>> Create Recipe")
 	fmt.Println()
 	return pathToRecipe
 }
