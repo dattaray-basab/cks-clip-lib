@@ -9,7 +9,7 @@ import (
 
 func CreatePhase(
 
-	templaterDirpath string,
+	clipDirpath string,
 	phaseName string,
 	codeBlock string,
 	dependentPhaseNames string) {
@@ -17,11 +17,11 @@ func CreatePhase(
 	fmt.Println("")
 	fmt.Println("<<< CreatePhase/n")
 
-	recipePath := common.GetRecipePath(templaterDirpath, false)
-	fmt.Println("templaterDirpath::", templaterDirpath)
+	recipePath := common.GetRecipePath(clipDirpath, false)
+	fmt.Println("clipDirpath::", clipDirpath)
 	fmt.Println("recipePath::", recipePath)
-	if templaterDirpath != recipePath && !strings.HasPrefix(templaterDirpath, recipePath) {
-		fmt.Printf("Recipe path %s is not a subdirectory of %s", templaterDirpath, recipePath)
+	if clipDirpath != recipePath && !strings.HasPrefix(recipePath, clipDirpath) {
+		fmt.Printf("Recipe path %s is not a subdirectory of %s", recipePath, clipDirpath)
 	}
 	fmt.Println(">>> CreatePhase")
 	fmt.Println()
