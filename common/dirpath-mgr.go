@@ -2,6 +2,7 @@ package common
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -16,4 +17,15 @@ func GetNamedPath(dirPath string, searchPathFragment string) (string, error)  {
 		}
 	}
 	return "", fmt.Errorf("misc/envmgr.go::SetRecipePath: %s not found in %s", searchPathFragment, dirPath)
+}
+
+func IsDir(path string) (bool, error) {
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		return false, err
+	}
+	if fileInfo.IsDir() {
+		return true, err
+	}
+	return false, err
 }
