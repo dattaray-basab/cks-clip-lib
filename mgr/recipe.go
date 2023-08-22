@@ -16,11 +16,11 @@ func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrit
 	if err != nil {
 		return err
 	}
-	// recipe_dirpath := filepath.Join(absPathToRecipeParent, globals.RECEPE_ROOT_DIR_)
+	// recipe_dirpath := filepath.Join(absPathToRecipeParent, globals.RECIPE_ROOT_DIR_)
 	// cwd, _ := os.Getwd()
 	// fmt.Println("cwd: ", cwd)
 	cwd, _ := os.Getwd()
-	recipe_dirpath, err := common.GetNamedPath(cwd, globals.RECEPE_ROOT_DIR_)
+	recipe_dirpath, err := common.GetNamedPath(cwd, globals.RECIPE_ROOT_DIR_)
 	if err != nil {
 		return err
 	}
@@ -53,7 +53,7 @@ func checkInputs(absPathToSource string, absPathToRecipeParent string) error {
 			return err
 		}
 	}
-	recipe_dirpath := filepath.Join(absPathToRecipeParent, globals.RECEPE_ROOT_DIR_)
+	recipe_dirpath := filepath.Join(absPathToRecipeParent, globals.RECIPE_ROOT_DIR_)
 	if common.IsDir(recipe_dirpath) {
 		err := errors.New("mgr/recipe.go::checkInputs: " + "recipe folder already exists: " + recipe_dirpath)
 		log.Printf("%s", err)

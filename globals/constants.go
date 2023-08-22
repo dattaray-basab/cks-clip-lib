@@ -4,9 +4,9 @@ const RecipePathKey = "CKS_ENV_RECIPE_PATH"
 
 const RecipeDirectory = "__DEV_3"
 
-const RECEPE = "recepe"
+const RECIPE = "recipe"
 const PHASE = "phase"
 const ALTER = "alter"
 const SPECIAL_DIR_PREFIX_ = "__"
-const RECEPE_ROOT_DIR_ = SPECIAL_DIR_PREFIX_ +  RECEPE
+const RECIPE_ROOT_DIR_ = SPECIAL_DIR_PREFIX_ + RECIPE
 const ALTER_ROOT_DIR_ = SPECIAL_DIR_PREFIX_ + ALTER
