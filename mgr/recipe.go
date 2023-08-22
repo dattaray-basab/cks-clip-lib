@@ -10,13 +10,13 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/common"
 )
 
-func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrite bool) string {
+func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrite bool) (string, error) {
 	pathToRecipe := prolog(absPathToRecipeParent, absPathToSource)
-	// err := CreatePathIfAbsent(pathToRecipe)
-	// if err != nil {
-	// 	return err
-	// }
-	return pathToRecipe
+	err := CreatePathIfAbsent(pathToRecipe)
+	if err != nil {
+		return "", err
+	}
+	return pathToRecipe, nil
 }
 
 func prolog(absPathToRecipeParent string, absPathToSource string) string {
