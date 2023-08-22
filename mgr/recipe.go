@@ -8,28 +8,45 @@ import (
 	"path/filepath"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
+	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrite bool) (string, error) {
-	pathToRecipe := prolog(absPathToRecipeParent, absPathToSource)
-	err := CreatePathIfAbsent(pathToRecipe)
+func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrite bool) error {
+	err := checkInputs(absPathToRecipeParent, absPathToSource)
 	if err != nil {
-		return "", err
+		return err
 	}
-	return pathToRecipe, nil
+	pathToRecipe := filepath.Join(absPathToRecipeParent, globals.RECEPE_ROOT_DIR_, globals.RecipeDirectory)
+	log.Printf("mgr/recipe.go::CreateRecipe: pathToRecipe: %s", pathToRecipe)
+
+	return nil
 }
 
-func prolog(absPathToRecipeParent string, absPathToSource string) string {
-	fmt.Println()
-	fmt.Println("<<< Create Recipe/n")
-	fmt.Println("absPathToRecipeParent::", absPathToRecipeParent)
-	fmt.Println("absPathToSource::", absPathToSource)
-	absPathToRecipe := filepath.Join(absPathToRecipeParent, "__recipe")
-	pathToRecipe := common.GetRecipePath(absPathToRecipe, true)
-	fmt.Println("pathToRecipe::", pathToRecipe)
-	fmt.Println(">>> Create Recipe")
-	fmt.Println()
-	return pathToRecipe
+func checkInputs(absPathToRecipeParent string, absPathToSource string) error {
+
+	success := common.IsDir(absPathToRecipeParent)
+	if !success {
+		err := os.Mkdir(absPathToRecipeParent, os.ModePerm)
+		if err != nil {
+			err = errors.New("mgr/recipe.go::checkInputs: " + "could not create recipe parent folder: " + absPathToRecipeParent)
+			return err
+		}
+	}
+	recipe_dirpath := filepath.Join(absPathToRecipeParent, globals.RECEPE_ROOT_DIR_)
+	if common.IsDir(recipe_dirpath) {
+		err := errors.New("mgr/recipe.go::checkInputs: " + "recipe folder already exists: " + recipe_dirpath)
+		log.Printf("%s", err)
+		return err
+	}
+	success = common.IsDir(absPathToSource)
+	if !success {
+		err := errors.New("mgr/recipe.go::checkInputs: " + "source folder does not exist: " + absPathToSource)
+		log.Printf("%s", err)
+		return err
+	}
+
+	return nil
+
 }
 
 func CreatePathIfAbsent(recipePath string) error {
