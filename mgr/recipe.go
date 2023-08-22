@@ -16,15 +16,20 @@ func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrit
 	if err != nil {
 		return err
 	}
-	pathToRecipe := filepath.Join(absPathToRecipeParent, globals.RECEPE_ROOT_DIR_, globals.RecipeDirectory)
-	log.Printf("mgr/recipe.go::CreateRecipe: pathToRecipe: %s", pathToRecipe)
+
 
 	return nil
 }
 
-func checkInputs(absPathToRecipeParent string, absPathToSource string) error {
-
-	success := common.IsDir(absPathToRecipeParent)
+func checkInputs(absPathToSource string, absPathToRecipeParent string) error {
+	var success bool
+		success = common.IsDir(absPathToSource)
+	if !success {
+		err := errors.New("mgr/recipe.go::checkInputs: " + "source folder does not exist: " + absPathToSource)
+		log.Printf("%s", err)
+		return err
+	}
+	success = common.IsDir(absPathToRecipeParent)
 	if !success {
 		err := os.Mkdir(absPathToRecipeParent, os.ModePerm)
 		if err != nil {
@@ -38,12 +43,7 @@ func checkInputs(absPathToRecipeParent string, absPathToSource string) error {
 		log.Printf("%s", err)
 		return err
 	}
-	success = common.IsDir(absPathToSource)
-	if !success {
-		err := errors.New("mgr/recipe.go::checkInputs: " + "source folder does not exist: " + absPathToSource)
-		log.Printf("%s", err)
-		return err
-	}
+
 
 	return nil
 
