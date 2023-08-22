@@ -20,10 +20,7 @@ func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrit
 	// cwd, _ := os.Getwd()
 	// fmt.Println("cwd: ", cwd)
 	cwd, _ := os.Getwd()
-	recipe_dirpath, err := common.GetNamedPath(cwd, globals.RECIPE_ROOT_DIR_)
-	if err != nil {
-		return err
-	}
+	recipe_dirpath := filepath.Join(cwd, globals.RECIPE_ROOT_DIR_)
 
 	err = common.CopyDir(recipe_dirpath, recipe_dirpath)
 	if err != nil {
