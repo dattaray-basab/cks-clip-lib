@@ -14,7 +14,7 @@ import (
 	"github.com/otiai10/copy"
 )
 
-func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrite bool) error {
+func CreateRecipe(template_dirpath string, templateMap map[string]string, absPathToSource string, absPathToRecipeParent string, overwrite bool) error {
 	err := checkInputs(absPathToRecipeParent, absPathToSource, overwrite)
 	if err != nil {
 		return err
