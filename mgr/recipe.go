@@ -14,27 +14,11 @@ import (
 	"github.com/otiai10/copy"
 )
 
-func getBinPath() string {
-	ex, err := os.Executable()
-	if err != nil {
-		panic(err)
-	}
-	exPath := filepath.Dir(ex)
-	fmt.Println(exPath)
-	return exPath
-}
-
 func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrite bool) error {
-	err := checkInputs(absPathToRecipeParent, absPathToSource)
+	err := checkInputs(absPathToRecipeParent, absPathToSource, overwrite)
 	if err != nil {
 		return err
 	}
-
-	// gp := os.Getenv("GOPATH")
-	// fmt.Println("GOPATH: ", gp)
-
-	// binPath := getBinPath()
-	// fmt.Println("binPath: ", binPath)
 
 	cwd, _ := os.Getwd()
 	src_recipe_dirpath := filepath.Join(cwd, globals.RECIPE_ROOT_DIR_)
@@ -69,7 +53,7 @@ func CopyDir(recipe_dirpath1, recipe_dirpath2 string) {
 	panic("unimplemented")
 }
 
-func checkInputs(absPathToSource string, absPathToRecipeParent string) error {
+func checkInputs(absPathToSource string, absPathToRecipeParent string, overwrite bool) error {
 	var success bool
 	success = common.IsDir(absPathToSource)
 	if !success {
@@ -87,9 +71,14 @@ func checkInputs(absPathToSource string, absPathToRecipeParent string) error {
 	}
 	recipe_dirpath := filepath.Join(absPathToRecipeParent, globals.RECIPE_ROOT_DIR_)
 	if common.IsDir(recipe_dirpath) {
-		err := errors.New("mgr/recipe.go::checkInputs: " + "recipe folder already exists: " + recipe_dirpath)
-		log.Printf("%s", err)
-		return err
+		if overwrite  {
+			err := os.RemoveAll(recipe_dirpath)
+			return err
+		} else {
+			err := errors.New("mgr/recipe.go::checkInputs: " + "recipe folder already exists: " + recipe_dirpath)
+			log.Printf("%s", err)
+			return err
+		}
 	}
 
 	return nil
