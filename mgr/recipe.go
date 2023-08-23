@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"os/exec"
+
+	// "os/exec"
 	"path/filepath"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
+	"github.com/otiai10/copy"
 )
 
 func getBinPath() string {
@@ -37,10 +39,12 @@ func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrit
 	cwd, _ := os.Getwd()
 	src_recipe_dirpath := filepath.Join(cwd, globals.RECIPE_ROOT_DIR_)
 
-	cmd := exec.Command("cp", "--recursive", src_recipe_dirpath, absPathToSource)
-	cmd.Run()
+	// dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
 
-	err = common.CopyDir(src_recipe_dirpath, absPathToSource)
+	// cmd := exec.Command("cp", "--recursive", src_recipe_dirpath, dst_recipe_dirpath)
+	// cmd.Run()
+
+	err = copy.Copy(src_recipe_dirpath, absPathToSource)
 	if err != nil {
 		return err
 	}
