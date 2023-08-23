@@ -5,22 +5,40 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
+func getBinPath() string {
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+	exPath := filepath.Dir(ex)
+	fmt.Println(exPath)
+	return exPath
+}
+
 func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrite bool) error {
 	err := checkInputs(absPathToRecipeParent, absPathToSource)
 	if err != nil {
 		return err
 	}
-	// recipe_dirpath := filepath.Join(absPathToRecipeParent, globals.RECIPE_ROOT_DIR_)
-	// cwd, _ := os.Getwd()
-	// fmt.Println("cwd: ", cwd)
+
+	// gp := os.Getenv("GOPATH")
+	// fmt.Println("GOPATH: ", gp)
+
+	// binPath := getBinPath()
+	// fmt.Println("binPath: ", binPath)
+
 	cwd, _ := os.Getwd()
 	src_recipe_dirpath := filepath.Join(cwd, globals.RECIPE_ROOT_DIR_)
+
+	cmd := exec.Command("cp", "--recursive", src_recipe_dirpath, absPathToSource)
+	cmd.Run()
 
 	err = common.CopyDir(src_recipe_dirpath, absPathToSource)
 	if err != nil {
