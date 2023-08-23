@@ -21,7 +21,7 @@ func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrit
 	}
 
 	cwd, _ := os.Getwd()
-	src_recipe_dirpath := filepath.Join(cwd, "_templates", globals.RECIPE_ROOT_DIR_)
+	src_recipe_dirpath := filepath.Join(cwd, globals.TEMPLATES_DIRNAME, globals.RECIPE_ROOT_DIR_)
 
 	dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
 
