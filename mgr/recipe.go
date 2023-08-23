@@ -39,12 +39,25 @@ func CreateRecipe(absPathToSource string, absPathToRecipeParent string, overwrit
 	cwd, _ := os.Getwd()
 	src_recipe_dirpath := filepath.Join(cwd, globals.RECIPE_ROOT_DIR_)
 
-	// dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
+	dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
+
+	// if common.IsDir(dst_recipe_dirpath) {
+	// 	if overwrite {
+	// 		err := os.RemoveAll(dst_recipe_dirpath)
+	// 		if err != nil {
+	// 			return err
+	// 		}
+	// 	} else {
+	// 		err := errors.New("mgr/recipe.go::CreateRecipe: " + "recipe folder already exists: " + dst_recipe_dirpath)
+	// 		log.Printf("%s", err)
+	// 		return err
+	// 	}
+	// }
 
 	// cmd := exec.Command("cp", "--recursive", src_recipe_dirpath, dst_recipe_dirpath)
 	// cmd.Run()
 
-	err = copy.Copy(src_recipe_dirpath, absPathToSource)
+	err = copy.Copy(src_recipe_dirpath, dst_recipe_dirpath)
 	if err != nil {
 		return err
 	}
