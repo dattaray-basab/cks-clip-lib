@@ -20,12 +20,12 @@ func CreateRecipe(template_dirpath string, templateMap map[string]string, absPat
 		return err
 	}
 
-	cwd, _ := os.Getwd()
-	src_recipe_dirpath := filepath.Join(cwd, globals.TEMPLATES_DIRNAME, globals.RECIPE_ROOT_DIR_)
+	// cwd, _ := os.Getwd()
+	// src_recipe_dirpath := filepath.Join(cwd, globals.TEMPLATES_DIRNAME, globals.RECIPE_ROOT_DIR_)
 
 	dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
 
-	err = copy.Copy(src_recipe_dirpath, dst_recipe_dirpath)
+	err = copy.Copy(template_dirpath, dst_recipe_dirpath)
 	if err != nil {
 		return err
 	}
