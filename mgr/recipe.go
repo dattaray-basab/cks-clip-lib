@@ -3,6 +3,7 @@ package mgr
 import (
 	"errors"
 	"fmt"
+
 	"log"
 	"os"
 	"path/filepath"
@@ -33,6 +34,29 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 	err = common.Rename(dst_recipe_dirpath, templateMap)
 	if err != nil {
 		println(err)
+	}
+	code_block := templateMap["{{code_block}}"]
+	target := templateMap["{{target}}"]
+	grandparent := filepath.Dir(absPathToRecipeParent)
+	fmt.Printf("grandparent: %s\n", grandparent)
+	src_path := filepath.Join(grandparent, target)
+
+	target_code_path := filepath.Join(absPathToRecipeParent, target, globals.RECIPE_ROOT_DIR_, globals.CODE_BLOCK_ROOT, code_block)
+	if common.IsDir(target_code_path) {
+		err := os.RemoveAll(target_code_path)
+		if err != nil {
+			return err
+		}
+		// dirpathParent := filepath.Dir(target_code_path)
+		err = os.MkdirAll(target_code_path, os.ModePerm)
+		if err != nil {
+			return err
+		}
+	}
+
+	err = copy.Copy(src_path, target_code_path)
+	if err != nil {
+		return err
 	}
 	return nil
 }
@@ -68,6 +92,7 @@ func checkInputs(absPathToSource string, absPathToRecipeParent string, overwrite
 			return err
 		}
 	}
+
 	return nil
 
 }
