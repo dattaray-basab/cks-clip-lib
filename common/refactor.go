@@ -18,13 +18,16 @@ func refactorFunc(templateMap map[string]string, filePatterns []string) filepath
 		}
 
 		if fi.IsDir() {
-			dirname := filepath.Base(path)
-			if strings.HasPrefix(dirname, "{{") && strings.HasSuffix(dirname, "}}") {
-				dirpath_substitute := substitute(path, templateMap)
-				// os.Rename(path, dirpath_substitute)
-				println(dirpath_substitute)
+			// dirname := filepath.Base(path)
+			// if strings.HasPrefix(dirname, "{{") && strings.HasSuffix(dirname, "}}") {
+			// 	dirpath_substitute := substitute(path, templateMap)
+			// 	err := os.Rename(path, dirpath_substitute)
+			// 	if err != nil {
+			// 		return err
+			// 	}
+			// 	println(dirpath_substitute)
 
-			}
+			// }
 
 			return nil
 		}
