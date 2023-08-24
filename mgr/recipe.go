@@ -22,6 +22,11 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 
 	dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
 
+	err = common.Refactor("oldString", "newString", "*.txt", "*.json")
+	if err != nil {
+		println(err)
+	}
+
 	err = copy.Copy(src_recipe_dirpath, dst_recipe_dirpath)
 	if err != nil {
 		return err
@@ -50,7 +55,7 @@ func checkInputs(absPathToSource string, absPathToRecipeParent string, overwrite
 			return err
 		}
 	}
-	recipe_dirpath := filepath.Join(absPathToRecipeParent,  globals.RECIPE_ROOT_DIR_)
+	recipe_dirpath := filepath.Join(absPathToRecipeParent, globals.RECIPE_ROOT_DIR_)
 	if common.IsDir(recipe_dirpath) {
 		if overwrite {
 			err := os.RemoveAll(recipe_dirpath)

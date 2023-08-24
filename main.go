@@ -1,5 +1,5 @@
 package main
 
-func main() {
+func main_() {
 	println("cks-cliplib")
 }
