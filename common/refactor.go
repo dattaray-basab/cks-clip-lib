@@ -9,8 +9,8 @@ import (
 
 
 
-func Refactor(srcDirPath string, templateMap map[string]string, old, new string, patterns ...string) error {
-	return filepath.Walk(srcDirPath, refactorFunc(templateMap, old, new, patterns))
+func Refactor(dst_recipe_dirpath string, templateMap map[string]string, old, new string, patterns ...string) error {
+	return filepath.Walk(dst_recipe_dirpath, refactorFunc(templateMap, old, new, patterns))
 }
 
 func refactorFunc(templateMap map[string]string, old, new string, filePatterns []string) filepath.WalkFunc {

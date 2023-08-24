@@ -21,16 +21,17 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 	}
 
 	dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
+		err = copy.Copy(src_recipe_dirpath, dst_recipe_dirpath)
+	if err != nil {
+		return err
+	}
 
-	err = common.Refactor(absPathToSource, templateMap, "oldString", "newString", "*.txt", "*.json")
+	err = common.Refactor( dst_recipe_dirpath, templateMap, "{{code_block}}", "base", "*.json")
 	if err != nil {
 		println(err)
 	}
 
-	err = copy.Copy(src_recipe_dirpath, dst_recipe_dirpath)
-	if err != nil {
-		return err
-	}
+
 
 	return nil
 }
