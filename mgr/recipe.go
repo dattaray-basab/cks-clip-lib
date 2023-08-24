@@ -19,28 +19,23 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 	if err != nil {
 		return err
 	}
-
 	dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
 	err = copy.Copy(src_recipe_dirpath, dst_recipe_dirpath)
 	if err != nil {
 		return err
 	}
-
 	err = common.Refactor(dst_recipe_dirpath, templateMap, "*.json")
 	if err != nil {
 		println(err)
 	}
-
 	shouldReturn, returnValue := common.CleanuupSubstitutedDirectories(dst_recipe_dirpath)
 	if shouldReturn {
 		return returnValue
 	}
-
 	err = common.Rename(dst_recipe_dirpath, templateMap)
 	if err != nil {
 		println(err)
 	}
-
 	return nil
 }
 
@@ -75,14 +70,12 @@ func checkInputs(absPathToSource string, absPathToRecipeParent string, overwrite
 			return err
 		}
 	}
-
 	return nil
 
 }
 
 func CreatePathIfAbsent(recipePath string) error {
 	if _, err := os.Stat(recipePath); errors.Is(err, os.ErrNotExist) {
-
 		fmt.Println("recipe folder already exists: Overwrite by entering y/Y: ")
 
 		// var then variable name then variable type
