@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-
-	// "os/exec"
 	"path/filepath"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
