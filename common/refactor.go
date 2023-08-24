@@ -7,8 +7,6 @@ import (
 	"strings"
 )
 
-
-
 func Refactor(dst_recipe_dirpath string, templateMap map[string]string, old, new string, patterns ...string) error {
 	return filepath.Walk(dst_recipe_dirpath, refactorFunc(templateMap, old, new, patterns))
 }
@@ -37,11 +35,27 @@ func refactorFunc(templateMap map[string]string, old, new string, filePatterns [
 					return err
 				}
 
+				path_substitute := substitute(path, templateMap)
+
 				fmt.Println("Refactoring:", path)
 
-				newContents := strings.Replace(string(read), old, new, -1)
+				// newContents := strings.Replace(string(read), old, new, -1)
+				newContents := substitute(string(read), templateMap)
 
-				err = os.WriteFile(path, []byte(newContents), 0)
+				parentDir := filepath.Dir(path_substitute)
+				if !IsDir(parentDir) {
+					err = os.MkdirAll(parentDir, 0777)
+					if err != nil {
+						return err
+					}
+					err = os.RemoveAll(path)
+					if err != nil {
+						return err
+					}
+
+				}
+
+				err = os.WriteFile(path_substitute, []byte(newContents), 0777)
 				if err != nil {
 					return err
 				}
@@ -50,4 +64,12 @@ func refactorFunc(templateMap map[string]string, old, new string, filePatterns [
 
 		return nil
 	})
+}
+
+func substitute(in_text string, templateMap map[string]string) string {
+	out_text := in_text
+	for old, new := range templateMap {
+		out_text = strings.Replace(out_text, old, new, -1)
+	}
+	return out_text
 }

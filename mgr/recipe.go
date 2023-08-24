@@ -31,6 +31,12 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 		println(err)
 	}
 
+	dir_to_cleanup := filepath.Join(dst_recipe_dirpath, "__BLUEPRINTS", "{{target}}")
+	err = os.RemoveAll(dir_to_cleanup)
+	if err != nil {
+		return err
+	}
+
 
 
 	return nil
