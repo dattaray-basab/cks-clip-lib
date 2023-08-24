@@ -9,11 +9,11 @@ import (
 
 
 
-func Refactor(srcDirPath, old, new string, patterns ...string) error {
-	return filepath.Walk(srcDirPath, refactorFunc(old, new, patterns))
+func Refactor(srcDirPath string, templateMap map[string]string, old, new string, patterns ...string) error {
+	return filepath.Walk(srcDirPath, refactorFunc(templateMap, old, new, patterns))
 }
 
-func refactorFunc(old, new string, filePatterns []string) filepath.WalkFunc {
+func refactorFunc(templateMap map[string]string, old, new string, filePatterns []string) filepath.WalkFunc {
 	return filepath.WalkFunc(func(path string, fi os.FileInfo, err error) error {
 		if err != nil {
 			return err

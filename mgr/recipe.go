@@ -22,7 +22,7 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 
 	dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
 
-	err = common.Refactor("oldString", "newString", "*.txt", "*.json")
+	err = common.Refactor(absPathToSource, templateMap, "oldString", "newString", "*.txt", "*.json")
 	if err != nil {
 		println(err)
 	}
