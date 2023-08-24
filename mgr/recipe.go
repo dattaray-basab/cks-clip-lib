@@ -21,23 +21,20 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 	}
 
 	dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
-		err = copy.Copy(src_recipe_dirpath, dst_recipe_dirpath)
+	err = copy.Copy(src_recipe_dirpath, dst_recipe_dirpath)
 	if err != nil {
 		return err
 	}
 
-	err = common.Refactor( dst_recipe_dirpath, templateMap, "{{code_block}}", "base", "*.json")
+	err = common.Refactor(dst_recipe_dirpath, templateMap, "{{code_block}}", "base", "*.json")
 	if err != nil {
 		println(err)
 	}
 
-	dir_to_cleanup := filepath.Join(dst_recipe_dirpath, "__BLUEPRINTS", "{{target}}")
-	err = os.RemoveAll(dir_to_cleanup)
-	if err != nil {
-		return err
+	shouldReturn, returnValue := common.CleanuupSubstitutedDirectories(dst_recipe_dirpath)
+	if shouldReturn {
+		return returnValue
 	}
-
-
 
 	return nil
 }
