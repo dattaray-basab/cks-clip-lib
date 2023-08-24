@@ -21,7 +21,9 @@ func refactorFunc(templateMap map[string]string, old, new string, filePatterns [
 			dirname := filepath.Base(path)
 			if strings.HasPrefix(dirname, "{{") && strings.HasSuffix(dirname, "}}") {
 				dirpath_substitute := substitute(path, templateMap)
+				os.Rename(path, dirpath_substitute)
 				println(dirpath_substitute)
+
 			}
 
 			return nil

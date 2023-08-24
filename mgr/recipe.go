@@ -31,10 +31,10 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 		println(err)
 	}
 
-	shouldReturn, returnValue := common.CleanuupSubstitutedDirectories(dst_recipe_dirpath)
-	if shouldReturn {
-		return returnValue
-	}
+	// shouldReturn, returnValue := common.CleanuupSubstitutedDirectories(dst_recipe_dirpath)
+	// if shouldReturn {
+	// 	return returnValue
+	// }
 
 	return nil
 }
