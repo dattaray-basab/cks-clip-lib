@@ -7,11 +7,11 @@ import (
 	"strings"
 )
 
-func Refactor(dst_recipe_dirpath string, templateMap map[string]string, old, new string, patterns ...string) error {
-	return filepath.Walk(dst_recipe_dirpath, refactorFunc(templateMap, old, new, patterns))
+func Refactor(dst_recipe_dirpath string, templateMap map[string]string, patterns ...string) error {
+	return filepath.Walk(dst_recipe_dirpath, refactorFunc(templateMap,  patterns))
 }
 
-func refactorFunc(templateMap map[string]string, old, new string, filePatterns []string) filepath.WalkFunc {
+func refactorFunc(templateMap map[string]string, filePatterns []string) filepath.WalkFunc {
 	return filepath.WalkFunc(func(path string, fi os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -21,7 +21,7 @@ func refactorFunc(templateMap map[string]string, old, new string, filePatterns [
 			dirname := filepath.Base(path)
 			if strings.HasPrefix(dirname, "{{") && strings.HasSuffix(dirname, "}}") {
 				dirpath_substitute := substitute(path, templateMap)
-				os.Rename(path, dirpath_substitute)
+				// os.Rename(path, dirpath_substitute)
 				println(dirpath_substitute)
 
 			}

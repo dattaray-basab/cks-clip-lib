@@ -26,15 +26,15 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 		return err
 	}
 
-	err = common.Refactor(dst_recipe_dirpath, templateMap, "{{code_block}}", "base", "*.json")
+	err = common.Refactor(dst_recipe_dirpath, templateMap, "*.json")
 	if err != nil {
 		println(err)
 	}
 
-	// shouldReturn, returnValue := common.CleanuupSubstitutedDirectories(dst_recipe_dirpath)
-	// if shouldReturn {
-	// 	return returnValue
-	// }
+	shouldReturn, returnValue := common.CleanuupSubstitutedDirectories(dst_recipe_dirpath)
+	if shouldReturn {
+		return returnValue
+	}
 
 	return nil
 }
