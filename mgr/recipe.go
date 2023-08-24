@@ -36,6 +36,11 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 		return returnValue
 	}
 
+	err = common.Rename(dst_recipe_dirpath, templateMap)
+	if err != nil {
+		println(err)
+	}
+
 	return nil
 }
 
