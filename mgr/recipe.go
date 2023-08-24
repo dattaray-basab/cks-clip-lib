@@ -18,10 +18,12 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 	if err != nil {
 		return err
 	}
-	dst_recipe_dirpath, shouldReturn1, returnValue1 := SetupRecipeFiles(absPathToSource, src_recipe_dirpath)
-	if shouldReturn1 {
-		return returnValue1
+		dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)	
+	err = SetupRecipeFiles(dst_recipe_dirpath, src_recipe_dirpath)
+	if err != nil {
+		return err
 	}
+
 	err = common.Refactor(dst_recipe_dirpath, templateMap, "*.json")
 	if err != nil {
 		println(err)
