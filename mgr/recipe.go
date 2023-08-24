@@ -19,7 +19,7 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 		return err
 	}
 		dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)	
-	err = SetupRecipeFiles(dst_recipe_dirpath, src_recipe_dirpath)
+	err = SetupRecipeFiles(templateMap, dst_recipe_dirpath, src_recipe_dirpath)
 	if err != nil {
 		return err
 	}
