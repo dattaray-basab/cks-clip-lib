@@ -18,10 +18,9 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 	if err != nil {
 		return err
 	}
-	dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
-	err = copy.Copy(src_recipe_dirpath, dst_recipe_dirpath)
-	if err != nil {
-		return err
+	dst_recipe_dirpath, shouldReturn1, returnValue1 := SetupRecipeFiles(absPathToSource, src_recipe_dirpath)
+	if shouldReturn1 {
+		return returnValue1
 	}
 	err = common.Refactor(dst_recipe_dirpath, templateMap, "*.json")
 	if err != nil {
@@ -60,6 +59,8 @@ func CreateRecipe(src_recipe_dirpath string, templateMap map[string]string, absP
 	}
 	return nil
 }
+
+
 
 func CopyDir(recipe_dirpath1, recipe_dirpath2 string) {
 	panic("unimplemented")
