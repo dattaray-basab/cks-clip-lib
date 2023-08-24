@@ -18,6 +18,12 @@ func refactorFunc(templateMap map[string]string, old, new string, filePatterns [
 		}
 
 		if fi.IsDir() {
+			dirname := filepath.Base(path)
+			if strings.HasPrefix(dirname, "{{") && strings.HasSuffix(dirname, "}}") {
+				dirpath_substitute := substitute(path, templateMap)
+				println(dirpath_substitute)
+			}
+
 			return nil
 		}
 
@@ -42,6 +48,7 @@ func refactorFunc(templateMap map[string]string, old, new string, filePatterns [
 				// newContents := strings.Replace(string(read), old, new, -1)
 				newContents := substitute(string(read), templateMap)
 
+				// Create parent directory for substituted path if it doesn't exist
 				parentDir := filepath.Dir(path_substitute)
 				if !IsDir(parentDir) {
 					err = os.MkdirAll(parentDir, 0777)
@@ -52,7 +59,6 @@ func refactorFunc(templateMap map[string]string, old, new string, filePatterns [
 					if err != nil {
 						return err
 					}
-
 				}
 
 				err = os.WriteFile(path_substitute, []byte(newContents), 0777)
