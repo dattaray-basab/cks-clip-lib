@@ -1,0 +1,28 @@
+package main
+
+import (
+	"os"
+	"text/template"
+)
+
+type User struct {
+	Name string
+}
+
+func main() {
+	println("cks-cliplib")
+
+	tmpl := "Hello {{.Name}}!\n\t123\n"
+
+	// Defining the data to pass
+
+	user := User{"James"}
+	t, err := template.New("test").Parse(tmpl)
+	if err != nil {
+		panic(err)
+	}
+	err = t.Execute(os.Stdout, user)
+	if err != nil {
+		panic(err)
+	}
+}
