@@ -33,17 +33,18 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 	}
 	var processBlueprint = func(templateMap map[string]string, recipePath string, srcTargetPath string, overwrite bool) error {
 
-		err := common.Refactor(recipePath, templateMap, "*.json")
+		err := common.Refactor(recipePath, templateMap, "*.*")
 		if err != nil {
-			println(err)
+			return err
 		}
-		shouldReturn, returnValue := common.CleanuupSubstitutedDirectories(recipePath)
-		if shouldReturn {
-			return returnValue
+		err = common.CleanuupSubstitutedDirectories(recipePath)
+		if err != nil {
+			return err
 		}
+
 		err = common.Rename(recipePath, templateMap)
 		if err != nil {
-			println(err)
+			return err
 		}
 		return nil
 	}
