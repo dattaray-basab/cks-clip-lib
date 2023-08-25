@@ -51,19 +51,17 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 	var processBlockCode = func(templateMap map[string]string, recipePath string, srcTargetPath string) error {
 		var err error
 		code_block := templateMap["{{code_block}}"]
-		target := templateMap["{{target}}"]
 
-		target_code_path := filepath.Join(recipePath, target, globals.RECIPE_ROOT_DIR_, globals.CODE_BLOCK_ROOT, code_block)
-		if common.IsDir(target_code_path) {
-			err := os.RemoveAll(target_code_path)
-			if err != nil {
-				return err
-			}
+		target_code_path := filepath.Join(recipePath, globals.CODE_BLOCK_ROOT, code_block)
 
-			err = os.MkdirAll(target_code_path, os.ModePerm)
-			if err != nil {
-				return err
-			}
+		err = os.RemoveAll(target_code_path)
+		if err != nil {
+			return err
+		}
+
+		err = os.MkdirAll(target_code_path, os.ModePerm)
+		if err != nil {
+			return err
 		}
 
 		err = copy.Copy(srcTargetPath, target_code_path)
