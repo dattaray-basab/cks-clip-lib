@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"path/filepath"
 	// "fmt"
 	"os"
 	// "strconv"
@@ -16,13 +17,6 @@ my name is basab`
 
 	file_name := "file2.txt"
  
-	// Create a file for writing
-	// Create a writer
-	// for i, s := range lines {
-	// 	fmt.Println(i)
-	// 	w.WriteString(strconv.Itoa(i) + " " + s + "\n")
-	// }
-	// Very important to invoke after writing a large number of lines
 	err := createFile(file_name, text)
 	if err != nil {
 		panic(err)
@@ -30,9 +24,11 @@ my name is basab`
 
 }
 
-func createFile(file_name string, text string)  error {
+func createFile(fileName string, text string)  error {
 
-	f, err := os.Create(file_name)
+	filePath := filepath.Join(fileName) 
+
+	f, err := os.Create(filePath)
 	if err != nil {
 		return err
 	}
