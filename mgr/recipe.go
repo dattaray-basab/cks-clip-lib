@@ -8,6 +8,7 @@ import (
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
+	"github.com/dattaray-basab/cks-clip-lib/scaffolder"
 	"github.com/otiai10/copy"
 )
 
@@ -16,10 +17,15 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 		var success bool
 		success = common.IsDir(dst_recipe_dirpath)
 		if !success {
-			err := errors.New("mgr/recipe.go::checkInputs: " + "recipe folder does not exist: " + dst_recipe_dirpath)
+			err := os.MkdirAll(dst_recipe_dirpath, os.ModePerm)
 			if err != nil {
+				err = errors.New("mgr/recipe.go::checkInputs: " + "could not create recipe folder: " + dst_recipe_dirpath)
 				return err
 			}
+			// err := errors.New("mgr/recipe.go::checkInputs: " + "recipe folder does not exist: " + dst_recipe_dirpath)
+			// if err != nil {
+			// 	return err
+			// }
 		}
 		success = common.IsDir(absPathToRecipeParent)
 		if !success {
@@ -75,6 +81,11 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 	if err != nil {
 		return err
 	}
+
+		err = scaffolder.CreateRecipeFiles(recipeDirpath)
+		if err != nil {
+			return err
+		}
 
 	// dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
 	err = processBlueprint(templateMap, recipeDirpath, targetDirpath, overwrite)
