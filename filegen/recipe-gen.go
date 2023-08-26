@@ -1,4 +1,4 @@
-package scaffolder
+package filegen
 
 import (
 	"os"
@@ -141,7 +141,7 @@ if error is not None:
     exit(1)
 		`,
 		},
-	    {
+		{
 			Filepath: filepath.Join(baseDirpath, "__RECIPE_CONFIG.json"),
 			Content: `
 [

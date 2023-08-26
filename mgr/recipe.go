@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
+	"github.com/dattaray-basab/cks-clip-lib/filegen"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
-	"github.com/dattaray-basab/cks-clip-lib/scaffolder"
 	"github.com/otiai10/copy"
 )
 
@@ -82,10 +82,10 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 		return err
 	}
 
-		err = scaffolder.CreateRecipeFiles(recipeDirpath)
-		if err != nil {
-			return err
-		}
+	err = filegen.CreateRecipeFiles(recipeDirpath)
+	if err != nil {
+		return err
+	}
 
 	// dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
 	err = processBlueprint(templateMap, recipeDirpath, targetDirpath, overwrite)
