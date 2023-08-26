@@ -8,9 +8,6 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-// run_path := filepath.Join(dst_recipe_dirpath, "__BLUEPRINTS", "{{target}}", "run.py")
-// fmt.Println(run_path)
-
 func CreateRecipeFiles(baseDirpath string) error {
 	err := os.RemoveAll(baseDirpath)
 	if err != nil {
