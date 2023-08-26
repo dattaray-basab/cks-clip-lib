@@ -1,6 +1,11 @@
 package mgr
 
-func AddAlter() error {
+func AddAlter(
+	recipeDirpath,
+	alterDirPath,
+	alterName,
+	phaseName,
+	lastPhase string) error {
 
 	return nil
 }
