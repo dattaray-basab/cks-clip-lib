@@ -100,38 +100,6 @@ func CreateRecipeFiles(baseDirpath string) error {
 		`,
 		},
 		{
-			Filepath: filepath.Join(baseDirpath, "__BLUEPRINTS", "__TOKENS", "0_default_context", "base.json"),
-			Content: `
-[
-    {
-        "id_name1": "Ashwini"
-    },
-    {
-        "id_name2": "Basab"
-    },
-    {
-        "id_closed": "0"
-    },
-    {
-        "id_port": "3201"
-    },
-    {
-        "id_fixed_pages": [
-            "about",
-            "contact"
-        ]
-    },
-    {
-        "id_var_pages": [
-            "shopping",
-            "attractions",
-            "restaurants"
-        ]
-    }
-]
-		`,
-		},
-		{
 			Filepath: filepath.Join(baseDirpath, "__BLUEPRINTS", "{{target}}", "__MISC", "directives.json"),
 			Content: `
 {
