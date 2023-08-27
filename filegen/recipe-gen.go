@@ -102,8 +102,7 @@ func CreateRecipeFiles(baseDirpath string) error {
 {
   "LOG_LEVEL": 10,
   "MODE_LOG": true,
-  "ACTIVE_PHASE_LIST": null,
-  "CURRENT_CONTEXT": "1_response_context",
+  "RESPONSE_CONTEXT": "1_response_context",
   "OPERATION_FOLDER_PREFIX": "__"
 }
 		`,
