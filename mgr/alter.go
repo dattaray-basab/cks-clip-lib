@@ -2,11 +2,13 @@ package mgr
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
+	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
 const prefix = "/"
@@ -21,6 +23,7 @@ func AddAlter(
 	phaseName string,
 	lastPhase string,
 	codeBlockName string,
+	force bool,
 ) error {
 
 	var calcAlterPath = func() (string, error) {
@@ -39,10 +42,18 @@ func AddAlter(
 		cutAlterDirParts := strings.Split(cutAlterDirPath, prefix)
 		codeBlockPath = filepath.Join(recipeDirpath, "__CODE", codeBlockName)
 		codeBlockPath = joinAlterDirPath(codeBlockPath, cutAlterDirParts)
-		fullAlterPath := filepath.Join(codeBlockPath, alterName)
-		if common.IsDir(fullAlterPath) {
-			err := fmt.Errorf("full-alter-path %s already exists", fullAlterPath)
-			return fullAlterPath, err
+		prefixedAlterName := globals.SPECIAL_DIR_PREFIX_ + alterName
+		fullAlterPath := filepath.Join(codeBlockPath, prefixedAlterName)
+		if !force {
+			if common.IsDir(fullAlterPath) {
+				err := fmt.Errorf("full-alter-path %s already exists", fullAlterPath)
+				return fullAlterPath, err
+			}
+		} else {
+			err := os.RemoveAll(fullAlterPath)
+			if err != nil {
+				return fullAlterPath, err
+			}
 		}
 		err := os.MkdirAll(fullAlterPath, os.ModePerm)
 		if err != nil {
@@ -61,7 +72,7 @@ func AddAlter(
 
 	// create new phase
 	
-	println(alterPath)
+	log.Println(alterPath)
 
 	return nil
 }
