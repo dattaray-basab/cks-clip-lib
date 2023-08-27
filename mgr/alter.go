@@ -23,6 +23,7 @@ func AddAlter(
 	lastPhase string,
 	codeBlockName string,
 ) error {
+
 	var joinAlterDirPath = func(baseDir string, frags []string) string {
 		for _, frag := range frags {
 			baseDir = filepath.Join(baseDir, frag)
@@ -40,6 +41,8 @@ func AddAlter(
 		codeBlockPath1 := filepath.Join(recipeDirpath, "__CODE", codeBlockName)
 		codeBlockPath2 := joinAlterDirPath(codeBlockPath1, cutAlterDirParts)
 		codeBlockPath = filepath.Join(codeBlockPath2, alterName)
+		println(codeBlockPath)
+
 		alterDirPathFull = filepath.Join(recipeDirpath, cutAlterDirPath)
 		if common.IsDir(alterDirPathFull) {
 			err := fmt.Errorf("alter-dir-path %s already exists", alterDirPathFull)
