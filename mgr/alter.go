@@ -30,17 +30,17 @@ func AddAlter(
 		return baseDir
 	}
 
-	var checkParams = func(alterDirPath string) error {
+	var checkParams = func() error {
 		if !strings.HasPrefix(alterDirPath, prefix) {
 			err := fmt.Errorf("alter-dir-path %s must start with %s", alterDirPath, prefix)
 			return err
 		}
 		cutAlterDirPath := strings.TrimPrefix(alterDirPath, prefix)
 		cutAlterDirParts := strings.Split(cutAlterDirPath, prefix)	
-		codeBlockPath1 := filepath.Join(recipeDirpath, "__CODE", codeBlockName)
-		codeBlockPath2 := joinAlterDirPath(codeBlockPath1, cutAlterDirParts)
-		codeBlockPath = filepath.Join(codeBlockPath2, alterName)
-		println(codeBlockPath)
+		codeBlockPath = filepath.Join(recipeDirpath, "__CODE", codeBlockName)
+		codeBlockPath = joinAlterDirPath(codeBlockPath, cutAlterDirParts)
+		codeBlockPath = filepath.Join(codeBlockPath, alterName)
+		// println(codeBlockPath)
 
 		alterDirPathFull = filepath.Join(recipeDirpath, cutAlterDirPath)
 		if common.IsDir(alterDirPathFull) {
@@ -55,7 +55,7 @@ func AddAlter(
 		return nil
 	}
 
-	err := checkParams(alterDirPath)
+	err := checkParams()
 	if err != nil {
 		return err
 	}
