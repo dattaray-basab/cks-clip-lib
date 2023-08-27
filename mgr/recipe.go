@@ -15,17 +15,19 @@ import (
 func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDirpath string, overwrite bool) error {
 	var checkInputs = func(dst_recipe_dirpath string, absPathToRecipeParent string, overwrite bool) error {
 		var success bool
+		var doNothing = func(success bool) bool {
+			return success
+		}
+
+
 		success = common.IsDir(dst_recipe_dirpath)
+		success = doNothing(success)
 		if !success {
 			err := os.MkdirAll(dst_recipe_dirpath, os.ModePerm)
 			if err != nil {
 				err = errors.New("mgr/recipe.go::checkInputs: " + "could not create recipe folder: " + dst_recipe_dirpath)
 				return err
 			}
-			// err := errors.New("mgr/recipe.go::checkInputs: " + "recipe folder does not exist: " + dst_recipe_dirpath)
-			// if err != nil {
-			// 	return err
-			// }
 		}
 		success = common.IsDir(absPathToRecipeParent)
 		if !success {
