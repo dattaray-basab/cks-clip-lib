@@ -23,20 +23,21 @@ func AddAlter(
 	lastPhase string,
 	codeBlockName string,
 ) error {
-	var joinAlterDirPath = func(baseDir string, frags []string) string {
-		for _, frag := range frags {
-			baseDir = filepath.Join(baseDir, frag)
-		}
-		return baseDir
-	}
 
 	var checkParams = func() error {
+		var joinAlterDirPath = func(baseDir string, frags []string) string {
+			for _, frag := range frags {
+				baseDir = filepath.Join(baseDir, frag)
+			}
+			return baseDir
+		}
+		
 		if !strings.HasPrefix(alterDirPath, prefix) {
 			err := fmt.Errorf("alter-dir-path %s must start with %s", alterDirPath, prefix)
 			return err
 		}
 		cutAlterDirPath := strings.TrimPrefix(alterDirPath, prefix)
-		cutAlterDirParts := strings.Split(cutAlterDirPath, prefix)	
+		cutAlterDirParts := strings.Split(cutAlterDirPath, prefix)
 		codeBlockPath = filepath.Join(recipeDirpath, "__CODE", codeBlockName)
 		codeBlockPath = joinAlterDirPath(codeBlockPath, cutAlterDirParts)
 		codeBlockPath = filepath.Join(codeBlockPath, alterName)
