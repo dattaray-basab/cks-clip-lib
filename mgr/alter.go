@@ -11,7 +11,6 @@ import (
 
 const prefix = "/"
 
-var alterDirPathFull string
 var codeBlockPath string
 
 func AddAlter(
@@ -25,34 +24,41 @@ func AddAlter(
 ) error {
 
 	var checkParams = func() error {
-		var joinAlterDirPath = func(baseDir string, frags []string) string {
-			for _, frag := range frags {
-				baseDir = filepath.Join(baseDir, frag)
+		var calcBlockPath = func() (string, error) {
+			var joinAlterDirPath = func(baseDir string, frags []string) string {
+				for _, frag := range frags {
+					baseDir = filepath.Join(baseDir, frag)
+				}
+				return baseDir
 			}
-			return baseDir
-		}
-		
-		if !strings.HasPrefix(alterDirPath, prefix) {
-			err := fmt.Errorf("alter-dir-path %s must start with %s", alterDirPath, prefix)
-			return err
-		}
-		cutAlterDirPath := strings.TrimPrefix(alterDirPath, prefix)
-		cutAlterDirParts := strings.Split(cutAlterDirPath, prefix)
-		codeBlockPath = filepath.Join(recipeDirpath, "__CODE", codeBlockName)
-		codeBlockPath = joinAlterDirPath(codeBlockPath, cutAlterDirParts)
-		codeBlockPath = filepath.Join(codeBlockPath, alterName)
-		// println(codeBlockPath)
 
-		alterDirPathFull = filepath.Join(recipeDirpath, cutAlterDirPath)
-		if common.IsDir(alterDirPathFull) {
-			err := fmt.Errorf("alter-dir-path %s already exists", alterDirPathFull)
-			return err
+			if !strings.HasPrefix(alterDirPath, prefix) {
+				err := fmt.Errorf("alter-dir-path %s must start with %s", alterDirPath, prefix)
+				return "", err
+			}
+			cutAlterDirPath := strings.TrimPrefix(alterDirPath, prefix)
+			cutAlterDirParts := strings.Split(cutAlterDirPath, prefix)
+			codeBlockPath = filepath.Join(recipeDirpath, "__CODE", codeBlockName)
+			codeBlockPath = joinAlterDirPath(codeBlockPath, cutAlterDirParts)
+			codeBlockPath = filepath.Join(codeBlockPath, alterName)
+			if common.IsDir(codeBlockPath) {
+				err := fmt.Errorf("code-block-path %s already exists", codeBlockPath)
+				return codeBlockPath, err
+			}
+			err := os.MkdirAll(codeBlockPath, os.ModePerm)
+			if err != nil {
+				err := fmt.Errorf("could not create code-block-path %s", codeBlockPath)
+				return codeBlockPath, err
+			}
+
+			return codeBlockPath, nil
 		}
-		err := os.MkdirAll(alterDirPath, os.ModePerm)
+		codeBlockPath, err := calcBlockPath()
 		if err != nil {
-			err := fmt.Errorf("could not create alter-dir-path %s", alterDirPath)
 			return err
 		}
+		println(codeBlockPath)
+
 		return nil
 	}
 
