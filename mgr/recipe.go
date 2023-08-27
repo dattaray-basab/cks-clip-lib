@@ -12,8 +12,8 @@ import (
 	"github.com/otiai10/copy"
 )
 
-func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDirpath string, overwrite bool) error {
-	var checkInputs = func(dst_recipe_dirpath string, absPathToRecipeParent string, overwrite bool) error {
+func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDirpath string, force bool) error {
+	var checkInputs = func(dst_recipe_dirpath string, absPathToRecipeParent string, force bool) error {
 		var success bool
 		var doNothing = func(success bool) bool {
 			return success
@@ -39,7 +39,7 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 		}
 		return nil
 	}
-	var processBlueprint = func(templateMap map[string]string, recipePath string, srcTargetPath string, overwrite bool) error {
+	var processBlueprint = func(templateMap map[string]string, recipePath string, srcTargetPath string, force bool) error {
 
 		err := common.Refactor(recipePath, templateMap, "*.*")
 		if err != nil {
@@ -79,7 +79,7 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 		return nil
 	}
 
-	err := checkInputs(recipeDirpath, targetDirpath, overwrite)
+	err := checkInputs(recipeDirpath, targetDirpath, force)
 	if err != nil {
 		return err
 	}
@@ -90,7 +90,7 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 	}
 
 	// dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
-	err = processBlueprint(templateMap, recipeDirpath, targetDirpath, overwrite)
+	err = processBlueprint(templateMap, recipeDirpath, targetDirpath, force)
 	if err != nil {
 		return err
 	}

@@ -64,8 +64,26 @@ func AddAlter(
 		return fullAlterPath, nil
 	}
 
+	var createPhase = func() error {
+		phaseDirpath := filepath.Join(
+			recipeDirpath, 
+			globals.BLUEPRINTS_DIRNAME,
+			 
+			globals.PHASE, phaseName)
+
+		log.Println(phaseDirpath)
+
+
+		return nil
+	}
+
 
 	alterPath, err := calcAlterPath()
+	if err != nil {
+		return err
+	}
+
+	err = createPhase()
 	if err != nil {
 		return err
 	}
