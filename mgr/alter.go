@@ -23,7 +23,6 @@ func AddAlter(
 	lastPhase string,
 	codeBlockName string,
 ) error {
-
 	var joinAlterDirPath = func(baseDir string, frags []string) string {
 		for _, frag := range frags {
 			baseDir = filepath.Join(baseDir, frag)
