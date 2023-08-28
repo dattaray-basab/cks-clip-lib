@@ -1,7 +1,9 @@
 package alter
 
 import (
+	"log"
 	"path/filepath"
+	"strings"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
@@ -49,6 +51,16 @@ var CreatePhaseFile = func(templateMap map[string]string, moveItems []string, ph
 	if err != nil {
 		return err
 	}
+
+	relAlterPathFromPhase := templateMap["{{alter-dir-path}}"]
+	log.Println(relAlterPathFromPhase)
+	alterPathWithoutQuotes := strings.Trim(relAlterPathFromPhase, "\"")
+
+	relAlterPath := strings.TrimPrefix(alterPathWithoutQuotes, "/")
+	
+	log.Println(relAlterPath)
+	
+
 
 	// files, err := os.ReadDir(fullPhasePath)
 	// if err != nil {
