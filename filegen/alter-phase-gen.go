@@ -4,7 +4,9 @@ import (
 	"errors"
 	"log"
 	"os"
+	"path/filepath"
 
+	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
@@ -53,12 +55,15 @@ func CreateOrUpdatePhaseFile(phasePath, phaseName, lastPhase string) error {
 	if err != nil {
 		return err
 	}
-	if !success {		
+	if !success {
 		errNew := errors.New("The phase name " + lastPhase + " does not exist")
 		return errNew
 	}
 
 	// does phase already exist?
+	currentPhaseDilePath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
+	isFile := common.IsFile(currentPhaseDilePath)
+	log.Println(isFile)
 
 	// if so read the file and add to the end ops_pipeline
 

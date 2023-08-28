@@ -33,6 +33,18 @@ func IsDir(path string) bool {
 	return false
 }
 
+
+func IsFile(path string) bool {
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+		return false
+	}
+	if !fileInfo.IsDir() {
+		return true
+	}
+	return false
+}
+
 // CopyDir copies the content of src to dst. src should be a full path.
 func CopyDir(dst, src string) error {
 
