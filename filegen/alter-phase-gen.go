@@ -1,6 +1,7 @@
 package filegen
 
 import (
+	"errors"
 	"log"
 	"os"
 
@@ -52,9 +53,13 @@ func CreateOrUpdatePhaseFile(phasePath, phaseName, lastPhase string) error {
 	if err != nil {
 		return err
 	}
-	log.Println(success)
+	if !success {		
+		errNew := errors.New("The phase name " + lastPhase + " does not exist")
+		return errNew
+	}
+
 	// does phase already exist?
-	
+
 	// if so read the file and add to the end ops_pipeline
 
 	// if not create a new file and add under __PHASES
