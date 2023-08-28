@@ -8,12 +8,13 @@ import (
 )
 
 var CreatePhaseFile = func(phasePath string, phaseName, lastPhase string) error {
-	baseDirpath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
-	recipeScaffold := globals.ScaffoldInfoTListT{
+	var buildNewPhaseFile = func(phasePath string, phaseName, lastPhase string) error {
+		baseDirpath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
+		recipeScaffold := globals.ScaffoldInfoTListT{
 
-		{
-			Filepath: filepath.Join(baseDirpath),
-			Content: `
+			{
+				Filepath: filepath.Join(baseDirpath),
+				Content: `
 {
   "__DEPENDS_ON": [
 	{{last-phase}}
@@ -29,9 +30,17 @@ var CreatePhaseFile = func(phasePath string, phaseName, lastPhase string) error 
   ]
 }
 		`,
-		},
+			},
+		}
+
+		err := common.CreateFiles(recipeScaffold)
+		return err
 	}
 
-	err := common.CreateFiles(recipeScaffold)
-	return err
+
+	err := buildNewPhaseFile(phasePath, phaseName, lastPhase)
+	if err != nil {
+		return err
+	}
+	return nil
 }
