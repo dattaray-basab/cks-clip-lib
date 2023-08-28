@@ -22,7 +22,7 @@ func AddAlter(
 	recipeDirpath,
 	alterDirPath,
 	alterName string,
-	itemListToAlter []string,
+	moveItems []string,
 	phaseName string,
 	lastPhase string,
 	codeBlockName string,
@@ -103,7 +103,7 @@ func AddAlter(
 		phasePath := filepath.Join(blueprintPath, targetName, globals.PHASES_DIRNAME)
 
 		log.Println(phasePath)
-		err = filegen.CreateOrUpdatePhaseFile(templateMap, phasePath, phaseName, lastPhase)
+		err = filegen.CreateOrUpdatePhaseFile(templateMap, moveItems, phasePath, phaseName, lastPhase)
 		if err != nil {
 			return err
 		}
