@@ -16,7 +16,7 @@ func CreateRecipeFiles(baseDirpath string) error {
 
 	recipeScaffold := globals.ScaffoldInfoTListT{
 		{
-			Filepath: filepath.Join(baseDirpath, "__BLUEPRINTS", "__TOKENS", "__QUERY", "base.json"),
+			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME, "base" + globals.JSON_EXT),
 			Content: `
 {
   "__SCHEMA": "s_context",
@@ -97,7 +97,7 @@ func CreateRecipeFiles(baseDirpath string) error {
 		`,
 		},
 		{
-			Filepath: filepath.Join(baseDirpath, "__BLUEPRINTS", "{{target}}", "__MISC", "directives.json"),
+			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, "{{target}}", globals.MISC_DIRNAME, globals.DIRECTIVES_JSON),
 			Content: `
 {
   "LOG_LEVEL": 10,
@@ -108,7 +108,7 @@ func CreateRecipeFiles(baseDirpath string) error {
 		`,
 		},
 		{
-			Filepath: filepath.Join(baseDirpath, "__BLUEPRINTS", "{{target}}", "__PHASES", "{{phase_name}}.json"),
+			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, "{{target}}", globals.PHASES_DIRNAME, "{{phase_name}}" + globals.JSON_EXT),
 			Content: `
 {
   "__CODE_BLOCK": "{{code_block}}",
@@ -128,7 +128,7 @@ func CreateRecipeFiles(baseDirpath string) error {
 		`,
 		},
 		{
-			Filepath: filepath.Join(baseDirpath, "__BLUEPRINTS", "{{target}}", "run.py"),
+			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, "{{target}}", globals.RUN_PY),
 			Content: `
 from code_transformer.src.main._main_generator import fn_start
 
@@ -138,7 +138,7 @@ if error is not None:
 		`,
 		},
 		{
-			Filepath: filepath.Join(baseDirpath, "__RECIPE_CONFIG.json"),
+			Filepath: filepath.Join(baseDirpath, globals.RECIPE_CONFIG_),
 			Content: `
 [
   "../../__BLUEPRINTS"
