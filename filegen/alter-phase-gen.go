@@ -49,6 +49,25 @@ func CreateOrUpdatePhaseFile(phasePath, phaseName, lastPhase string) error {
 		return false, nil
 
 	}
+	var createPhaseFile = func(phasePath string, phaseName string) error {
+		phaseFilePath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
+		log.Println(phaseFilePath)
+		_, err := os.Create(phaseFilePath)
+		if err != nil {
+			return err
+		}
+		return nil
+	}
+
+	var updatePhaseFile = func(phasePath string, phaseName string) error {
+		phaseFilePath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
+		log.Println(phaseFilePath)
+		_, err := os.Create(phaseFilePath)
+		if err != nil {
+			return err
+		}
+		return nil
+	}
 
 	log.Println(phasePath)
 	success, err := checkDependsonPhaseFileName(phasePath)
@@ -64,10 +83,20 @@ func CreateOrUpdatePhaseFile(phasePath, phaseName, lastPhase string) error {
 	currentPhaseDilePath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
 	isFile := common.IsFile(currentPhaseDilePath)
 	log.Println(isFile)
+	if isFile {
+		// if so update the file
+		err = updatePhaseFile(phasePath, phaseName)
+		if err != nil {
+			return err
+		}
+	} else {
+		// if not create a new file
+		err = createPhaseFile(phasePath, phaseName)
+		if err != nil {
+			return err
+		}
+	}
 
-	// if so read the file and add to the end ops_pipeline
-
-	// if not create a new file and add under __PHASES
 
 	return nil
 }
