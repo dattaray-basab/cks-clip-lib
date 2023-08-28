@@ -17,6 +17,7 @@ const prefix = "/"
 var codeBlockPath string
 
 func AddAlter(
+	templateMap map[string]string,
 	target string,
 	recipeDirpath,
 	alterDirPath,

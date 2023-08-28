@@ -17,7 +17,7 @@ var CreatePhaseFile = func(phasePath string, phaseName, lastPhase string) error 
 				Content: `
 {
   "__DEPENDS_ON": [
-	{{last-phase}}
+	{{last-phase-name}}
   ],
   "ops_pipeline": [
 	{
