@@ -16,6 +16,7 @@ const prefix = "/"
 var codeBlockPath string
 
 func AddAlter(
+	target string,
 	recipeDirpath,
 	alterDirPath,
 	alterName string,
@@ -65,23 +66,59 @@ func AddAlter(
 	}
 
 	var createPhase = func() error {
-		phaseDirpath := filepath.Join(
-			recipeDirpath, 
-			globals.BLUEPRINTS_DIRNAME,
-			 
-			globals.PHASE, phaseName)
+		var getTargetNameFromBlueprint = func(blueprintPath string) (string, error) {
+			files, err := os.ReadDir(blueprintPath)
+			if err != nil {
+				return "", err
+			}
 
-		log.Println(phaseDirpath)
+			targetFromBlueprint := ""
+			for _, file := range files {
+				if file.IsDir() {
+					if file.Name() != globals.TOKENS_DIRNAME {
+						targetFromBlueprint = file.Name()
+						return targetFromBlueprint, nil
+					}
+				}
+			}
+			return "", nil
+		}
 
+		blueprintPath := filepath.Join(
+			recipeDirpath,
+			globals.BLUEPRINTS_DIRNAME)
 
+		targetFromBlueprint, err := getTargetNameFromBlueprint(blueprintPath)
+		if err != nil {
+			return err
+		}
+
+		targetName := targetFromBlueprint
+		if len(target) > 0 {
+			targetName = target
+		}
+
+		phasePath := filepath.Join(blueprintPath, targetName, globals.PHASES_DIRNAME)
+
+		log.Println(phasePath)
+		files, err := os.ReadDir(phasePath)
+		if err != nil {
+			return err
+		}
+		for _, file := range files {
+			if !file.IsDir() {
+				filePath := filepath.Join(phasePath, file.Name())
+				log.Println(filePath)
+			}
+		}
 		return nil
 	}
-
 
 	alterPath, err := calcAlterPath()
 	if err != nil {
 		return err
 	}
+	log.Println(alterPath)
 
 	err = createPhase()
 	if err != nil {
@@ -89,8 +126,6 @@ func AddAlter(
 	}
 
 	// create new phase
-	
-	log.Println(alterPath)
 
 	return nil
 }
