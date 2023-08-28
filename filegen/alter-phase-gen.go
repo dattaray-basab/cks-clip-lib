@@ -9,6 +9,10 @@ import (
 )
 
 func CreatePhaseFile(phasePath string) error {
+	var getPhaseName = func(jsonMap map[string] interface{}) (string, error) {
+		return "", nil
+	}
+
 	log.Println(phasePath)
 	files, err := os.ReadDir(phasePath)
 	if err != nil {
@@ -23,6 +27,11 @@ func CreatePhaseFile(phasePath string) error {
 				return err
 			}
 			log.Println(jsonMap)
+			phaseName, err := getPhaseName(jsonMap)
+			if err != nil {
+				return err
+			}
+			log.Println(phaseName)
 		}
 	}
 	return nil
