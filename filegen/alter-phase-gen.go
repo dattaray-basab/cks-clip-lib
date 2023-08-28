@@ -11,7 +11,10 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-func CreateOrUpdatePhaseFile(templateMap map[string]string, moveItems []string, phasePath, phaseName, lastPhase string) error {
+func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
+	lastPhase := templateMap[globals.KEY_LAST_PHASE]
+
+
 
 	var checkDependsonPhaseFileName = func(phasePath string) (bool, error) {
 
@@ -31,6 +34,12 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string, moveItems []string, 
 		return false, nil
 	}
 
+	phasePath, err := alter.CalcPhasePath(templateMap)
+	if err != nil {
+		return err
+	}
+	log.Println(phasePath)
+
 	log.Println(phasePath)
 	success, err := checkDependsonPhaseFileName(phasePath)
 	if err != nil {
@@ -41,19 +50,22 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string, moveItems []string, 
 		return errNew
 	}
 
+	phaseName := templateMap[globals.KEY_PHASE_NAME]
+
+
 	// does phase already exist?
 	currentPhaseFilePath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
 	isFile := common.IsFile(currentPhaseFilePath)
 	log.Println(isFile)
 	if isFile {
 		// if so update the file
-		err = alter.UpdatePhaseFile(templateMap, moveItems, phasePath, phaseName, lastPhase)
+		err = alter.UpdatePhaseFile(templateMap)
 		if err != nil {
 			return err
 		}
 	} else {
 		// if not create a new file
-		err = alter.CreatePhaseFile(templateMap, moveItems, phasePath, phaseName, lastPhase)
+		err = alter.CreatePhaseFile(templateMap)
 		if err != nil {
 			return err
 		}
@@ -61,3 +73,5 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string, moveItems []string, 
 
 	return nil
 }
+
+

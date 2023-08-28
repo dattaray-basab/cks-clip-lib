@@ -18,24 +18,20 @@ var codeBlockPath string
 
 func AddAlter(
 	templateMap map[string]string,
-	target string,
-	recipeDirpath,
-	alterDirPath,
-	alterName string,
-	moveItems []string,
-	phaseName string,
-	lastPhase string,
-	codeBlockName string,
-	force bool,
 ) error {
 
-	var calcAlterPath = func() (string, error) {
+	var calcAlterPath = func(templateMap map[string]string) (string, error) {
 		var joinAlterDirPath = func(baseDir string, frags []string) string {
 			for _, frag := range frags {
 				baseDir = filepath.Join(baseDir, frag)
 			}
 			return baseDir
 		}
+		alterDirPath := templateMap[globals.KEY_ALTER_DIR_PATH]
+		codeBlockName := templateMap[globals.KEY_CODE_BLOCK_NAME]
+		recipeDirpath := templateMap[globals.KEY_RECIPE_PATH]
+		alterName := templateMap[globals.KEY_ALTER_NAME]
+		force := templateMap[globals.KEY_FORCE]
 
 		if !strings.HasPrefix(alterDirPath, prefix) {
 			err := fmt.Errorf("alter-dir-path %s must start with %s", alterDirPath, prefix)
@@ -47,7 +43,7 @@ func AddAlter(
 		codeBlockPath = joinAlterDirPath(codeBlockPath, cutAlterDirParts)
 		prefixedAlterName := globals.SPECIAL_DIR_PREFIX_ + alterName
 		fullAlterPath := filepath.Join(codeBlockPath, prefixedAlterName)
-		if !force {
+		if force == "F" {
 			if common.IsDir(fullAlterPath) {
 				err := fmt.Errorf("full-alter-path %s already exists", fullAlterPath)
 				return fullAlterPath, err
@@ -86,6 +82,10 @@ func AddAlter(
 			return "", nil
 		}
 
+		recipeDirpath := templateMap[globals.KEY_RECIPE_PATH]
+		target := templateMap[globals.KEY_TARGET]
+
+
 		blueprintPath := filepath.Join(
 			recipeDirpath,
 			globals.BLUEPRINTS_DIRNAME)
@@ -103,14 +103,14 @@ func AddAlter(
 		phasePath := filepath.Join(blueprintPath, targetName, globals.PHASES_DIRNAME)
 
 		log.Println(phasePath)
-		err = filegen.CreateOrUpdatePhaseFile(templateMap, moveItems, phasePath, phaseName, lastPhase)
+		err = filegen.CreateOrUpdatePhaseFile(templateMap)
 		if err != nil {
 			return err
 		}
 		return nil
 	}
 
-	alterPath, err := calcAlterPath()
+	alterPath, err := calcAlterPath(templateMap)
 	if err != nil {
 		return err
 	}

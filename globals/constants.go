@@ -38,3 +38,20 @@ const DIRECTIVES_lc = "directives"
 const DIRECTIVES_JSON = DIRECTIVES_lc + JSON_EXT
 
 const RECIPE_CONFIG_ = "__RECIPE_CONFIG.json"
+
+const KEY_TARGET = "{{target}}"
+const KEY_PHASE_NAME = "{{phase-name}}"
+const KEY_CODE_BLOCK_NAME = "{{code-block-name}}"
+const KEY_MOVE_ITEMS = "{{move-items}}"
+
+const KEY_RECIPE_PATH = "{{recipe-path}}"
+const KEY_LAST_PHASE = "{{last-phase}}"
+const KEY_DEPENDS_ON_PHASE = "{{depends-on-phase}}"
+const KEY_ALTER_NAME = "{{alter-name}}"
+const KEY_ALTER_DIR_PATH = "{{alter-dir-path}}"
+
+const KEY_FORCE = "{{force}}"
+
+
+
+

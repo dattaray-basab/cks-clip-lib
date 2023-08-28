@@ -9,7 +9,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-var CreatePhaseFile = func(templateMap map[string]string, moveItems []string, phasePath string, phaseName, lastPhase string) error {
+var CreatePhaseFile = func(templateMap map[string]string) error {
 	var buildNewPhaseFile = func(phasePath string, phaseName, lastPhase string) error {
 		baseDirpath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
 		recipeScaffold := globals.ScaffoldInfoTListT{
@@ -19,7 +19,7 @@ var CreatePhaseFile = func(templateMap map[string]string, moveItems []string, ph
 				Content: `
 {
   "__DEPENDS_ON": [
-	{{last-phase-name}}
+	{{depends-on-phase}}
   ],
   "ops_pipeline": [
 	{
@@ -39,7 +39,15 @@ var CreatePhaseFile = func(templateMap map[string]string, moveItems []string, ph
 		return err
 	}
 
-	err := buildNewPhaseFile(phasePath, phaseName, lastPhase)
+	lastPhase := templateMap[globals.KEY_LAST_PHASE]
+	phaseName := templateMap[globals.KEY_PHASE_NAME]
+
+	phasePath, err := CalcPhasePath(templateMap)
+	if err != nil {
+		return err
+	}
+
+	err = buildNewPhaseFile(phasePath, phaseName, lastPhase)
 	if err != nil {
 		return err
 	}
@@ -57,10 +65,8 @@ var CreatePhaseFile = func(templateMap map[string]string, moveItems []string, ph
 	alterPathWithoutQuotes := strings.Trim(relAlterPathFromPhase, "\"")
 
 	relAlterPath := strings.TrimPrefix(alterPathWithoutQuotes, "/")
-	
-	log.Println(relAlterPath)
-	
 
+	log.Println(relAlterPath)
 
 	// files, err := os.ReadDir(fullPhasePath)
 	// if err != nil {
