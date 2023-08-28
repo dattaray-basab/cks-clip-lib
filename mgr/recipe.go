@@ -15,13 +15,8 @@ import (
 func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDirpath string, force bool) error {
 	var checkInputs = func(dst_recipe_dirpath string, absPathToRecipeParent string, force bool) error {
 		var success bool
-		var doNothing = func(success bool) bool {
-			return success
-		}
-
 
 		success = common.IsDir(dst_recipe_dirpath)
-		success = doNothing(success)
 		if !success {
 			err := os.MkdirAll(dst_recipe_dirpath, os.ModePerm)
 			if err != nil {
