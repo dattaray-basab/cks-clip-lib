@@ -51,17 +51,6 @@ func CreateOrUpdatePhaseFile(phasePath, phaseName, lastPhase string) error {
 
 	}
 
-
-	var updatePhaseFile = func(phasePath string, phaseName, lastPhase string) error {
-		phaseFilePath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
-		log.Println(phaseFilePath)
-		_, err := os.Create(phaseFilePath)
-		if err != nil {
-			return err
-		}
-		return nil
-	}
-
 	log.Println(phasePath)
 	success, err := checkDependsonPhaseFileName(phasePath)
 	if err != nil {
@@ -78,7 +67,7 @@ func CreateOrUpdatePhaseFile(phasePath, phaseName, lastPhase string) error {
 	log.Println(isFile)
 	if isFile {
 		// if so update the file
-		err = updatePhaseFile(phasePath, phaseName, lastPhase)
+		err = alter.UpdatePhaseFile(phasePath, phaseName, lastPhase)
 		if err != nil {
 			return err
 		}
