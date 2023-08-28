@@ -8,7 +8,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-func CreateRecipeFiles(baseDirpath string) error {
+func CreateRecipeFiles(baseDirpath string, queryToken string) error {
 	err := os.RemoveAll(baseDirpath)
 	if err != nil {
 		return err
@@ -16,7 +16,7 @@ func CreateRecipeFiles(baseDirpath string) error {
 
 	recipeScaffold := globals.ScaffoldInfoTListT{
 		{
-			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME, "base" + globals.JSON_EXT),
+			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME, queryToken + globals.JSON_EXT),
 			Content: `
 {
   "__SCHEMA": "s_context",

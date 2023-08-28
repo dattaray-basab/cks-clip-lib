@@ -12,7 +12,7 @@ import (
 	"github.com/otiai10/copy"
 )
 
-func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDirpath string, force bool) error {
+func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDirpath string, queryToken string, force bool) error {
 	var checkInputs = func(dst_recipe_dirpath string, absPathToRecipeParent string, force bool) error {
 		var success bool
 
@@ -79,7 +79,7 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 		return err
 	}
 
-	err = filegen.CreateRecipeFiles(recipeDirpath)
+	err = filegen.CreateRecipeFiles(recipeDirpath, queryToken)
 	if err != nil {
 		return err
 	}
