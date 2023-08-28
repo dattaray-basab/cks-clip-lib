@@ -11,7 +11,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-func CreateOrUpdatePhaseFile(phasePath, phaseName, lastPhase string) error {
+func CreateOrUpdatePhaseFile(templateMap map[string]string, phasePath, phaseName, lastPhase string) error {
 
 	var checkDependsonPhaseFileName = func(phasePath string) (bool, error) {
 		// var getPhaseName = func(jsonMap map[string]interface{}) (string, error) {
@@ -67,13 +67,13 @@ func CreateOrUpdatePhaseFile(phasePath, phaseName, lastPhase string) error {
 	log.Println(isFile)
 	if isFile {
 		// if so update the file
-		err = alter.UpdatePhaseFile(phasePath, phaseName, lastPhase)
+		err = alter.UpdatePhaseFile(templateMap, phasePath, phaseName, lastPhase)
 		if err != nil {
 			return err
 		}
 	} else {
 		// if not create a new file
-		err = alter.CreatePhaseFile(phasePath, phaseName, lastPhase)
+		err = alter.CreatePhaseFile(templateMap , phasePath, phaseName, lastPhase)
 		if err != nil {
 			return err
 		}

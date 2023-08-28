@@ -7,7 +7,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-var CreatePhaseFile = func(phasePath string, phaseName, lastPhase string) error {
+var CreatePhaseFile = func(templateMap map[string]string, phasePath string, phaseName, lastPhase string) error {
 	var buildNewPhaseFile = func(phasePath string, phaseName, lastPhase string) error {
 		baseDirpath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
 		recipeScaffold := globals.ScaffoldInfoTListT{

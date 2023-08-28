@@ -103,7 +103,7 @@ func AddAlter(
 		phasePath := filepath.Join(blueprintPath, targetName, globals.PHASES_DIRNAME)
 
 		log.Println(phasePath)
-		err = filegen.CreateOrUpdatePhaseFile(phasePath, phaseName, lastPhase)
+		err = filegen.CreateOrUpdatePhaseFile(templateMap, phasePath, phaseName, lastPhase)
 		if err != nil {
 			return err
 		}
