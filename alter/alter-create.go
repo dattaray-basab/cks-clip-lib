@@ -50,7 +50,7 @@ var CreatePhaseFile = func(templateMap map[string]string, phasePath string, phas
 		return err
 	}
 
-	// now add to the CODE_BlOCK: storage + control files
+	// now add to the CODE_BlOCK: storage (from item-list) + control files (use recast or transform as they will just copy the files from storage)
 
 	return nil
 }
