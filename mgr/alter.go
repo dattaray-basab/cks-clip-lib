@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
+	"github.com/dattaray-basab/cks-clip-lib/filegen"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
@@ -101,15 +102,9 @@ func AddAlter(
 		phasePath := filepath.Join(blueprintPath, targetName, globals.PHASES_DIRNAME)
 
 		log.Println(phasePath)
-		files, err := os.ReadDir(phasePath)
+		err = filegen.CreatePhaseFile(phasePath)
 		if err != nil {
 			return err
-		}
-		for _, file := range files {
-			if !file.IsDir() {
-				filePath := filepath.Join(phasePath, file.Name())
-				log.Println(filePath)
-			}
 		}
 		return nil
 	}
