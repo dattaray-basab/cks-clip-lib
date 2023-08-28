@@ -37,8 +37,14 @@ var CreatePhaseFile = func(templateMap map[string]string, phasePath string, phas
 		return err
 	}
 
-
 	err := buildNewPhaseFile(phasePath, phaseName, lastPhase)
+	if err != nil {
+		return err
+	}
+
+	fullPhasePath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
+
+	err = common.Refactor(fullPhasePath, templateMap, "*.*")
 	if err != nil {
 		return err
 	}
