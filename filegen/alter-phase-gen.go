@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/dattaray-basab/cks-clip-lib/alter"
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
@@ -49,34 +50,7 @@ func CreateOrUpdatePhaseFile(phasePath, phaseName, lastPhase string) error {
 		return false, nil
 
 	}
-	var createPhaseFile = func(phasePath string, phaseName, lastPhase string) error {
-		baseDirpath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
-		recipeScaffold := globals.ScaffoldInfoTListT{
 
-			{
-				Filepath: filepath.Join(baseDirpath),
-				Content: `
-{
-  "__DEPENDS_ON": [
-	{{last-phase}}
-  ],
-  "ops_pipeline": [
-	{
-	  {{alter-name}}: {
-		"locator": [
-		  {{alter-dir-path}}
-		]
-	  }
-	}
-  ]
-}
-		`,
-			},
-		}
-
-		err := common.CreateFiles(recipeScaffold)
-		return err
-	}
 
 	var updatePhaseFile = func(phasePath string, phaseName, lastPhase string) error {
 		phaseFilePath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
@@ -110,7 +84,7 @@ func CreateOrUpdatePhaseFile(phasePath, phaseName, lastPhase string) error {
 		}
 	} else {
 		// if not create a new file
-		err = createPhaseFile(phasePath, phaseName, lastPhase)
+		err = alter.CreatePhaseFile(phasePath, phaseName, lastPhase)
 		if err != nil {
 			return err
 		}
