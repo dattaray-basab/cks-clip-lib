@@ -61,9 +61,8 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 	// alterPathWithoutQuotes := strings.Trim(relAlterPathFromPhase, "\"")
 
 	// relAlterPath := strings.TrimPrefix(alterPathWithoutQuotes, "/")
-
 	// log.Println(relAlterPath)
-
+	
 	// files, err := os.ReadDir(fullPhasePath)
 	// if err != nil {
 	// 	return  err
