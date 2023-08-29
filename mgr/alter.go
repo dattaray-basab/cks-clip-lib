@@ -33,10 +33,11 @@ func AddAlter(
 		alterName := templateMap[globals.KEY_ALTER_NAME]
 		force := templateMap[globals.KEY_FORCE]
 
-		if !strings.HasPrefix(alterDirPath, prefix) {
-			err := fmt.Errorf("alter-dir-path %s must start with %s", alterDirPath, prefix)
-			return "", err
-		}
+
+		// if !strings.HasPrefix(alterDirPath, prefix) {
+		// 	err := fmt.Errorf("alter-dir-path %s must start with %s", alterDirPath, prefix)
+		// 	return "", err
+		// }
 		cutAlterDirPath := strings.TrimPrefix(alterDirPath, prefix)
 		cutAlterDirParts := strings.Split(cutAlterDirPath, prefix)
 		codeBlockPath = filepath.Join(recipeDirpath, "__CODE", codeBlockName)
@@ -86,11 +87,15 @@ func AddAlter(
 		target := templateMap[globals.KEY_TARGET]
 
 
-		blueprintPath := filepath.Join(
+		blueprintsPath := filepath.Join(
 			recipeDirpath,
 			globals.BLUEPRINTS_DIRNAME)
+		templateMap[globals.KEY_BLUEPRINTS_PATH] = blueprintsPath
 
-		targetFromBlueprint, err := getTargetNameFromBlueprint(blueprintPath)
+		templateMap[globals.KEY_CODE_BLOCK_ROOT_PATH] = filepath.Join(recipeDirpath, globals.CODE_BLOCK_ROOT)
+		templateMap[globals.KEY_CODE_BLOCK_PATH] = codeBlockPath
+
+		targetFromBlueprint, err := getTargetNameFromBlueprint(blueprintsPath)
 		if err != nil {
 			return err
 		}
@@ -100,7 +105,7 @@ func AddAlter(
 			targetName = target
 		}
 
-		phasePath := filepath.Join(blueprintPath, targetName, globals.PHASES_DIRNAME)
+		phasePath := filepath.Join(blueprintsPath, targetName, globals.PHASES_DIRNAME)
 
 		log.Println(phasePath)
 		err = filegen.CreateOrUpdatePhaseFile(templateMap)
@@ -114,7 +119,13 @@ func AddAlter(
 	if err != nil {
 		return err
 	}
-	log.Println(alterPath)
+	templateMap[globals.KEY_ALTER_PATH] = alterPath
+
+	const QUOTE = "\""
+	alterPathWithQuotes := QUOTE + templateMap[globals.KEY_ALTER_DIR_PATH] + QUOTE
+	templateMap[globals.KEY_ALTER_PATH_WITH_QUOTES] = alterPathWithQuotes
+
+
 
 	err = createPhase()
 	if err != nil {

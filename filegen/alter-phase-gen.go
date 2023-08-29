@@ -14,8 +14,6 @@ import (
 func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
 	lastPhase := templateMap[globals.KEY_LAST_PHASE]
 
-
-
 	var checkDependsonPhaseFileName = func(phasePath string) (bool, error) {
 
 		files, err := os.ReadDir(phasePath)
@@ -34,14 +32,11 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
 		return false, nil
 	}
 
-	phasePath, err := alter.CalcPhasePath(templateMap)
-	if err != nil {
-		return err
-	}
-	log.Println(phasePath)
+	templateMap[globals.KEY_PHASES_PATH] = filepath.Join(templateMap[globals.KEY_BLUEPRINTS_PATH], templateMap[globals.KEY_TARGET], globals.PHASES_DIRNAME)
+	phasesPath := templateMap[globals.KEY_PHASES_PATH]
 
-	log.Println(phasePath)
-	success, err := checkDependsonPhaseFileName(phasePath)
+	log.Println(phasesPath)
+	success, err := checkDependsonPhaseFileName(phasesPath)
 	if err != nil {
 		return err
 	}
@@ -52,9 +47,8 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
 
 	phaseName := templateMap[globals.KEY_PHASE_NAME]
 
-
 	// does phase already exist?
-	currentPhaseFilePath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
+	currentPhaseFilePath := filepath.Join(phasesPath, phaseName+globals.JSON_EXT)
 	isFile := common.IsFile(currentPhaseFilePath)
 	log.Println(isFile)
 	if isFile {
@@ -73,5 +67,3 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
 
 	return nil
 }
-
-

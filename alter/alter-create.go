@@ -1,9 +1,9 @@
 package alter
 
 import (
-	"log"
+	// "log"
 	"path/filepath"
-	"strings"
+	// "strings"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
@@ -25,7 +25,7 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 	{
 	  {{alter-name}}: {
 		"locator": [
-		  {{alter-dir-path}}
+		  {{alter-path-with-quotes}}
 		]
 	  }
 	}
@@ -42,17 +42,13 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 	lastPhase := templateMap[globals.KEY_LAST_PHASE]
 	phaseName := templateMap[globals.KEY_PHASE_NAME]
 
-	phasePath, err := CalcPhasePath(templateMap)
+	phasesPath := templateMap[globals.KEY_PHASES_PATH]
+	err := buildNewPhaseFile(phasesPath, phaseName, lastPhase)
 	if err != nil {
 		return err
 	}
 
-	err = buildNewPhaseFile(phasePath, phaseName, lastPhase)
-	if err != nil {
-		return err
-	}
-
-	fullPhasePath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
+	fullPhasePath := filepath.Join(phasesPath, phaseName+globals.JSON_EXT)
 
 	// substitute the templateMap values
 	err = common.Refactor(fullPhasePath, templateMap, "*.*")
@@ -60,13 +56,13 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 		return err
 	}
 
-	relAlterPathFromPhase := templateMap["{{alter-dir-path}}"]
-	log.Println(relAlterPathFromPhase)
-	alterPathWithoutQuotes := strings.Trim(relAlterPathFromPhase, "\"")
+	// relAlterPathFromPhase := templateMap["{{alter-dir-path}}"]
+	// log.Println(relAlterPathFromPhase)
+	// alterPathWithoutQuotes := strings.Trim(relAlterPathFromPhase, "\"")
 
-	relAlterPath := strings.TrimPrefix(alterPathWithoutQuotes, "/")
+	// relAlterPath := strings.TrimPrefix(alterPathWithoutQuotes, "/")
 
-	log.Println(relAlterPath)
+	// log.Println(relAlterPath)
 
 	// files, err := os.ReadDir(fullPhasePath)
 	// if err != nil {
