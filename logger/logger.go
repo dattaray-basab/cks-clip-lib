@@ -38,7 +38,7 @@ func init() {
 		},
 	})
 	// Log.Formatter = &logrus.JSONFormatter{}
-	Log.SetReportCaller(true)
+	Log.SetReportCaller(false)
 
 	mw := io.MultiWriter(os.Stdout, f)
 	Log.SetOutput(mw)
