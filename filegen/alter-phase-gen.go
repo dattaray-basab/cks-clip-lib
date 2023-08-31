@@ -2,13 +2,13 @@ package filegen
 
 import (
 	"errors"
-	"log"
 	"os"
 	"path/filepath"
 
 	"github.com/dattaray-basab/cks-clip-lib/alter"
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
+	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
 func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
@@ -35,7 +35,7 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
 	templateMap[globals.KEY_PHASES_PATH] = filepath.Join(templateMap[globals.KEY_BLUEPRINTS_PATH], templateMap[globals.KEY_TARGET], globals.PHASES_DIRNAME)
 	phasesPath := templateMap[globals.KEY_PHASES_PATH]
 
-	log.Println(phasesPath)
+	logger.Log.Info(phasesPath)
 	success, err := checkDependsonPhaseFileName(phasesPath)
 	if err != nil {
 		return err
@@ -50,7 +50,7 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
 	// does phase already exist?
 	currentPhaseFilePath := filepath.Join(phasesPath, phaseName+globals.JSON_EXT)
 	isFile := common.IsFile(currentPhaseFilePath)
-	log.Println(isFile)
+	logger.Log.Debug(isFile)
 	if isFile {
 		// if so update the file
 		err = alter.UpdatePhaseFile(templateMap)

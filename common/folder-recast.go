@@ -5,6 +5,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
 func Refactor(dst_recipe_dirpath string, templateMap map[string]string, patterns ...string) error {
@@ -37,7 +39,9 @@ func refactorFunc(templateMap map[string]string, filePatterns []string) filepath
 
 				path_substitute := substitute(path, templateMap)
 
-				fmt.Println("Refactoring:", path)
+				msg := fmt.Sprintf("Refactoring: %s ", path)
+				logger.Log.Debug(msg)
+
 
 				// newContents := strings.Replace(string(read), old, new, -1)
 				newContents := substitute(string(read), templateMap)

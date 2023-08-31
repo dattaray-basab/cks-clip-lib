@@ -3,8 +3,11 @@ package common
 import (
 	"encoding/json"
 	"io"
-	"log"
+
+
 	"os"
+
+	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
 func ReadJsonFile(filePath string) (map[string]interface{}, error) {
@@ -13,7 +16,7 @@ func ReadJsonFile(filePath string) (map[string]interface{}, error) {
     if err != nil {
         return nil, err
     }
-    log.Println("Successfully Opened users.json")  
+    logger.Log.Info("Successfully Opened users.json")  
     defer jsonFile.Close()
 
     byteValue, _ := io.ReadAll(jsonFile)

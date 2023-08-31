@@ -1,9 +1,6 @@
 package alter
 
 import (
-	// "log"
-
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -12,7 +9,7 @@ import (
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
-
+	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
 var CreatePhaseFile = func(templateMap map[string]string) error {
@@ -86,7 +83,7 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 			}
 
 			move_items := strings.Split(templateMap[globals.KEY_MOVE_ITEMS], ":")
-			log.Println(move_items)
+			logger.Log.Debug(move_items)
 
 			files, err := os.ReadDir(templateMap[globals.KEY_CODE_BLOCK_PATH])
 			if err != nil {
@@ -98,7 +95,7 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 					if common.IsDir(item_path) {
 						parentDir := filepath.Dir(item_path)
 						newParent := filepath.Join(parentDir, globals.STORE_DIRNAME)		
-						log.Println(newParent)
+						
 						err := os.MkdirAll(newParent, os.ModePerm)
 						if err != nil {
 							return err
@@ -149,19 +146,6 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 		return err
 	}
 
-	// relAlterPathFromPhase := templateMap["{{alter-dir-path}}"]
-	// log.Println(relAlterPathFromPhase)
-	// alterPathWithoutQuotes := strings.Trim(relAlterPathFromPhase, "\"")
-
-	// relAlterPath := strings.TrimPrefix(alterPathWithoutQuotes, "/")
-	// log.Println(relAlterPath)
-
-	// files, err := os.ReadDir(fullPhasePath)
-	// if err != nil {
-	// 	return  err
-	// }
-
-	// now add to the CODE_BlOCK: storage (from item-list) + control files (use recast or transform as they will just copy the files from storage)
 
 	return nil
 }

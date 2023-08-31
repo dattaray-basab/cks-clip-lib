@@ -2,7 +2,6 @@ package mgr
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -10,6 +9,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/filegen"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
+	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
 const prefix = "/"
@@ -107,7 +107,7 @@ func AddAlter(
 
 		phasePath := filepath.Join(blueprintsPath, targetName, globals.PHASES_DIRNAME)
 
-		log.Println(phasePath)
+		logger.Log.Debug(phasePath)
 		err = filegen.CreateOrUpdatePhaseFile(templateMap)
 		if err != nil {
 			return err
