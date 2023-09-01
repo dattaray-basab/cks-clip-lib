@@ -63,21 +63,21 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 		for _, item := range files {
 			if matches(move_items, item.Name()) {
 				item_path := filepath.Join(templateMap[globals.KEY_CODE_BLOCK_PATH], item.Name())
-				if common.IsDir(item_path) {
-					parentDir := filepath.Dir(item_path)
-					alterName := filepath.Base(templateMap[globals.KEY_ALTER_PATH])
-					newParent := filepath.Join(parentDir, alterName, globals.STORE_DIRNAME)
+				// if common.IsDir(item_path) {
+				parentDir := filepath.Dir(item_path)
+				alterName := filepath.Base(templateMap[globals.KEY_ALTER_PATH])
+				newParent := filepath.Join(parentDir, alterName, globals.STORE_DIRNAME)
 
-					err := os.MkdirAll(newParent, os.ModePerm)
-					if err != nil {
-						return err
-					}
-					new_dirpath := filepath.Join(newParent, item.Name())
-					err = os.Rename(item_path, new_dirpath)
-					if err != nil {
-						return err
-					}
+				err := os.MkdirAll(newParent, os.ModePerm)
+				if err != nil {
+					return err
 				}
+				new_dirpath := filepath.Join(newParent, item.Name())
+				err = os.Rename(item_path, new_dirpath)
+				if err != nil {
+					return err
+				}
+				// }
 			}
 		}
 		return nil
