@@ -2,48 +2,40 @@ package logger
 
 import (
 	"io"
-	// logging "log"
 	"os"
 
 	"github.com/sirupsen/logrus"
 )
 
-const LOG_LEVEL = logrus.InfoLevel
+const LOG_LEVEL = logrus.DebugLevel
 
 var (
 	Log *logrus.Logger // share will all packages
 )
 
-
 func init() {
-	// the file needs to exist prior
 	if _, err := os.Stat("logs/application.log"); os.IsNotExist(err) {
 		os.Mkdir("logs", 0755)
 	}
 	f, err := os.OpenFile("logs/application.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 
 	if err != nil {
-		// use go's logger, while we configure Logrus
 		panic(err)
 	}
-
-	// configure Logrus
 	Log = logrus.New()
 	Log.SetFormatter(&logrus.TextFormatter{
-      // ForceColors: true,
+		// ForceColors: true,
 		// DisableColors: false,
-      PadLevelText: true,
+		PadLevelText: true,
 		FieldMap: logrus.FieldMap{
-			logrus.FieldKeyTime: "@timestamp",
-			logrus.FieldKeyMsg: "@message",
+			logrus.FieldKeyTime:  "@timestamp",
+			logrus.FieldKeyMsg:   "@message",
 			logrus.FieldKeyLevel: "@level",
-         logrus.FieldKeyFunc: "@caller",
+			logrus.FieldKeyFunc:  "@caller",
 		},
 	})
-	
-	Log.SetLevel(LOG_LEVEL)
-
 	Log.SetReportCaller(true)
+	Log.SetLevel(LOG_LEVEL)
 
 	mw := io.MultiWriter(os.Stdout, f)
 	Log.SetOutput(mw)
