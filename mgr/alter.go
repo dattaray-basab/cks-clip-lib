@@ -137,8 +137,5 @@ func AddAlter(
 	if err != nil {
 		return err
 	}
-
-	// create new phase
-
 	return nil
 }
