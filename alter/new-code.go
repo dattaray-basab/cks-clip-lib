@@ -65,7 +65,8 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 				item_path := filepath.Join(templateMap[globals.KEY_CODE_BLOCK_PATH], item.Name())
 				if common.IsDir(item_path) {
 					parentDir := filepath.Dir(item_path)
-					newParent := filepath.Join(parentDir, globals.STORE_DIRNAME)
+					alterName := filepath.Base(templateMap[globals.KEY_ALTER_PATH])
+					newParent := filepath.Join(parentDir, alterName, globals.STORE_DIRNAME)
 
 					err := os.MkdirAll(newParent, os.ModePerm)
 					if err != nil {
