@@ -3,21 +3,25 @@ package logger
 import (
 	"io"
 	"os"
+	"path/filepath"
 
 	"github.com/sirupsen/logrus"
 )
 
 const LOG_LEVEL = logrus.DebugLevel
+const LOG_DIR_PATH = "logs"
+const LOG_FILE_NAME = "/app.log"
 
 var (
 	Log *logrus.Logger // share will all packages
 )
 
 func init() {
-	if _, err := os.Stat("logs/application.log"); os.IsNotExist(err) {
-		os.Mkdir("logs", 0755)
+	if _, err := os.Stat(LOG_DIR_PATH); os.IsNotExist(err) {
+		os.Mkdir(LOG_DIR_PATH, os.ModePerm)
 	}
-	f, err := os.OpenFile("logs/application.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	logFilePath := filepath.Join(LOG_DIR_PATH, LOG_FILE_NAME)
+	f, err := os.OpenFile(logFilePath, os.O_RDWR|os.O_CREATE|os.O_APPEND, os.ModePerm)
 
 	if err != nil {
 		panic(err)
@@ -25,7 +29,7 @@ func init() {
 	Log = logrus.New()
 	Log.SetFormatter(&logrus.TextFormatter{
 		// ForceColors: true,
-		// DisableColors: false,
+		DisableColors: false,
 		PadLevelText: true,
 		FieldMap: logrus.FieldMap{
 			logrus.FieldKeyTime:  "@timestamp",

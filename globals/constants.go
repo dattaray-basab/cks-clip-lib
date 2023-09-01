@@ -1,9 +1,10 @@
 package globals
 
+// const LOG_DIR_PATH = "logs"
+// const LOG_FILE_NAME = "/app.log"
+
 const RecipePathKey = "CKS_ENV_RECIPE_PATH"
-
 const RecipeDirectory = "__DEV_3"
-
 const TEMPLATES_DIRNAME = "_templates"
 
 const RECIPE = "recipe"
