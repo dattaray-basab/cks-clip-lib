@@ -8,9 +8,12 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+const LOG_LEVEL = logrus.InfoLevel
+
 var (
 	Log *logrus.Logger // share will all packages
 )
+
 
 func init() {
 	// the file needs to exist prior
@@ -37,8 +40,10 @@ func init() {
          logrus.FieldKeyFunc: "@caller",
 		},
 	})
-	// Log.Formatter = &logrus.JSONFormatter{}
-	Log.SetReportCaller(false)
+	
+	Log.SetLevel(LOG_LEVEL)
+
+	Log.SetReportCaller(true)
 
 	mw := io.MultiWriter(os.Stdout, f)
 	Log.SetOutput(mw)
