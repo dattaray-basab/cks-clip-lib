@@ -24,7 +24,7 @@ var BuildNewPhaseFile = func(phasePath string, phaseName, lastPhase string) erro
 	{
 	  "alter": {
 		"locator": [
-		  {{alter-path-with-quotes}}
+		  {{full-alter-path-with-quotes}}
 		]
 	  }
 	}

@@ -130,6 +130,9 @@ func AddAlter(
 	dependsOnPathWithQuotes := QUOTE + templateMap[globals.KEY_DEPENDS_ON_PHASE] + QUOTE
 	templateMap[globals.KEY_DEPENDS_ON_PHASE_WITH_QUOTES] = dependsOnPathWithQuotes
 
+	fullAlterPath := QUOTE + filepath.Join(templateMap[globals.KEY_ALTER_DIR_PATH], templateMap[globals.KEY_ALTER_NAME]) + QUOTE
+	templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES] = fullAlterPath
+
 	err = createPhase()
 	if err != nil {
 		return err
