@@ -120,6 +120,10 @@ func AddAlter(
 	templateMap[globals.KEY_ALTER_PATH] = alterPath
 
 	const QUOTE = "\""
+	// KEY_CODE_BLOCK_NAME_WITH_QUOTES
+	codeBlockNameWithQuotes := QUOTE + templateMap[globals.KEY_CODE_BLOCK_NAME] + QUOTE
+	templateMap[globals.KEY_CODE_BLOCK_NAME_WITH_QUOTES] = codeBlockNameWithQuotes
+
 	alterPathWithQuotes := QUOTE + templateMap[globals.KEY_ALTER_DIR_PATH] + QUOTE
 	templateMap[globals.KEY_ALTER_PATH_WITH_QUOTES] = alterPathWithQuotes
 

@@ -16,6 +16,7 @@ var BuildNewPhaseFile = func(phasePath string, phaseName, lastPhase string) erro
 			Filepath: filepath.Join(baseDirpath),
 			Content: `
 {
+  "__CODE_BLOCK": {{code-block-name-with-quotes}},
   "__DEPENDS_ON": [
 	{{depends-on-phase-with-quotes}}
   ],
