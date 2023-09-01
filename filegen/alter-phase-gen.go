@@ -50,7 +50,7 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
 	// does phase already exist?
 	currentPhaseFilePath := filepath.Join(phasesPath, phaseName+globals.JSON_EXT)
 	isFile := common.IsFile(currentPhaseFilePath)
-	logger.Log.Debug(isFile)
+
 	if isFile {
 		// if so update the file
 		err = alter.UpdatePhaseFile(templateMap)
