@@ -50,6 +50,10 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 		}
 
 		move_items := strings.Split(templateMap[globals.KEY_MOVE_ITEMS], ":")
+		for i, item := range move_items {
+			move_items[i] = strings.TrimSpace(item)
+		}
+		
 		logger.Log.Debug(move_items)
 
 		files, err := os.ReadDir(templateMap[globals.KEY_CODE_BLOCK_PATH])
