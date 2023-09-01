@@ -59,6 +59,7 @@ const KEY_CODE_BLOCK_ROOT_PATH = "{{code-block-root-path}}"
 const KEY_CODE_BLOCK_PATH = "{{code-block-path}}"
 const KEY_PHASES_PATH = "{{phases-path}}"
 const KEY_ALTER_PATH_WITH_QUOTES = "{{alter-path-with-quotes}}"
+const KEY_DEPENDS_ON_PHASE_WITH_QUOTES = "{{depends-on-phase-with-quotes}}"
 
 const KEY_STORE_DIR_PATH = "{{store-dir-path}}"
 const KEY_CONTROL_JSON_PATH = "{{control-json-path}}"
@@ -66,7 +67,3 @@ const KEY_CONTROL_JSON_PATH = "{{control-json-path}}"
 const CONTROL_JSON_FILE = "control.json"
 const STORE_lc = "store"
 const STORE_DIRNAME = SPECIAL_DIR_PREFIX_ + STORE_lc
-
-
-
-

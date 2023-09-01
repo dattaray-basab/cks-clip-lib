@@ -33,7 +33,6 @@ func AddAlter(
 		alterName := templateMap[globals.KEY_ALTER_NAME]
 		force := templateMap[globals.KEY_FORCE]
 
-
 		// if !strings.HasPrefix(alterDirPath, prefix) {
 		// 	err := fmt.Errorf("alter-dir-path %s must start with %s", alterDirPath, prefix)
 		// 	return "", err
@@ -86,7 +85,6 @@ func AddAlter(
 		recipeDirpath := templateMap[globals.KEY_RECIPE_PATH]
 		target := templateMap[globals.KEY_TARGET]
 
-
 		blueprintsPath := filepath.Join(
 			recipeDirpath,
 			globals.BLUEPRINTS_DIRNAME)
@@ -125,7 +123,8 @@ func AddAlter(
 	alterPathWithQuotes := QUOTE + templateMap[globals.KEY_ALTER_DIR_PATH] + QUOTE
 	templateMap[globals.KEY_ALTER_PATH_WITH_QUOTES] = alterPathWithQuotes
 
-
+	dependsOnPathWithQuotes := QUOTE + templateMap[globals.KEY_DEPENDS_ON_PHASE] + QUOTE
+	templateMap[globals.KEY_DEPENDS_ON_PHASE_WITH_QUOTES] = dependsOnPathWithQuotes
 
 	err = createPhase()
 	if err != nil {

@@ -17,11 +17,11 @@ var BuildNewPhaseFile = func(phasePath string, phaseName, lastPhase string) erro
 			Content: `
 {
   "__DEPENDS_ON": [
-	{{depends-on-phase}}
+	{{depends-on-phase-with-quotes}}
   ],
   "ops_pipeline": [
 	{
-	  {{alter-name}}: {
+	  "alter": {
 		"locator": [
 		  {{alter-path-with-quotes}}
 		]
