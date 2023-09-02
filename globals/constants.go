@@ -69,3 +69,5 @@ const KEY_CONTROL_JSON_PATH = "{{control-json-path}}"
 const CONTROL_JSON_FILE = "control.json"
 const STORE_lc = "store"
 const STORE_DIRNAME = SPECIAL_DIR_PREFIX_ + STORE_lc
+
+const OPS_PIPELINE = "ops_pipeline"
