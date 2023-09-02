@@ -49,7 +49,7 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	}
 
 	var getAlterJson = func(templateMap map[string]string) CommandT {
-		fullAlterPathWithQuotes := templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES]
+		fullAlterPathWithQuotes := templateMap[globals.KEY_FULL_ALTER_PATH]
 		command := CommandT{
 			Command: LocatorT{
 				Locator: []string{fullAlterPathWithQuotes},
