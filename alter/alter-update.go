@@ -12,46 +12,68 @@ import (
 )
 
 type CommandT struct {
-	Command LocationT `json:"alter"`
+	Command LocatorT `json:"alter"`
 }
-type LocationT struct {
-	Location []string `json:"location"`
+type LocatorT struct {
+	Locator []string `json:"locator"`
 }
 
+// ensure that the alter location is not already present
+// add the alter location to the phase file
+// write the modified phase file
+// generate the alter directory at the right location
 var UpdatePhaseFile = func(templateMap map[string]string) error {
 
-	var getAlterJson = func(item string) CommandT {
+	var getPhaseData = func(templateMap map[string]string) (map[string]interface{}, error) {
+		phaseName := templateMap[globals.KEY_PHASE_NAME]
+		phasesPath := templateMap[globals.KEY_PHASES_PATH]
+		fullPhasePath := filepath.Join(phasesPath, phaseName+globals.JSON_EXT)
 
+		if !common.IsFile(fullPhasePath) {
+			err := errors.New("phase file does not exist")
+			return nil, err
+		}
+
+		if !common.IsFile(fullPhasePath) {
+			err := errors.New("phase file does not exist")
+			return nil, err
+		}
+		// read the phase file
+		result, err := common.ReadJsonFile(fullPhasePath)
+		if err != nil {
+			msg := fmt.Sprintf("phase file could not be read: %s", err.Error())
+			err = errors.New(msg)
+			return nil, err
+		}
+		return result, err
+	}
+
+	var getAlterJson = func(templateMap map[string]string) CommandT {
+		fullAlterPathWithQuotes := templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES]
 		command := CommandT{
-			Command: LocationT{
-				Location: []string{item},
+			Command: LocatorT{
+				Locator: []string{fullAlterPathWithQuotes},
 			},
 		}
-		// js, _ := json.Marshal(command)
-		// fmt.Printf("%s" js)
 		return command
 	}
 
-	// lastPhase := templateMap[globals.KEY_LAST_PHASE]
-	phaseName := templateMap[globals.KEY_PHASE_NAME]
-	phasesPath := templateMap[globals.KEY_PHASES_PATH]
-	fullPhasePath := filepath.Join(phasesPath, phaseName+globals.JSON_EXT)
-
-	fullAlterPathWithQuotes := fmt.Sprintf("\"%s\"", templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES])
-	logger.Log.Debug("fullAlterPathWithQuotes: ", fullAlterPathWithQuotes)
-
-	command := getAlterJson(templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES])
-	logger.Log.Debug("command: ", command)
-
-	jsonifiedCommand, _ := json.Marshal(command)
-	logger.Log.Debug("json-command: ", string(jsonifiedCommand))
-
-	if !common.IsFile(fullPhasePath) {
-		err := errors.New("phase file does not exist")
+	phaseContent, err := getPhaseData(templateMap)
+	if err != nil {
 		return err
 	}
-	// read the phase file
-	result, err := common.ReadJsonFile(fullPhasePath)
+
+	alterCommand := getAlterJson(templateMap)
+	logger.Log.Debug("alter command to add: ", alterCommand)
+
+	opsPipeline := phaseContent["ops_pipeline"].([]interface{})
+	opsPipeline = append(opsPipeline, alterCommand)
+	phaseContent["ops_pipeline"] = opsPipeline
+
+	jsonifiedPhase, _ := json.MarshalIndent(phaseContent, "", "  ")
+	logger.Log.Debug(string(jsonifiedPhase))
+
+	fmt.Println(string(jsonifiedPhase))
 
 	if err != nil {
 		msg := fmt.Sprintf("phase file could not be read: %s", err.Error())
@@ -59,17 +81,9 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 		return err
 	}
 
-	ops_pipeline := result["ops_pipeline"].([]interface{})
+	ops_pipeline := phaseContent["ops_pipeline"].([]interface{})
 	pipelineLen := len(ops_pipeline)
 	logger.Log.Debug("pipelineLen: ", pipelineLen)
-	// pipeline_entry :=
-
-	// 	logger.Log.Debug(ops)
-
-	// ensure that the alter location is not already present
-	// add the alter location to the phase file
-	// write the modified phase file
-	// generate the alter directory at the right location
 
 	return nil
 }
