@@ -79,7 +79,7 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 		return nil
 	}
 
-	var addNewAlterToPhase = func(templateMap map[string]string) (map[string] interface{}, error) {
+	var addNewAlterToPhase = func(templateMap map[string]string) (map[string]interface{}, error) {
 		phaseContent, err := getPhaseData(templateMap)
 		if err != nil {
 			return nil, err
@@ -126,5 +126,10 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	if err != nil {
 		return err
 	}
+	err = BuildNewAlterDir(templateMap)
+	if err != nil {
+		return err
+	}
+	logger.Log.Info("SUCCESS: add alter - with updated phase file")
 	return nil
 }

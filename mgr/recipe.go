@@ -9,6 +9,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/filegen"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
+	"github.com/dattaray-basab/cks-clip-lib/logger"
 	"github.com/otiai10/copy"
 )
 
@@ -91,5 +92,7 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 	}
 
 	err = processBlockCode(templateMap, recipeDirpath, targetDirpath)
+
+	logger.Log.Info("SUCCESS: create recipe")
 	return err
 }

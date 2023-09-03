@@ -8,7 +8,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-const LOG_LEVEL = logrus.DebugLevel
+const LOG_LEVEL = logrus.InfoLevel
 const LOG_DIR_PATH = "logs"
 const LOG_FILE_NAME = "/app.log"
 
