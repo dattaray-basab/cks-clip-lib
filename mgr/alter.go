@@ -1,6 +1,7 @@
 package mgr
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -19,7 +20,25 @@ var codeBlockPath string
 func AddAlter(
 	templateMap map[string]string,
 ) error {
+	err := addAlter(templateMap)
+	if err != nil {
+		err = removeAlter(templateMap)
+		logger.Log.Error(err.Error())
+	}
 
+	return err
+}
+
+func removeAlter(templateMap map[string]string) error {
+	phaseFileName := templateMap[globals.KEY_PHASE_NAME] + globals.JSON_EXT
+	phasesPath := templateMap[globals.KEY_PHASES_PATH]
+	phaseFilePath := filepath.Join(phasesPath, phaseFileName)
+	msg := fmt.Sprintf("FAILED: Check: alter-name, %v, related to code-block-path, %v, and phase-path, %v", templateMap[globals.KEY_ALTER_NAME], templateMap[globals.KEY_CODE_BLOCK_PATH], phaseFilePath)
+	fmt.Println(msg)
+	return errors.New(msg)
+}
+
+func addAlter(templateMap map[string]string) error {
 	var calcAlterPath = func(templateMap map[string]string) (string, error) {
 		var joinAlterDirPath = func(baseDir string, frags []string) string {
 			for _, frag := range frags {
@@ -33,10 +52,6 @@ func AddAlter(
 		alterName := templateMap[globals.KEY_ALTER_NAME]
 		force := templateMap[globals.KEY_FORCE]
 
-		// if !strings.HasPrefix(alterDirPath, prefix) {
-		// 	err := fmt.Errorf("alter-dir-path %s must start with %s", alterDirPath, prefix)
-		// 	return "", err
-		// }
 		cutAlterDirPath := strings.TrimPrefix(alterDirPath, prefix)
 		cutAlterDirParts := strings.Split(cutAlterDirPath, prefix)
 		codeBlockPath = filepath.Join(recipeDirpath, "__CODE", codeBlockName)
@@ -120,7 +135,7 @@ func AddAlter(
 	templateMap[globals.KEY_ALTER_PATH] = alterPath
 
 	const QUOTE = "\""
-	// KEY_CODE_BLOCK_NAME_WITH_QUOTES
+
 	codeBlockNameWithQuotes := QUOTE + templateMap[globals.KEY_CODE_BLOCK_NAME] + QUOTE
 	templateMap[globals.KEY_CODE_BLOCK_NAME_WITH_QUOTES] = codeBlockNameWithQuotes
 
@@ -130,7 +145,7 @@ func AddAlter(
 	dependsOnPathWithQuotes := QUOTE + templateMap[globals.KEY_DEPENDS_ON_PHASE] + QUOTE
 	templateMap[globals.KEY_DEPENDS_ON_PHASE_WITH_QUOTES] = dependsOnPathWithQuotes
 
-	fullAlterPath := filepath.Join(templateMap[globals.KEY_ALTER_DIR_PATH], globals.SPECIAL_DIR_PREFIX_ + templateMap[globals.KEY_ALTER_NAME]) 
+	fullAlterPath := filepath.Join(templateMap[globals.KEY_ALTER_DIR_PATH], globals.SPECIAL_DIR_PREFIX_+templateMap[globals.KEY_ALTER_NAME])
 	templateMap[globals.KEY_FULL_ALTER_PATH] = fullAlterPath
 	templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES] = QUOTE + fullAlterPath + QUOTE
 
