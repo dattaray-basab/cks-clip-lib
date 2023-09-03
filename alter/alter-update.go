@@ -12,11 +12,12 @@ import (
 )
 
 type CommandT struct {
-	Command LocatorT `json:"alter"`
+	Command LocatorT`json:"alter"`
 }
 type LocatorT struct {
 	Locator []string `json:"locator"`
 }
+
 
 // ensure that the alter location is not already present
 // add the alter location to the phase file
@@ -58,6 +59,19 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 		return command
 	}
 
+	var checkForSuplicateAlter = func(opsPipeline []map[string]interface {}, alterCommand interface{}) error {
+		// check if the alter command is already present
+		for _, alterCommandInPipeline := range opsPipeline {
+			alterCommandInPipelineStr := fmt.Sprintf("%v", alterCommandInPipeline)
+			alterCommandStr := fmt.Sprintf("%v", alterCommand)
+			if alterCommandInPipelineStr == alterCommandStr {
+				return errors.New("alter command already present")
+			}
+		}
+		return nil
+		
+	}
+	
 	phaseContent, err := getPhaseData(templateMap)
 	if err != nil {
 		return err
@@ -66,7 +80,11 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	alterCommand := getAlterJson(templateMap)
 	logger.Log.Debug("alter command to add: ", alterCommand)
 
-	opsPipeline := phaseContent["ops_pipeline"].([]interface{})
+	opsPipeline := phaseContent["ops_pipeline"].([](map[string]interface {}))
+	err = checkForSuplicateAlter(opsPipeline, alterCommand)
+	if err != nil {
+		return err
+	}	
 	opsPipeline = append(opsPipeline, alterCommand)
 	phaseContent["ops_pipeline"] = opsPipeline
 
