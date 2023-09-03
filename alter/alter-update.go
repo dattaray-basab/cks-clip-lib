@@ -12,12 +12,11 @@ import (
 )
 
 type CommandT struct {
-	Command LocatorT`json:"alter"`
+	Command LocatorT `json:"alter"`
 }
 type LocatorT struct {
 	Locator []string `json:"locator"`
 }
-
 
 // ensure that the alter location is not already present
 // add the alter location to the phase file
@@ -49,17 +48,23 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 		return result, err
 	}
 
-	var getAlterJson = func(templateMap map[string]string) CommandT {
-		fullAlterPathWithQuotes := templateMap[globals.KEY_FULL_ALTER_PATH]
-		command := CommandT{
-			Command: LocatorT{
-				Locator: []string{fullAlterPathWithQuotes},
-			},
-		}
-		return command
+	var getAlterJson = func(templateMap map[string]string) map[string]interface{} {
+
+		jsonStr := `	{
+	  "alter": {
+		"locator": [
+		  "/components/__pick"
+		]
+	  }
+	}`
+
+		var jsonFrame map[string]interface{}
+
+		json.Unmarshal([]byte(jsonStr), &jsonFrame)
+		return jsonFrame
 	}
 
-	var checkForSuplicateAlter = func(opsPipeline []map[string]interface {}, alterCommand interface{}) error {
+	var checkForDuplicateAlter = func(opsPipeline []interface{}, alterCommand interface{}) error {
 		// check if the alter command is already present
 		for _, alterCommandInPipeline := range opsPipeline {
 			alterCommandInPipelineStr := fmt.Sprintf("%v", alterCommandInPipeline)
@@ -69,9 +74,9 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 			}
 		}
 		return nil
-		
+
 	}
-	
+
 	phaseContent, err := getPhaseData(templateMap)
 	if err != nil {
 		return err
@@ -80,12 +85,13 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	alterCommand := getAlterJson(templateMap)
 	logger.Log.Debug("alter command to add: ", alterCommand)
 
-	opsPipeline := phaseContent["ops_pipeline"].([](map[string]interface {}))
-	err = checkForSuplicateAlter(opsPipeline, alterCommand)
+	opsPipeline := phaseContent["ops_pipeline"].([]interface{})
+	err = checkForDuplicateAlter(opsPipeline, alterCommand)
 	if err != nil {
 		return err
-	}	
-	opsPipeline = append(opsPipeline, alterCommand)
+	}
+	
+	// opsPipeline = opsPipeline.( alterCommand)
 	phaseContent["ops_pipeline"] = opsPipeline
 
 	jsonifiedPhase, _ := json.MarshalIndent(phaseContent, "", "  ")
