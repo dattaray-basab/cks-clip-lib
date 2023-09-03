@@ -49,11 +49,12 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	}
 
 	var getAlterJson = func(templateMap map[string]string) map[string]interface{} {
+		fullAlterPathWithQuotes:= templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES]
 
 		jsonStr := `	{
 	  "alter": {
-		"locator": [
-		  "/components/__pick"
+		"locator": [` +
+		  fullAlterPathWithQuotes + `
 		]
 	  }
 	}`
@@ -67,9 +68,11 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	var checkForDuplicateAlter = func(opsPipeline []interface{}, alterCommand interface{}) error {
 		// check if the alter command is already present
 		for _, alterCommandInPipeline := range opsPipeline {
-			alterCommandInPipelineStr := fmt.Sprintf("%v", alterCommandInPipeline)
-			alterCommandStr := fmt.Sprintf("%v", alterCommand)
-			if alterCommandInPipelineStr == alterCommandStr {
+			pathFromPipeline := alterCommandInPipeline.(map[string]interface{})["alter"].(map[string]interface{})["locator"].([]interface{})[0].(string)
+			pathFromAlterCommand := alterCommand.(map[string]interface{})["alter"].(map[string]interface{})["locator"].([]interface{})[0].(string)
+			// alterCommandInPipelineStr := fmt.Sprintf("%v", alterCommandInPipeline)
+			// alterCommandStr := fmt.Sprintf("%v", alterCommand)
+			if pathFromPipeline == pathFromAlterCommand {
 				return errors.New("alter command already present")
 			}
 		}
@@ -91,23 +94,14 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 		return err
 	}
 	
-	// opsPipeline = opsPipeline.( alterCommand)
-	phaseContent["ops_pipeline"] = opsPipeline
+	appendedPipeline := append(opsPipeline, alterCommand)
+	phaseContent["ops_pipeline"] = appendedPipeline
 
 	jsonifiedPhase, _ := json.MarshalIndent(phaseContent, "", "  ")
 	logger.Log.Debug(string(jsonifiedPhase))
 
 	fmt.Println(string(jsonifiedPhase))
 
-	if err != nil {
-		msg := fmt.Sprintf("phase file could not be read: %s", err.Error())
-		err = errors.New(msg)
-		return err
-	}
-
-	ops_pipeline := phaseContent["ops_pipeline"].([]interface{})
-	pipelineLen := len(ops_pipeline)
-	logger.Log.Debug("pipelineLen: ", pipelineLen)
 
 	return nil
 }
