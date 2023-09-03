@@ -5,7 +5,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
@@ -15,28 +14,7 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 	templateMap[globals.KEY_STORE_DIR_PATH] = filepath.Join(templateMap[globals.KEY_ALTER_PATH], globals.STORE_DIRNAME)
 	templateMap[globals.KEY_CONTROL_JSON_PATH] = filepath.Join(templateMap[globals.KEY_ALTER_PATH], globals.CONTROL_JSON_FILE)
 
-	var buildControlFile = func(templateMap map[string]string) error {
-		scaffold := globals.ScaffoldInfoTListT{
 
-			{
-				Filepath: filepath.Join(templateMap[globals.KEY_CONTROL_JSON_PATH]),
-				Content: `
-	[
-	{
-		"op": "transform"
-	}
-	]
-			`,
-			},
-		}
-
-		err := common.CreateFiles(scaffold)
-		if err != nil {
-			return err
-		}
-
-		return nil
-	}
 
 	var buildStoreDir = func(templateMap map[string]string) error {
 
@@ -88,7 +66,7 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 		return err
 	}
 
-	err = buildControlFile(templateMap)
+	err = BuildTransformControl(templateMap)
 	if err != nil {
 		return err
 	}
