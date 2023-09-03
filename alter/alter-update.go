@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/fs"
+	"os"
 	"path/filepath"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
@@ -101,7 +103,16 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	logger.Log.Debug(string(jsonifiedPhase))
 
 	fmt.Println(string(jsonifiedPhase))
+	phaseName := templateMap[globals.KEY_PHASE_NAME]
+	phasesPath := templateMap[globals.KEY_PHASES_PATH]
+	fullPhasePath := filepath.Join(phasesPath, phaseName+globals.JSON_EXT)
 
+	err = os.WriteFile(fullPhasePath, jsonifiedPhase, fs.ModeAppend.Perm())
+	if err != nil {
+		msg := fmt.Sprintf("phase file could not be written: %s", err.Error())
+		err = errors.New(msg)
+		return err
+	}
 
 	return nil
 }
