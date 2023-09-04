@@ -37,11 +37,16 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 	}
 	var processBlueprint = func(templateMap map[string]string, recipePath string, srcTargetPath string, force bool) error {
 
-		err := common.SubstituteContentsFromTemplate(templateMap, recipePath)
+		err := filegen.CreateRecipeFiles(recipeDirpath, queryToken)
 		if err != nil {
 			return err
 		}
-		err = common.CleanuupSubstitutedDirectories(recipePath)
+
+		err = common.SubstituteContentsFromTemplate(templateMap, recipePath)
+		if err != nil {
+			return err
+		}
+		err = common.Cleanup(recipePath)
 		if err != nil {
 			return err
 		}
@@ -76,11 +81,6 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 	}
 
 	err := checkInputs(recipeDirpath, targetDirpath, force)
-	if err != nil {
-		return err
-	}
-
-	err = filegen.CreateRecipeFiles(recipeDirpath, queryToken)
 	if err != nil {
 		return err
 	}
