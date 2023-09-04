@@ -46,12 +46,13 @@ func addAlter(templateMap map[string]string) error {
 			}
 			return baseDir
 		}
-		alterDirPath := templateMap[globals.KEY_ALTER_DIR_PATH]
+
 		codeBlockName := templateMap[globals.KEY_CODE_BLOCK_NAME]
 		recipeDirpath := templateMap[globals.KEY_RECIPE_PATH]
 		alterName := templateMap[globals.KEY_ALTER_NAME]
 		force := templateMap[globals.KEY_FORCE]
 
+		alterDirPath := templateMap[globals.KEY_ALTER_DIR_PATH]
 		cutAlterDirPath := strings.TrimPrefix(alterDirPath, prefix)
 		cutAlterDirParts := strings.Split(cutAlterDirPath, prefix)
 		codeBlockPath = filepath.Join(recipeDirpath, "__CODE", codeBlockName)
@@ -139,8 +140,8 @@ func addAlter(templateMap map[string]string) error {
 	codeBlockNameWithQuotes := QUOTE + templateMap[globals.KEY_CODE_BLOCK_NAME] + QUOTE
 	templateMap[globals.KEY_CODE_BLOCK_NAME_WITH_QUOTES] = codeBlockNameWithQuotes
 
-	alterPathWithQuotes := QUOTE + templateMap[globals.KEY_ALTER_DIR_PATH] + QUOTE
-	templateMap[globals.KEY_ALTER_PATH_WITH_QUOTES] = alterPathWithQuotes
+	// alterPathWithQuotes := QUOTE + templateMap[globals.KEY_ALTER_DIR_PATH] + QUOTE
+	// templateMap[globals.KEY_ALTER_PATH_WITH_QUOTES] = alterPathWithQuotes
 
 	dependsOnPathWithQuotes := QUOTE + templateMap[globals.KEY_DEPENDS_ON_PHASE] + QUOTE
 	templateMap[globals.KEY_DEPENDS_ON_PHASE_WITH_QUOTES] = dependsOnPathWithQuotes
