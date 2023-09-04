@@ -6,11 +6,11 @@ import (
 	"strings"
 )
 
-func Rename(dst_recipe_dirpath string, templateMap map[string]string) error {
-	return filepath.Walk(dst_recipe_dirpath, renameFunc(templateMap))
+func SubstitutePathsFromTemplate(dst_recipe_dirpath string, templateMap map[string]string) error {
+	return filepath.Walk(dst_recipe_dirpath, substituteDir(templateMap))
 }
 
-func renameFunc(templateMap map[string]string) filepath.WalkFunc {
+func substituteDir(templateMap map[string]string) filepath.WalkFunc {
 	var substitute = func(in_text string, templateMap map[string]string) string {
 		out_text := in_text
 		for old, new := range templateMap {
@@ -39,9 +39,6 @@ func renameFunc(templateMap map[string]string) filepath.WalkFunc {
 			return nil
 		}
 
-
 		return nil
 	})
 }
-
-

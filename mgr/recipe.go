@@ -37,7 +37,7 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 	}
 	var processBlueprint = func(templateMap map[string]string, recipePath string, srcTargetPath string, force bool) error {
 
-		err := common.Refactor(recipePath, templateMap, "*.*")
+		err := common.SubstituteContentsFromTemplate(recipePath, templateMap)
 		if err != nil {
 			return err
 		}
@@ -46,7 +46,7 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 			return err
 		}
 
-		err = common.Rename(recipePath, templateMap)
+		err = common.SubstitutePathsFromTemplate(recipePath, templateMap)
 		if err != nil {
 			return err
 		}

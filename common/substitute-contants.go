@@ -9,11 +9,12 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
-func Refactor(dst_recipe_dirpath string, templateMap map[string]string, patterns ...string) error {
-	return filepath.Walk(dst_recipe_dirpath, refactorFunc(templateMap,  patterns))
+func SubstituteContentsFromTemplate(dst_recipe_dirpath string, templateMap map[string]string) error {
+	patterns := []string{"*.*"}
+	return filepath.Walk(dst_recipe_dirpath, substituteContents(templateMap, patterns))
 }
 
-func refactorFunc(templateMap map[string]string, filePatterns []string) filepath.WalkFunc {
+func substituteContents(templateMap map[string]string, filePatterns []string) filepath.WalkFunc {
 	return filepath.WalkFunc(func(path string, fi os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -41,7 +42,6 @@ func refactorFunc(templateMap map[string]string, filePatterns []string) filepath
 
 				msg := fmt.Sprintf("Refactoring: %s ", path)
 				logger.Log.Debug(msg)
-
 
 				// newContents := strings.Replace(string(read), old, new, -1)
 				newContents := substitute(string(read), templateMap)

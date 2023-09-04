@@ -7,7 +7,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-var BuildNewPhaseFile = func(phasePath string, phaseName, lastPhase string) error {
+var BuildNewPhaseFile = func(templateMap map[string]string, phasePath string, phaseName, lastPhase string) error {
 
 	baseDirpath := filepath.Join(phasePath, phaseName+globals.JSON_EXT)
 	scaffold := globals.ScaffoldInfoTListT{
@@ -35,5 +35,13 @@ var BuildNewPhaseFile = func(phasePath string, phaseName, lastPhase string) erro
 	}
 
 	err := common.CreateFiles(scaffold)
+	if err != nil {
+		return err
+	}
+
+	err = common.SubstituteContentsFromTemplate(phasePath, templateMap)
+	if err != nil {
+		return err
+	}
 	return err
 }
