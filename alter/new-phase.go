@@ -39,7 +39,7 @@ var BuildNewPhaseFile = func(templateMap map[string]string, phasePath string, ph
 		return err
 	}
 
-	err = common.SubstituteContentsFromTemplate(phasePath, templateMap)
+	err = common.SubstituteContentsFromTemplate(templateMap, phasePath)
 	if err != nil {
 		return err
 	}

@@ -9,7 +9,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
-func SubstituteContentsFromTemplate(dst_recipe_dirpath string, templateMap map[string]string) error {
+func SubstituteContentsFromTemplate(templateMap map[string]string, dst_recipe_dirpath string) error {
 	patterns := []string{"*.*"}
 	return filepath.Walk(dst_recipe_dirpath, substituteContents(templateMap, patterns))
 }
