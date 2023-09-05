@@ -66,7 +66,7 @@ func CreateRecipe(templateMap map[string]string) error {
 			return err
 		}
 
-		err = common.SubstitutePathsFromTemplate(recipePath, templateMap)
+		err = common.SubstitutePathsFromTemplate(templateMap, recipePath)
 		if err != nil {
 			return err
 		}

@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-func SubstitutePathsFromTemplate(dst_recipe_dirpath string, templateMap map[string]string) error {
-	return filepath.Walk(dst_recipe_dirpath, substituteDir(templateMap))
+func SubstitutePathsFromTemplate(templateMap map[string]string, dirpath string) error {
+	return filepath.Walk(dirpath, substituteDir(templateMap))
 }
 
 func substituteDir(templateMap map[string]string) filepath.WalkFunc {
