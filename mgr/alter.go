@@ -1,7 +1,6 @@
 package mgr
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -32,21 +31,19 @@ func AddAlter(
 
 	err = addAlter(templateMap)
 	if err != nil {
-		err = removeAlter(templateMap)
-		logger.Log.Error(err.Error())
+		return err
 	}
 
 	return err
 }
 
-func removeAlter(templateMap map[string]string) error {
-	phaseFileName := templateMap[globals.KEY_PHASE_NAME] + globals.JSON_EXT
-	phasesPath := templateMap[globals.KEY_PHASES_PATH]
-	phaseFilePath := filepath.Join(phasesPath, phaseFileName)
-	msg := fmt.Sprintf("FAILED: Check: alter-name, %v, related to code-block-path, %v, and phase-path, %v", templateMap[globals.KEY_ALTER_NAME], templateMap[globals.KEY_CODE_BLOCK_PATH], phaseFilePath)
-	fmt.Println(msg)
-	return errors.New(msg)
-}
+// func removeAlter(templateMap map[string]string) error {
+// 	phaseFileName := templateMap[globals.KEY_PHASE_NAME] + globals.JSON_EXT
+// 	phasesPath := templateMap[globals.KEY_PHASES_PATH]
+// 	phaseFilePath := filepath.Join(phasesPath, phaseFileName)
+// 	msg := fmt.Sprintf("FAILED: Check: alter-name, %v, related to code-block-path, %v, and phase-path, %v", templateMap[globals.KEY_ALTER_NAME], templateMap[globals.KEY_CODE_BLOCK_PATH], phaseFilePath)
+// 	return errors.New(msg)
+// }
 
 func addAlter(templateMap map[string]string) error {
 	var calcAlterPath = func(templateMap map[string]string) (string, error) {
