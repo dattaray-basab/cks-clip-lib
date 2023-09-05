@@ -13,12 +13,6 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
-type CommandT struct {
-	Command LocatorT `json:"alter"`
-}
-type LocatorT struct {
-	Locator []string `json:"locator"`
-}
 
 // ensure that the alter location is not already present
 // add the alter location to the phase file
