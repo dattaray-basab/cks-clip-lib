@@ -19,12 +19,12 @@ func substituteDir(templateMap map[string]string) filepath.WalkFunc {
 		return out_text
 	}
 
-	return filepath.WalkFunc(func(path string, fi os.FileInfo, err error) error {
+	return filepath.WalkFunc(func(path string, fileInfo os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
 
-		if fi.IsDir() {
+		if fileInfo.IsDir() {
 			dirname := filepath.Base(path)
 			if strings.HasPrefix(dirname, "{{") && strings.HasSuffix(dirname, "}}") {
 				dirpath_substitute := substitute(path, templateMap)

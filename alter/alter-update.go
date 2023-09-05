@@ -130,6 +130,6 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	if err != nil {
 		return err
 	}
-	logger.Log.Info("SUCCESS: add alter - with updated phase file")
+	logger.Log.Info("*** SUCCESS ***: add alter - with updated phase file")
 	return nil
 }

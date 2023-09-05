@@ -15,19 +15,19 @@ func SubstituteContentsFromTemplate(templateMap map[string]string, dst_recipe_di
 }
 
 func substituteContents(templateMap map[string]string, filePatterns []string) filepath.WalkFunc {
-	return filepath.WalkFunc(func(path string, fi os.FileInfo, err error) error {
+	return filepath.WalkFunc(func(path string, fileInfo os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
 
-		if fi.IsDir() {
+		if fileInfo.IsDir() {
 			return nil
 		}
 
 		var matched bool
 		for _, pattern := range filePatterns {
 			var err error
-			matched, err = filepath.Match(pattern, fi.Name())
+			matched, err = filepath.Match(pattern, fileInfo.Name())
 			if err != nil {
 				return err
 			}
@@ -49,7 +49,7 @@ func substituteContents(templateMap map[string]string, filePatterns []string) fi
 				// Create parent directory for substituted path if it doesn't exist
 				parentDir := filepath.Dir(path_substitute)
 				if !IsDir(parentDir) {
-					err = os.MkdirAll(parentDir, 0777)
+					err = os.MkdirAll(parentDir, os.ModePerm)
 					if err != nil {
 						return err
 					}
@@ -59,7 +59,7 @@ func substituteContents(templateMap map[string]string, filePatterns []string) fi
 					}
 				}
 
-				err = os.WriteFile(path_substitute, []byte(newContents), 0777)
+				err = os.WriteFile(path_substitute, []byte(newContents), os.ModePerm)
 				if err != nil {
 					return err
 				}

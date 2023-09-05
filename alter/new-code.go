@@ -1,6 +1,7 @@
 package alter
 
 import (
+	"errors"
 	"os"
 	"path/filepath"
 	"strings"
@@ -38,6 +39,7 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 		if err != nil {
 			return err
 		}
+		found := false
 		for _, item := range files {
 			if matches(move_items, item.Name()) {
 				item_path := filepath.Join(templateMap[globals.KEY_CODE_BLOCK_PATH], item.Name())
@@ -55,7 +57,13 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 				if err != nil {
 					return err
 				}
+				found = true
 			}
+		}
+		if !found {
+			msg := "*** FAILED ***: no items found to move"
+			logger.Log.Error(msg)
+			return errors.New(msg)	
 		}
 		return nil
 	}

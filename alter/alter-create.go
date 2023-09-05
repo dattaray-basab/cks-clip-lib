@@ -28,6 +28,6 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 	if err != nil {
 		return err
 	}
-	logger.Log.Info("SUCCESS: add alter - with newly created phase file")
+	logger.Log.Info("*** SUCCESS ***: add alter - with newly created phase file")
 	return nil
 }
