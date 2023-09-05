@@ -55,7 +55,6 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 				if err != nil {
 					return err
 				}
-				// }
 			}
 		}
 		return nil
