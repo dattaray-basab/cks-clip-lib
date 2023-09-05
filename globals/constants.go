@@ -69,6 +69,9 @@ const KEY_STORE_DIR_PATH = "{{store-dir-path}}"
 const KEY_CONTROL_JSON_PATH = "{{control-json-path}}"
 const KEY_KIND = "{{kind}}"
 
+const KEY_TOKEN_FILE_NAME = "{{token-file-name}}"
+const KEY_SRC_APP_PATH = "{{src-app-path}}"
+
 const CONTROL_JSON_FILE = "control.json"
 const STORE_lc = "store"
 const STORE_DIRNAME = SPECIAL_DIR_PREFIX_ + STORE_lc

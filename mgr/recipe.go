@@ -15,8 +15,8 @@ import (
 	"github.com/otiai10/copy"
 )
 
-func CreateRecipe(templateMap map[string]string, srcAppPath string, recipePath string, queryToken string) error {
-	
+func CreateRecipe(templateMap map[string]string, srcAppPath string, recipePath string, tokenFileName string) error {
+
 	forceAsString := templateMap[globals.KEY_FORCE]
 	force, err := strconv.ParseBool(forceAsString)
 	msg := fmt.Sprintf("force: %v", force)
@@ -48,7 +48,7 @@ func CreateRecipe(templateMap map[string]string, srcAppPath string, recipePath s
 	}
 	var processBlueprint = func(templateMap map[string]string, recipePath string, srcTargetPath string) error {
 
-		err := filegen.CreateRecipeFiles(recipePath, queryToken)
+		err := filegen.CreateRecipeFiles(recipePath, tokenFileName)
 		if err != nil {
 			return err
 		}
