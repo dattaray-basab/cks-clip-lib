@@ -8,7 +8,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-func CreateRecipeFiles(baseDirpath string, tokenFileName string) error {
+func CreateAllRecipeFiles(baseDirpath string, tokenFileName string) error {
 	err := os.RemoveAll(baseDirpath)
 	if err != nil {
 		return err
@@ -40,7 +40,7 @@ func CreateRecipeFiles(baseDirpath string, tokenFileName string) error {
 			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, "{{target}}", globals.PHASES_DIRNAME, "{{phase_name}}"+globals.JSON_EXT),
 			Content: `
 {
-  "__CODE_BLOCK": "{{code_block}}",
+  "__CODE_BLOCK": "{{code_block-name}}",
   "ops_pipeline": [
 	{
 	  "remove": {

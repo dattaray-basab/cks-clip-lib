@@ -52,7 +52,7 @@ func CreateRecipe(templateMap map[string]string) error {
 	}
 	var processBlueprint = func(templateMap map[string]string, recipePath string, srcTargetPath string) error {
 
-		err := filegen.CreateRecipeFiles(recipePath, tokenFileName)
+		err := filegen.CreateAllRecipeFiles(recipePath, tokenFileName)
 		if err != nil {
 			return err
 		}
@@ -74,7 +74,7 @@ func CreateRecipe(templateMap map[string]string) error {
 	}
 	var processBlockCode = func(templateMap map[string]string, recipePath string, srcTargetPath string) error {
 		var err error
-		code_block := templateMap["{{code_block}}"]
+		code_block := templateMap[globals.KEY_CODE_BLOCK_NAME]
 
 		target_code_path := filepath.Join(recipePath, globals.CODE_BLOCK_ROOT, code_block)
 
