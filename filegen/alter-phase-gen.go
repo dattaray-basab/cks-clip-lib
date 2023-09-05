@@ -52,13 +52,13 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
 	isFile := common.IsFile(currentPhaseFilePath)
 
 	if isFile {
-		// if so update the file
+		// update the file
 		err = alter.UpdatePhaseFile(templateMap)
 		if err != nil {
 			return err
 		}
 	} else {
-		// if not create a new file
+		// create a new file
 		err = alter.CreatePhaseFile(templateMap)
 		if err != nil {
 			return err
