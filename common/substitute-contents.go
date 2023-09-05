@@ -40,7 +40,7 @@ func substituteContents(templateMap map[string]string, filePatterns []string) fi
 
 				path_substitute := substitute(path, templateMap)
 
-				msg := fmt.Sprintf("Refactoring: %s ", path)
+				msg := fmt.Sprintf("Substituting: %s --> %v", path, path_substitute)
 				logger.Log.Debug(msg)
 
 				// newContents := strings.Replace(string(read), old, new, -1)
