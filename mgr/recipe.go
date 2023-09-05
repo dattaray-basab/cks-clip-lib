@@ -61,7 +61,9 @@ func CreateRecipe(templateMap map[string]string) error {
 		if err != nil {
 			return err
 		}
-		err = common.Cleanup(recipePath)
+		dir_to_cleanup := filepath.Join(recipePath, "__BLUEPRINTS", "{{target}}")
+		
+		err = os.RemoveAll(dir_to_cleanup)
 		if err != nil {
 			return err
 		}
