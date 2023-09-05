@@ -15,7 +15,7 @@ import (
 	"github.com/otiai10/copy"
 )
 
-func CreateRecipe(templateMap map[string]string, srcAppPath string, recipePath string, tokenFileName string) error {
+func CreateRecipe(templateMap map[string]string) error {
 
 	forceAsString := templateMap[globals.KEY_FORCE]
 	force, err := strconv.ParseBool(forceAsString)
@@ -24,6 +24,10 @@ func CreateRecipe(templateMap map[string]string, srcAppPath string, recipePath s
 	if err != nil {
 		force = false
 	}
+
+	srcAppPath := templateMap[globals.KEY_SRC_APP_PATH]
+	recipePath := templateMap[globals.KEY_RECIPE_PATH]
+	tokenFileName := templateMap[globals.KEY_TOKEN_FILE_NAME]
 
 	var checkInputs = func(dst_recipe_dirpath string, absPathToRecipeParent string) error {
 		var success bool
