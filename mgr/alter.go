@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
@@ -20,7 +21,15 @@ var codeBlockPath string
 func AddAlter(
 	templateMap map[string]string,
 ) error {
-	err := addAlter(templateMap)
+	forceAsString := templateMap[globals.KEY_FORCE]
+	force, err := strconv.ParseBool(forceAsString)
+	msg := fmt.Sprintf("force: %v", force)
+	logger.Log.Debug(msg)
+	if err != nil {
+		force = false
+	}
+
+	err = addAlter(templateMap)
 	if err != nil {
 		err = removeAlter(templateMap)
 		logger.Log.Error(err.Error())

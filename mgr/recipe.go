@@ -2,6 +2,8 @@ package mgr
 
 import (
 	"errors"
+	"fmt"
+	"strconv"
 
 	"os"
 	"path/filepath"
@@ -13,8 +15,17 @@ import (
 	"github.com/otiai10/copy"
 )
 
-func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDirpath string, queryToken string, force bool) error {
-	var checkInputs = func(dst_recipe_dirpath string, absPathToRecipeParent string, force bool) error {
+func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDirpath string, queryToken string) error {
+	
+	forceAsString := templateMap[globals.KEY_FORCE]
+	force, err := strconv.ParseBool(forceAsString)
+	msg := fmt.Sprintf("force: %v", force)
+	logger.Log.Debug(msg)
+	if err != nil {
+		force = false
+	}
+
+	var checkInputs = func(dst_recipe_dirpath string, absPathToRecipeParent string) error {
 		var success bool
 
 		success = common.IsDir(dst_recipe_dirpath)
@@ -35,7 +46,7 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 		}
 		return nil
 	}
-	var processBlueprint = func(templateMap map[string]string, recipePath string, srcTargetPath string, force bool) error {
+	var processBlueprint = func(templateMap map[string]string, recipePath string, srcTargetPath string) error {
 
 		err := filegen.CreateRecipeFiles(recipeDirpath, queryToken)
 		if err != nil {
@@ -80,13 +91,13 @@ func CreateRecipe(templateMap map[string]string, targetDirpath string, recipeDir
 		return nil
 	}
 
-	err := checkInputs(recipeDirpath, targetDirpath, force)
+	err = checkInputs(recipeDirpath, targetDirpath)
 	if err != nil {
 		return err
 	}
 
 	// dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
-	err = processBlueprint(templateMap, recipeDirpath, targetDirpath, force)
+	err = processBlueprint(templateMap, recipeDirpath, targetDirpath)
 	if err != nil {
 		return err
 	}
