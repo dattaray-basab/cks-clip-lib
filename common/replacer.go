@@ -12,7 +12,7 @@ import (
 const CONTENT_START = "{{"
 const CONTENT_END = "}}"
 
-func SubstituteContentsFromTemplate(templateMap map[string]string, dirpath string) error {
+func ReplaceUsingTemplateMap(templateMap map[string]string, dirpath string) error {
 	var substituteContents = func(templateMap map[string]string, filePatterns []string) filepath.WalkFunc {
 		var substitute = func(in_text string, templateMap map[string]string) string {
 			out_text := strings.Clone(in_text)
@@ -84,9 +84,9 @@ func SubstituteContentsFromTemplate(templateMap map[string]string, dirpath strin
 	var collectCleanups = func(templateMap map[string]string) filepath.WalkFunc {
 
 		err := filepath.WalkFunc(
-			func(path string, fileInfo os.FileInfo, err error) (error) {
+			func(path string, fileInfo os.FileInfo, err error) error {
 				if err != nil {
-					return  err
+					return err
 				}
 
 				if fileInfo.IsDir() {

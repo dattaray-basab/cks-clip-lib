@@ -57,7 +57,7 @@ func CreateRecipe(templateMap map[string]string) error {
 			return err
 		}
 
-		err = common.SubstituteContentsFromTemplate(templateMap, recipePath)
+		err = common.ReplaceUsingTemplateMap(templateMap, recipePath)
 		if err != nil {
 			return err
 		}
