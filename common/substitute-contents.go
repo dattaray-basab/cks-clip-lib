@@ -71,7 +71,7 @@ func substituteContents(templateMap map[string]string, filePatterns []string) fi
 }
 
 func substitute(in_text string, templateMap map[string]string) string {
-	out_text := in_text
+	out_text := strings.Clone(in_text)
 	for old, new := range templateMap {
 		out_text = strings.Replace(out_text, old, new, -1)
 	}

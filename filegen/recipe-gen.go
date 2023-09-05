@@ -37,10 +37,10 @@ func CreateAllRecipeFiles(baseDirpath string, tokenFileName string) error {
 		`,
 		},
 		{
-			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, "{{target}}", globals.PHASES_DIRNAME, "{{phase_name}}"+globals.JSON_EXT),
+			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, "{{target}}", globals.PHASES_DIRNAME, "{{phase-name}}"+globals.JSON_EXT),
 			Content: `
 {
-  "__CODE_BLOCK": "{{code_block-name}}",
+  "__CODE_BLOCK": "{{code-block-name}}",
   "ops_pipeline": [
 	{
 	  "remove": {

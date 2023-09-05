@@ -29,6 +29,7 @@ func AddAlter(
 		force = false
 	}
 
+
 	err = addAlter(templateMap)
 	if err != nil {
 		err = removeAlter(templateMap)
@@ -59,7 +60,11 @@ func addAlter(templateMap map[string]string) error {
 		codeBlockName := templateMap[globals.KEY_CODE_BLOCK_NAME]
 		recipeDirpath := templateMap[globals.KEY_RECIPE_PATH]
 		alterName := templateMap[globals.KEY_ALTER_NAME]
-		force := templateMap[globals.KEY_FORCE]
+		forceStr := templateMap[globals.KEY_FORCE]
+		force, err := strconv.ParseBool(forceStr)
+		if err != nil {
+			force = false
+		}
 
 		alterDirPath := templateMap[globals.KEY_ALTER_DIR_PATH]
 		cutAlterDirPath := strings.TrimPrefix(alterDirPath, prefix)
@@ -68,7 +73,7 @@ func addAlter(templateMap map[string]string) error {
 		codeBlockPath = joinAlterDirPath(codeBlockPath, cutAlterDirParts)
 		prefixedAlterName := globals.SPECIAL_DIR_PREFIX_ + alterName
 		fullAlterPath := filepath.Join(codeBlockPath, prefixedAlterName)
-		if force == "F" {
+		if !force {
 			if common.IsDir(fullAlterPath) {
 				err := fmt.Errorf("full-alter-path %s already exists", fullAlterPath)
 				return fullAlterPath, err
@@ -79,7 +84,7 @@ func addAlter(templateMap map[string]string) error {
 				return fullAlterPath, err
 			}
 		}
-		err := os.MkdirAll(fullAlterPath, os.ModePerm)
+		err = os.MkdirAll(fullAlterPath, os.ModePerm)
 		if err != nil {
 			err := fmt.Errorf("could not create full-alter-path %s", fullAlterPath)
 			return fullAlterPath, err
