@@ -61,17 +61,7 @@ func CreateRecipe(templateMap map[string]string) error {
 		if err != nil {
 			return err
 		}
-		dir_to_cleanup := filepath.Join(recipePath, "__BLUEPRINTS", "{{target}}")
-		
-		err = os.RemoveAll(dir_to_cleanup)
-		if err != nil {
-			return err
-		}
 
-		err = common.SubstitutePathsFromTemplate(templateMap, recipePath)
-		if err != nil {
-			return err
-		}
 		return nil
 	}
 	var processBlockCode = func(templateMap map[string]string, recipePath string, srcTargetPath string) error {
