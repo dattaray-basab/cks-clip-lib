@@ -13,7 +13,6 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
-
 // ensure that the alter location is not already present
 // add the alter location to the phase file
 // write the modified phase file
@@ -45,7 +44,10 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	}
 
 	var getAlterJson = func(templateMap map[string]string) map[string]interface{} {
-		fullAlterPathWithQuotes := templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES]
+		// fullAlterPathWithQuotes := templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES]
+		fullAlterPath := templateMap[globals.KEY_FULL_ALTER_PATH]
+		const QUOTE = "\""
+		fullAlterPathWithQuotes := QUOTE + fullAlterPath + QUOTE
 
 		jsonStr := `	{
 	  "alter": {
