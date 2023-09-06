@@ -58,7 +58,7 @@ const KEY_BLUEPRINTS_PATH = "{{blueprints-path}}"
 const KEY_CODE_BLOCK_ROOT_PATH = "{{code-block-root-path}}"
 const KEY_CODE_BLOCK_PATH = "{{code-block-path}}"
 const KEY_PHASES_PATH = "{{phases-path}}"
-const KEY_CODE_BLOCK_NAME_WITH_QUOTES = "{{code-block-name-with-quotes}}"
+// const KEY_CODE_BLOCK_NAME_WITH_QUOTES = "{{code-block-name-with-quotes}}"
 // const KEY_ALTER_PATH_WITH_QUOTES = "{{alter-path-with-quotes}}"
 const KEY_DEPENDS_ON_PHASE_WITH_QUOTES = "{{depends-on-phase-with-quotes}}"
 
