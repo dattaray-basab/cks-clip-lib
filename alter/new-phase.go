@@ -16,15 +16,15 @@ var BuildNewPhaseFile = func(templateMap map[string]string, phasePath string, ph
 			Filepath: filepath.Join(baseDirpath),
 			Content: `
 {
-  "__CODE_BLOCK": {{code-block-name-with-quotes}},
+  "__CODE_BLOCK": "{{code-block-name}}",
   "__DEPENDS_ON": [
-	{{depends-on-phase-with-quotes}}
+	"{{depends-on-phase}}"
   ],
   "ops_pipeline": [
 	{
 	  "alter": {
 		"locator": [
-		  {{full-alter-path-with-quotes}}
+		  "{{full-alter-path}}"
 		]
 	  }
 	}
