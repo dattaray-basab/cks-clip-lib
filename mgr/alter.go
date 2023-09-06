@@ -146,20 +146,10 @@ func addAlter(templateMap map[string]string) error {
 	}
 	templateMap[globals.KEY_ALTER_PATH] = alterPath
 
-	const QUOTE = "\""
-
-	// codeBlockNameWithQuotes := QUOTE + templateMap[globals.KEY_CODE_BLOCK_NAME] + QUOTE
-	// templateMap[globals.KEY_CODE_BLOCK_NAME_WITH_QUOTES] = codeBlockNameWithQuotes
-
-	// alterPathWithQuotes := QUOTE + templateMap[globals.KEY_ALTER_DIR_PATH] + QUOTE
-	// templateMap[globals.KEY_ALTER_PATH_WITH_QUOTES] = alterPathWithQuotes
-
-	// dependsOnPathWithQuotes := QUOTE + templateMap[globals.KEY_DEPENDS_ON_PHASE] + QUOTE
-	// templateMap[globals.KEY_DEPENDS_ON_PHASE_WITH_QUOTES] = dependsOnPathWithQuotes
 
 	fullAlterPath := filepath.Join(templateMap[globals.KEY_ALTER_DIR_PATH], globals.SPECIAL_DIR_PREFIX_+templateMap[globals.KEY_ALTER_NAME])
 	templateMap[globals.KEY_FULL_ALTER_PATH] = fullAlterPath
-	templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES] = QUOTE + fullAlterPath + QUOTE
+	// templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES] = QUOTE + fullAlterPath + QUOTE
 
 	err = createPhase()
 	if err != nil {

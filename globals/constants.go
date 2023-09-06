@@ -63,7 +63,7 @@ const KEY_PHASES_PATH = "{{phases-path}}"
 // const KEY_DEPENDS_ON_PHASE_WITH_QUOTES = "{{depends-on-phase-with-quotes}}"
 
 const KEY_FULL_ALTER_PATH = "{{full-alter-path}}"
-const KEY_FULL_ALTER_PATH_WITH_QUOTES = "{{full-alter-path-with-quotes}}"
+// const KEY_FULL_ALTER_PATH_WITH_QUOTES = "{{full-alter-path-with-quotes}}"
 
 const KEY_STORE_DIR_PATH = "{{store-dir-path}}"
 const KEY_CONTROL_JSON_PATH = "{{control-json-path}}"
