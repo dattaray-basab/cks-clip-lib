@@ -1,4 +1,4 @@
-package recast
+package pick
 
 import (
 	"path/filepath"
