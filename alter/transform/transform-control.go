@@ -1,4 +1,4 @@
-package alter
+package transform
 
 import (
 	"path/filepath"
@@ -7,7 +7,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-var BuildTransformControl = func(templateMap map[string]string) error {
+var BuildSubcommand = func(templateMap map[string]string) error {
 	scaffold := globals.ScaffoldInfoTListT{
 
 		{
