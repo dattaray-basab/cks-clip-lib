@@ -61,7 +61,7 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 				found = true
 			}
 		}
-		if !found {
+		if !found && len(move_items) > 0 {
 			msg := "*** FAILED ***: no items found to move"
 			logger.Log.Error(msg)
 			return errors.New(msg)
