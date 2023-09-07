@@ -13,12 +13,22 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		{
 			Filepath: filepath.Join(templateMap[globals.KEY_CONTROL_JSON_PATH]),
 			Content: `
-	[
+[
+  {
+	"op": "pick",
+	"directives": {
+	  "token_id": "unknown_token_file.unkown_token_id",
+	  "options": [
 		{
-			"op": "pick"
+		  "rel_paths": [
+		  ],
+		  "sift": ""
 		}
-	]
-			`,
+	  ]
+	}
+  }
+]
+`,
 		},
 	}
 
