@@ -81,7 +81,7 @@ func addAlter(templateMap map[string]string) error {
 		return fullAlterPath, nil
 	}
 
-	var createPhase = func() error {
+	var addCommand = func() error {
 		var getTargetNameFromBlueprint = func(blueprintPath string) (string, error) {
 			files, err := os.ReadDir(blueprintPath)
 			if err != nil {
@@ -142,7 +142,7 @@ func addAlter(templateMap map[string]string) error {
 	templateMap[globals.KEY_FULL_ALTER_PATH] = fullAlterPath
 	// templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES] = QUOTE + fullAlterPath + QUOTE
 
-	err = createPhase()
+	err = addCommand()
 	if err != nil {
 		return err
 	}
