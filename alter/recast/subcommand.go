@@ -1,4 +1,4 @@
-package pick
+package recast
 
 import (
 	"path/filepath"
@@ -15,7 +15,7 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 			Content: `
 	[
 	{
-		"op": "transform"
+		"op": "recast"
 	}
 	]
 			`,

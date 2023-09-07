@@ -1,4 +1,4 @@
-package transform
+package pick
 
 import (
 	"path/filepath"
@@ -14,9 +14,9 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 			Filepath: filepath.Join(templateMap[globals.KEY_CONTROL_JSON_PATH]),
 			Content: `
 	[
-	{
-		"op": "transform"
-	}
+		{
+			"op": "pick"
+		}
 	]
 			`,
 		},
