@@ -34,48 +34,38 @@ const QUERY_DIRNAME = SPECIAL_DIR_PREFIX_ + QUERY
 
 const RUN_PY = "run.py"
 const JSON_EXT = ".json"
-
 const DIRECTIVES_lc = "directives"
 const DIRECTIVES_JSON = DIRECTIVES_lc + JSON_EXT
-
 const RECIPE_CONFIG_ = "__RECIPE_CONFIG.json"
-
 const KEY_TARGET = "{{target}}"
 const KEY_PHASE_NAME = "{{phase-name}}"
 const KEY_CODE_BLOCK_NAME = "{{code-block-name}}"
 const KEY_MOVE_ITEMS = "{{move-items}}"
-
 const KEY_RECIPE_PATH = "{{recipe-path}}"
 const KEY_LAST_PHASE = "{{last-phase}}"
 const KEY_DEPENDS_ON_PHASE = "{{depends-on-phase}}"
 const KEY_ALTER_NAME = "{{alter-name}}"
 const KEY_ALTER_DIR_PATH = "{{alter-dir-path}}"
-
 const KEY_FORCE = "{{force}}"
-
 const KEY_ALTER_PATH = "{{alter-path}}"
 const KEY_BLUEPRINTS_PATH = "{{blueprints-path}}"
 const KEY_CODE_BLOCK_ROOT_PATH = "{{code-block-root-path}}"
 const KEY_CODE_BLOCK_PATH = "{{code-block-path}}"
 const KEY_PHASES_PATH = "{{phases-path}}"
-// const KEY_CODE_BLOCK_NAME_WITH_QUOTES = "{{code-block-name-with-quotes}}"
-// const KEY_ALTER_PATH_WITH_QUOTES = "{{alter-path-with-quotes}}"
-// const KEY_DEPENDS_ON_PHASE_WITH_QUOTES = "{{depends-on-phase-with-quotes}}"
-
 const KEY_FULL_ALTER_PATH = "{{full-alter-path}}"
-// const KEY_FULL_ALTER_PATH_WITH_QUOTES = "{{full-alter-path-with-quotes}}"
-
 const KEY_STORE_DIR_PATH = "{{store-dir-path}}"
 const KEY_CONTROL_JSON_PATH = "{{control-json-path}}"
 const KEY_KIND = "{{kind}}"
-
 const KEY_TOKEN_FILE_NAME = "{{token-file-name}}"
 const KEY_SRC_APP_PATH = "{{src-app-path}}"
+const KEY_ALTER_SUB_COMMAND = "{{alter-sub-command}}"
 
 const CONTROL_JSON_FILE = "control.json"
 const STORE_lc = "store"
 const STORE_DIRNAME = SPECIAL_DIR_PREFIX_ + STORE_lc
 
-
-
 const OPS_PIPELINE = "ops_pipeline"
+
+const RECAST = "recast"
+const PICK = "pick"
+const TRANSFORM = "transform"
