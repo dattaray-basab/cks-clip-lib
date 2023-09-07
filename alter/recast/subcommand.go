@@ -13,17 +13,17 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		{
 			Filepath: filepath.Join(templateMap[globals.KEY_CONTROL_JSON_PATH]),
 			Content: `
-	[
-		{
-			"op": "recast",
-				"directives": {
-				"declare": {
-					"name": "unknown-token-file.id_unknown_token",
-				}
+[
+	  {
+	    "op": "recast",
+		  "directives": {
+			 "declare": {
+				"name": "unknown-token-file.id_unknown_token"
 			}
-		}
-	]
-			`,
+		  }
+	  }
+]
+`,
 		},
 	}
 
