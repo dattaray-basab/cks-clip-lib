@@ -16,17 +16,17 @@ var MakeControlFile = func(templateMap map[string]string, fullQueryId string) er
   {
 	"op": "pick",
 	"directives": {
-	  "token_id":` + fullQueryId + `,
+	  "token_id": ` + fullQueryId + `,
 	  "options": [
 		{
 		  "rel_paths": [
-			"_app.js",
+			"_app.js"
 		  ],
 		  "sift": "_app_js"
 		},
 		{
 		  "rel_paths": [
-			"_document.js",
+			"_document.js"
 		  ],
 		  "sift": "_document_js"
 		}

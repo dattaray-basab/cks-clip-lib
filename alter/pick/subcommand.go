@@ -13,14 +13,14 @@ import (
 var BuildSubcommand = func(templateMap map[string]string) error {
 
 	var getQueryFilePath = func(templateMap map[string]string) (string, error) {
-		dirpath := filepath.Join(templateMap[globals.KEY_BLUEPRINTS_PATH], templateMap[globals.TOKENS_DIRNAME], templateMap[globals.QUERY_DIRNAME])
+		dirpath := filepath.Join(templateMap[globals.KEY_BLUEPRINTS_PATH], globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME)
 		if !common.IsDir(dirpath) {
 			err := os.MkdirAll(dirpath, os.ModePerm)
 			if err != nil {
 				return "", err
 			}
 		}
-		fName := templateMap[globals.KEY_ALTER_PATH] + globals.JSON_EXT
+		fName := templateMap[globals.KEY_ALTER_NAME] + globals.JSON_EXT
 		fPath := filepath.Join(dirpath, fName)
 		filePathExists := common.IsFile(fPath)
 		count := 0
