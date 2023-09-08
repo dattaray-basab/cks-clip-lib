@@ -41,13 +41,14 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		queryId := "ID_" + strconv.Itoa(suffix)
 		fullQueryId := globals.QUOTE + queryName + "." + queryId + globals.QUOTE
 
-		if err != nil {
-			return "", err
-		}
 		return fullQueryId, nil
 	}
 
 	queryFilePath, err := getQueryFilePath(templateMap)
+	if err != nil {
+		return err
+	}
+	
 	fullQueryId, err := getQueryId(templateMap, queryFilePath)
 	if err != nil {
 		return err
