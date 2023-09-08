@@ -13,13 +13,22 @@ var MakeQueryTokenFile = func(templateMap map[string]string,  queryFilePath stri
 			Filepath: queryFilePath,
 			Content: `
 [
-    {
-        ` + fullQueryId + `: [
-            "attractions",
-            "restaurants",
-            "events"
-        ]
-    }
+	{
+	  ' + fullQueryId + ': {',
+	  "kind": "multiselect",
+	  "prompt": "enter ...",
+	  "selector": [
+		0,
+		1
+	  ],
+	  "children": {
+		"kind": "literal",
+		"value": [
+		  "_app_js",
+		  "_document_js"
+		]
+	  }
+	}
 ]
 `,
 		},

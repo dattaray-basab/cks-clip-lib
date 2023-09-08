@@ -20,8 +20,15 @@ var MakeControlFile = func(templateMap map[string]string, fullQueryId string) er
 	  "options": [
 		{
 		  "rel_paths": [
+			"_app.js",
 		  ],
-		  "sift": ""
+		  "sift": "_app_js"
+		},
+		{
+		  "rel_paths": [
+			"_document.js",
+		  ],
+		  "sift": "_document_js"
 		}
 	  ]
 	}
