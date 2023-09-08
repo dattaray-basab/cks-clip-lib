@@ -14,7 +14,6 @@ import (
 
 var BuildSubcommand = func(templateMap map[string]string) error {
 
-
 	var getQueryFilePath = func(templateMap map[string]string) (string, error) {
 		dirpath := filepath.Join(templateMap[globals.KEY_BLUEPRINTS_PATH], globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME)
 		if !common.IsDir(dirpath) {
@@ -55,7 +54,7 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 			moveItemKey := strings.Replace(moveItemVal, ".", "_", -1)
 			moveMap[moveItemKey] = moveItemVal
 		}
-		// moveFile := templateMap[globals.KEY_ALTER_PATH] 
+		// moveFile := templateMap[globals.KEY_ALTER_PATH]
 		return moveMap
 	}
 
@@ -65,14 +64,13 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 	}
 	moveMap := getMoveMap(templateMap)
 	logger.Log.Debug(moveMap)
-	
-	template_tests.Junk(templateMap, moveMap)
+
+	template_tests.Expt1(templateMap, moveMap)
 
 	fullQueryId, err := getQueryId(templateMap, queryFilePath)
 	if err != nil {
 		return err
 	}
-
 
 	err = MakeControlFile(templateMap, moveMap, fullQueryId)
 	if err != nil {

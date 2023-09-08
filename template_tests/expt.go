@@ -12,7 +12,7 @@ type Inventory struct {
 	Count    uint
 }
 
-func Junk(templateMap map[string]string, moveMap map[string]string) {
+func Expt1(templateMap map[string]string, moveMap map[string]string) {
 	var buf bytes.Buffer
 	sweaters := Inventory{"wool", 17}
 
@@ -48,10 +48,10 @@ func Junk(templateMap map[string]string, moveMap map[string]string) {
 	s = buf.String()
 	fmt.Println(s)
 
-	tmplStr5 := "Greetings by name:\n {{range .}}\tHowdy {{toupper .}}!\n{{end}}Byes YouAlls.\n"
+	tmplStr5 := "Greetings by name:\n {{range .}}\tHowdy {{toupper .}}!\n{{end}}Bye Y'all's.\n"
 	funcMap := template.FuncMap{
 		"toupper": strings.ToUpper,
-        "tolower": strings.ToLower,
+		"tolower": strings.ToLower,
 	}
 	tmpl = template.Must(template.New("func").Funcs(funcMap).Parse(tmplStr5))
 	_ = tmpl.Execute(&buf, names)
