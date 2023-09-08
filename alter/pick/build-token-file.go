@@ -8,8 +8,10 @@ import (
 )
 
 var MakeQueryTokenFile = func(templateMap map[string]string, queryFilePath string, fullQueryId string) error {
-	idParts := strings.Split(fullQueryId, ".")
+	fullQueryIdWithoutQuotes := strings.ReplaceAll(fullQueryId, globals.QUOTE, "")
+	idParts := strings.Split(fullQueryIdWithoutQuotes, ".")
 	queryId := idParts[len(idParts)-1]
+	queryIdWithQuotes := globals.QUOTE + queryId + globals.QUOTE
 
 	queryTokenScaffold := globals.ScaffoldInfoTListT{
 
@@ -19,7 +21,7 @@ var MakeQueryTokenFile = func(templateMap map[string]string, queryFilePath strin
 {
   "__CONTENT": [
 	{
-	  "id": ` + queryId + `,
+	  "id": ` + queryIdWithQuotes + `,
 	  "kind": "multiselect",
 	  "prompt": "enter ...",
 	  "selector": [
