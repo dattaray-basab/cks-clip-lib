@@ -15,6 +15,13 @@ type Inventory struct {
 func Junk(templateMap map[string]string, moveMap map[string]string) {
 	var buf bytes.Buffer
 	sweaters := Inventory{"wool", 17}
+
+	// tmpl_, err := template.ParseFiles("x1.tmpl")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// logger.Log.Debug(tmpl_)
+
 	tmplStr := "{{.Count}} items are made of {{.Material}}\n"
 	tmpl := template.Must(template.New("test").Parse(tmplStr))
 	err := tmpl.Execute(&buf, sweaters)
