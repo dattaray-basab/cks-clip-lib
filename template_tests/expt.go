@@ -6,7 +6,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/dattaray-basab/cks-clip-lib/template_store"
+	"github.com/dattaray-basab/cks-clip-lib/templates"
+	// "github.com/dattaray-basab/cks-clip-lib/templates"
 )
 
 type Inventory struct {
@@ -24,7 +25,7 @@ func Expt1(templateMap map[string]string, moveMap map[string]string) {
 	// }
 	// logger.Log.Debug(tmpl_)
 
-	tmplStr := template_store.T1
+	tmplStr := templates.T1
 	tmpl := template.Must(template.New("t1").Parse(tmplStr))
 	err := tmpl.Execute(&buf, sweaters)
 	if err != nil {
