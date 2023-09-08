@@ -19,7 +19,6 @@ func CreateAllRecipeFiles(baseDirpath string, tokenFileName string) error {
 			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME, tokenFileName+globals.JSON_EXT),
 			Content: `
 {
-  "__SCHEMA": "s_context",
   "__CONTENT": [
   ]
 }

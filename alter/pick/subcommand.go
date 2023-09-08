@@ -44,11 +44,15 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		return fullQueryId, nil
 	}
 
+	// var getMoveMap = func(templateMap map[string]string) map[string]string {
+	// 	moveMap := make(map[string]string)
+	// 	moveFile := templateMap[globals.KEY_ALTER_PATH] 
+
 	queryFilePath, err := getQueryFilePath(templateMap)
 	if err != nil {
 		return err
 	}
-	
+
 	fullQueryId, err := getQueryId(templateMap, queryFilePath)
 	if err != nil {
 		return err

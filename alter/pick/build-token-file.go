@@ -1,20 +1,25 @@
 package pick
 
 import (
+	"strings"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-var MakeQueryTokenFile = func(templateMap map[string]string,  queryFilePath string, fullQueryId string) error {
+var MakeQueryTokenFile = func(templateMap map[string]string, queryFilePath string, fullQueryId string) error {
+	idParts := strings.Split(fullQueryId, ".")
+	queryId := idParts[len(idParts)-1]
+
 	queryTokenScaffold := globals.ScaffoldInfoTListT{
 
 		{
 			Filepath: queryFilePath,
 			Content: `
-[
+{
+  "__CONTENT": [
 	{
-	  ' + fullQueryId + ': {',
+	  "id": ` + queryId + `,
 	  "kind": "multiselect",
 	  "prompt": "enter ...",
 	  "selector": [
@@ -29,7 +34,8 @@ var MakeQueryTokenFile = func(templateMap map[string]string,  queryFilePath stri
 		]
 	  }
 	}
-]
+  ]
+}
 `,
 		},
 	}
