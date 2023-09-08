@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
@@ -44,9 +45,17 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		return fullQueryId, nil
 	}
 
-	// var getMoveMap = func(templateMap map[string]string) map[string]string {
-	// 	moveMap := make(map[string]string)
-	// 	moveFile := templateMap[globals.KEY_ALTER_PATH] 
+	var getMoveMap = func(templateMap map[string]string) map[string]string {
+		moveMap := make(map[string]string)
+		moveItems := templateMap[globals.KEY_MOVE_ITEMS]
+		moveItemParts := strings.Split(moveItems, ":")
+		for _, moveItemVal := range moveItemParts {
+			moveItemKey := strings.Replace(moveItemVal, ".", "_", -1)
+			moveMap[moveItemKey] = moveItemVal
+		}
+		// moveFile := templateMap[globals.KEY_ALTER_PATH] 
+		return moveMap
+	}
 
 	queryFilePath, err := getQueryFilePath(templateMap)
 	if err != nil {
@@ -58,7 +67,9 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		return err
 	}
 
-	err = MakeControlFile(templateMap,  fullQueryId)
+	moveMap := getMoveMap(templateMap)
+	logger.Log.Debug(moveMap)
+	err = MakeControlFile(templateMap, moveMap, fullQueryId)
 	if err != nil {
 		return err
 	}
