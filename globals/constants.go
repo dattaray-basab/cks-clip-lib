@@ -7,6 +7,8 @@ const RecipePathKey = "CKS_ENV_RECIPE_PATH"
 const RecipeDirectory = "__DEV_3"
 const TEMPLATES_DIRNAME = "_templates"
 
+const QUOTE = "\""
+
 const RECIPE = "recipe"
 const PHASE = "phase"
 const ALTER = "alter"

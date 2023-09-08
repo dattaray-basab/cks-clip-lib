@@ -46,8 +46,8 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	var getAlterJson = func(templateMap map[string]string) map[string]interface{} {
 		// fullAlterPathWithQuotes := templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES]
 		fullAlterPath := templateMap[globals.KEY_FULL_ALTER_PATH]
-		const QUOTE = "\""
-		fullAlterPathWithQuotes := QUOTE + fullAlterPath + QUOTE
+		
+		fullAlterPathWithQuotes := globals.QUOTE + fullAlterPath + globals.QUOTE
 
 		jsonStr := `	{
 	  "alter": {
