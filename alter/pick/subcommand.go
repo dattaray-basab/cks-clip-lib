@@ -9,8 +9,9 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 	"github.com/dattaray-basab/cks-clip-lib/logger"
-	"github.com/dattaray-basab/cks-clip-lib/template_tests/expt1"
-	"github.com/dattaray-basab/cks-clip-lib/template_tests/expt2"
+	// "github.com/dattaray-basab/cks-clip-lib/template_tests/expt1"
+	// "github.com/dattaray-basab/cks-clip-lib/template_tests/expt2"
+	"github.com/dattaray-basab/cks-clip-lib/template_tests/expt3"
 )
 
 var BuildSubcommand = func(templateMap map[string]string) error {
@@ -66,8 +67,9 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 	moveMap := getMoveMap(templateMap)
 	logger.Log.Debug(moveMap)
 
-	expt1.Expt1(templateMap, moveMap)
-	expt2.Expt2(templateMap, moveMap)
+	// expt1.Expt1(templateMap, moveMap)
+	// expt2.Expt2(templateMap, moveMap)
+	expt3.Expt3(templateMap, moveMap)
 
 	fullQueryId, err := getQueryId(templateMap, queryFilePath)
 	if err != nil {
