@@ -1,4 +1,4 @@
-package template_tests
+package expt1
 
 import (
 	"bytes"
@@ -7,7 +7,6 @@ import (
 	"text/template"
 
 	"github.com/dattaray-basab/cks-clip-lib/templates"
-	// "github.com/dattaray-basab/cks-clip-lib/templates"
 )
 
 type Inventory struct {
@@ -18,12 +17,6 @@ type Inventory struct {
 func Expt1(templateMap map[string]string, moveMap map[string]string) {
 	var buf bytes.Buffer
 	sweaters := Inventory{"wool", 17}
-
-	// tmpl_, err := template.ParseFiles("x1.tmpl")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// logger.Log.Debug(tmpl_)
 
 	tmplStr := templates.T1
 	tmpl := template.Must(template.New("t1").Parse(tmplStr))
