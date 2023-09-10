@@ -12,7 +12,7 @@ var (
             {{- $v.Index }}
             {{- if $v.IsLastItem }}{{ else }}, {{ end -}}
         {{- end -}}
-          ],
+          ]
           "children": {
             "kind": "literal",
               "value": [
@@ -21,7 +21,7 @@ var (
             {{- if $v.IsLastItem }}{{ else }}, {{ end -}}
         {{- end -}}
               ]
-            },
+            }
       }
   ]
 }
