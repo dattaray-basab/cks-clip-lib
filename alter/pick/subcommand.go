@@ -47,10 +47,6 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		return fullQueryId, nil
 	}
 
-	type MoveItemDetailsT struct {
-		Key   string
-		Index int
-	}
 
 	// var GetMoveItemMap = func(templateMap map[string]string) map[string] MoveItemDetailsT {
 	// 	moveItemMap := make(map[string] MoveItemDetailsT)
@@ -75,7 +71,7 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 	if err != nil {
 		return err
 	}
-	moveItemMap := GetMoveItemMap(templateMap)
+	moveItemMap := common.GetMoveItemMap(templateMap)
 	logger.Log.Debug(moveItemMap)
 
 	// expt1.Expt1(templateMap, moveItemMap)
