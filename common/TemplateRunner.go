@@ -6,7 +6,6 @@ import (
 	"text/template"
 
 	"github.com/dattaray-basab/cks-clip-lib/globals"
-	// "github.com/dattaray-basab/cks-clip-lib/templates"
 )
 
 func RunTemplate(data map[string]map[string][]string, templateText string, templateMap map[string]string, substitutionTemplate globals.SubstitionTemplateT) (string, error) {
