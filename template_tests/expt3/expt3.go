@@ -9,7 +9,7 @@ import (
 	// "github.com/dattaray-basab/cks-clip-lib/templates"
 )
 
-func Run(text string)(string, error) {
+func Run(text string) (string, error) {
 	var buf bytes.Buffer
 	//   fmt.Printf("Template:\n%s\n", text)
 	//   fmt.Printf("Output:\n\n'''\n")
@@ -21,9 +21,7 @@ func Run(text string)(string, error) {
 	return buf.String(), nil
 }
 
-func Expt3(templateText string, templateMap map[string]string, substitutionTemplate globals.SubstitionTemplateT) (string, error) {
+func RunTemplate(templateText string, templateMap map[string]string, substitutionTemplate globals.SubstitionTemplateT) (string, error) {
 	result, err := Run(templateText)
 	return result, err
 }
-
-

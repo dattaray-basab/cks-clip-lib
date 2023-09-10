@@ -70,7 +70,7 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 
 	expt1.Expt1(templateMap, substitutionTemplate)
 	expt2.Expt2(templateMap, substitutionTemplate)
-	expt3.Expt3(templates.T3, templateMap, substitutionTemplate)
+	expt3.RunTemplate(templates.T3, templateMap, substitutionTemplate)
 
 	err = MakeControlFile(templateMap, moveItemMap, QuotedFullQueryId)
 	if err != nil {
