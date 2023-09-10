@@ -11,7 +11,7 @@ var (
         {{ range $k, $v := .MoveItemsInfo -}}
           "selector": [
             {{ $v.Index }}
-            {{if $v.IsLastItem}},{{else}}{{end}}
+            {{- if $v.IsLastItem -}}{{else}},{{- end -}}
           ],
           "children": {
             "kind": "literal",
@@ -19,7 +19,7 @@ var (
                   {{ $v.Key }},
               ]
             },
-          {{- end }}
+        {{- end }}
       }
   ]
 }
