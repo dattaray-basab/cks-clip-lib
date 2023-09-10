@@ -13,7 +13,7 @@ import (
 
 
 
-func Expt2(templateMap map[string]string, moveItemMap map[string]globals.MoveItemDetailsT) {
+func Expt2(templateMap map[string]string, substitutionTemplate globals.SubstitionTemplateT) {
 
 	tmplStr := templates.T2
 

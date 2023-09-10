@@ -54,15 +54,20 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 	}
 	moveItemMap := common.GetMoveItemMap(templateMap)
 	logger.Log.Debug(moveItemMap)
-
-	expt1.Expt1(templateMap, moveItemMap)
-	expt2.Expt2(templateMap, moveItemMap)
-	expt3.Expt3(templateMap, moveItemMap)
-
-	fullQueryId, err := getQueryId(templateMap, queryFilePath)
+		fullQueryId, err := getQueryId(templateMap, queryFilePath)
 	if err != nil {
 		return err
 	}
+
+	substitutionTemplate :=
+		globals.SubstitionTemplateT{
+			FullQueryId : fullQueryId,
+			MoveItemsInfo : moveItemMap,
+		}
+
+	expt1.Expt1(templateMap, substitutionTemplate)
+	expt2.Expt2(templateMap, substitutionTemplate)
+	expt3.Expt3(templateMap, substitutionTemplate)
 
 	err = MakeControlFile(templateMap, moveItemMap, fullQueryId)
 	if err != nil {

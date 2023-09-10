@@ -14,7 +14,7 @@ type Inventory struct {
 	Count    uint
 }
 
-func Expt1(templateMap map[string]string, moveItemMap map[string]globals.MoveItemDetailsT) {
+func Expt1(templateMap map[string]string, substitutionTemplate globals.SubstitionTemplateT) {
 	var buf bytes.Buffer
 	sweaters := Inventory{"wool", 17}
 

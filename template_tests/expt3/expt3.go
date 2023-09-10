@@ -21,7 +21,7 @@ func run(text string)(string, error) {
 	return buf.String(), nil
 }
 
-func Expt3(templateMap map[string]string, moveItemMap map[string]globals.MoveItemDetailsT) (string, error) {
+func Expt3(templateMap map[string]string, substitutionTemplate globals.SubstitionTemplateT) (string, error) {
 	result, err := run(templates.T3)
 	return result, err
 }
