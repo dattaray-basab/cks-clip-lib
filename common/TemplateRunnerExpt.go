@@ -14,7 +14,7 @@ func RunTemplateExpt(data map[string]map[string][]string, templateText string, t
 	var buf bytes.Buffer
 	template.Must(
 		template.New("run").Parse(templateText),
-	).Execute(&buf, Data)
+	).Execute(&buf, data)
 	fmt.Println(buf.String())
 	return buf.String(), nil
 }
