@@ -8,7 +8,7 @@ var (
     "token_id": {{.FullQueryId}},
     {{.MoveItemsInfo}}": {
       {{- range $k, $v := . -}}
-        {{ $v }}
+        {{ $v -}}
           "options": [
             {
               "rel_paths": [
