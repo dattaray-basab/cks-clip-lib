@@ -14,6 +14,7 @@ type MoveItemDetailsT struct {
 
 type SubstitionTemplateT struct {
 	FullQueryId string
+	ShortQueryId string
 	MoveItemsInfo map[string]MoveItemDetailsT
 }
 

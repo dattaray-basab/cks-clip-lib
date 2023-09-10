@@ -47,34 +47,36 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		return fullQueryId, nil
 	}
 
-
 	queryFilePath, err := getQueryFilePath(templateMap)
 	if err != nil {
 		return err
 	}
 	moveItemMap := common.GetMoveItemMap(templateMap)
 	logger.Log.Debug(moveItemMap)
-		fullQueryId, err := getQueryId(templateMap, queryFilePath)
+	QuotedFullQueryId, err := getQueryId(templateMap, queryFilePath)
 	if err != nil {
 		return err
 	}
 
+	QuotedShortQueryId := globals.QUOTE + templateMap[globals.KEY_ALTER_NAME] + globals.QUOTE
+
 	substitutionTemplate :=
 		globals.SubstitionTemplateT{
-			FullQueryId : fullQueryId,
-			MoveItemsInfo : moveItemMap,
+			FullQueryId:   QuotedFullQueryId,
+			ShortQueryId:  QuotedShortQueryId,
+			MoveItemsInfo: moveItemMap,
 		}
 
 	expt1.Expt1(templateMap, substitutionTemplate)
 	expt2.Expt2(templateMap, substitutionTemplate)
 	expt3.Expt3(templateMap, substitutionTemplate)
 
-	err = MakeControlFile(templateMap, moveItemMap, fullQueryId)
+	err = MakeControlFile(templateMap, moveItemMap, QuotedFullQueryId)
 	if err != nil {
 		return err
 	}
 
-	err = MakeQueryTokenFile(templateMap, moveItemMap, queryFilePath, fullQueryId)
+	err = MakeQueryTokenFile(templateMap, moveItemMap, queryFilePath, QuotedFullQueryId)
 	if err != nil {
 		return err
 	}
