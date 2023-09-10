@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"text/template"
 
+	"github.com/dattaray-basab/cks-clip-lib/globals"
 	"github.com/dattaray-basab/cks-clip-lib/templates"
 )
 
-func run(text string) {
+func run(text string)(string, error) {
 	var buf bytes.Buffer
 	//   fmt.Printf("Template:\n%s\n", text)
 	//   fmt.Printf("Output:\n\n'''\n")
@@ -17,10 +18,12 @@ func run(text string) {
 	).Execute(&buf, Data)
 	fmt.Println(buf.String())
 	// fmt.Printf("”'\n\n")
+	return buf.String(), nil
 }
 
-func Expt3(templateMap map[string]string, moveItemMap map[string]string) {
-	run(templates.T3)
+func Expt3(templateMap map[string]string, moveItemMap map[string]globals.MoveItemDetailsT) (string, error) {
+	result, err := run(templates.T3)
+	return result, err
 }
 
 

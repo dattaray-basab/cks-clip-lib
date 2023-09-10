@@ -5,8 +5,7 @@ import (
 	"fmt"
 	"strings"
 	"text/template"
-
-	"github.com/dattaray-basab/cks-clip-lib/alter/pick"
+	"github.com/dattaray-basab/cks-clip-lib/globals"
 	"github.com/dattaray-basab/cks-clip-lib/templates"
 )
 
@@ -15,7 +14,7 @@ type Inventory struct {
 	Count    uint
 }
 
-func Expt1(templateMap map[string]string, moveItemMap map[string]pick.MoveItemDetailsT) {
+func Expt1(templateMap map[string]string, moveItemMap map[string]globals.MoveItemDetailsT) {
 	var buf bytes.Buffer
 	sweaters := Inventory{"wool", 17}
 
