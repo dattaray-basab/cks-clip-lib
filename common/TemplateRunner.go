@@ -1,4 +1,4 @@
-package expt3
+package common
 
 import (
 	"bytes"
@@ -9,19 +9,19 @@ import (
 	// "github.com/dattaray-basab/cks-clip-lib/templates"
 )
 
-func Run(data, text string) (string, error) {
+func run(data map[string]map[string][]string, text string) (string, error) {
 	var buf bytes.Buffer
 	//   fmt.Printf("Template:\n%s\n", text)
 	//   fmt.Printf("Output:\n\n'''\n")
 	template.Must(
 		template.New("run").Parse(text),
-	).Execute(&buf, data)
+	).Execute(&buf, Data)
 	fmt.Println(buf.String())
 	// fmt.Printf("”'\n\n")
 	return buf.String(), nil
 }
 
-func RunTemplate(data string, templateText string, templateMap map[string]string, substitutionTemplate globals.SubstitionTemplateT) (string, error) {
-	result, err := Run(data, templateText)
+func RunTemplate(data map[string]map[string][]string, templateText string, templateMap map[string]string, substitutionTemplate globals.SubstitionTemplateT) (string, error) {
+	result, err := run(data, templateText)
 	return result, err
 }

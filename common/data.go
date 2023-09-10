@@ -1,4 +1,4 @@
-package expt3
+package common
 var (
   Data = map[string]map[string][]string{
     "1": {

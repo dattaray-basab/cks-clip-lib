@@ -10,7 +10,6 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/logger"
 	"github.com/dattaray-basab/cks-clip-lib/template_tests/expt1"
 	"github.com/dattaray-basab/cks-clip-lib/template_tests/expt2"
-	"github.com/dattaray-basab/cks-clip-lib/template_tests/expt3"
 	"github.com/dattaray-basab/cks-clip-lib/templates"
 )
 
@@ -70,7 +69,25 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 
 	expt1.Expt1(templateMap, substitutionTemplate)
 	expt2.Expt2(templateMap, substitutionTemplate)
-	expt3.RunTemplate(templates.T3, templateMap, substitutionTemplate)
+
+	data := map[string]map[string][]string {
+		"1": {
+			"1.1": {
+				"1.1.1",
+				"1.1.2",
+				"1.1.3",
+			},
+		},
+		"2": {
+			"2.1": {
+				"2.1.1",
+				"2.1.2",
+				"2.1.3",
+			},
+		},
+	}
+
+	common.RunTemplate( data, templates.T3, templateMap, substitutionTemplate)
 
 	err = MakeControlFile(templateMap, moveItemMap, QuotedFullQueryId)
 	if err != nil {
