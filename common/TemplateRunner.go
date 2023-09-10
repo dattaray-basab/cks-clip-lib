@@ -2,10 +2,10 @@ package common
 
 import (
 	"bytes"
-	"fmt"
 	"text/template"
 
 	"github.com/dattaray-basab/cks-clip-lib/globals"
+	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
 func RunTemplate(templateText string, tmplRootData globals.SubstitionTemplateT) (string, error) {
@@ -14,7 +14,7 @@ func RunTemplate(templateText string, tmplRootData globals.SubstitionTemplateT) 
 	template.Must(
 		template.New("run").Parse(templateText),
 	).Execute(&buf, tmplRootData)
-	fmt.Println(buf.String())
+	logger.Log.Debug(buf.String())
 
 	return buf.String(), nil
 

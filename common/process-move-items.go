@@ -19,7 +19,7 @@ var GetMoveItemMap = func(templateMap map[string]string) map[string]globals.Move
 		} 
 	
 		moveItemKey := strings.Replace(moveItemVal, ".", "_", -1)
-		MoveItemDetails := globals.MoveItemDetailsT{Key: moveItemVal, Index: index, IsLastItem: isLastItem}
+		MoveItemDetails := globals.MoveItemDetailsT{Key: moveItemKey, Index: index, IsLastItem: isLastItem}
 
 		moveItemMap[moveItemKey] = MoveItemDetails
 		index++

@@ -1,25 +1,29 @@
 package templates
 var (
-  PickControlTemplate = `
-[
-  {
-	"op": "pick",
-	"directives": {
-    "token_id": {{.FullQueryId}},
-    {{.MoveItemsInfo}}": {
-      {{- range $k, $v := . -}}
-        {{ $v -}}
-          "options": [
-            {
-              "rel_paths": [
-                "{{ $k }}"
-              ],
-              "sift": "{{.Key}}"
+  PickQueryTemplate = `
+{
+  "__CONTENT": [
+      {
+          "id": {{.ShortQueryId}},
+          "kind": "multiselect",
+          "prompt": "enter ...",
+          "selector": [
+        {{- range $k, $v := .MoveItemsInfo }}
+            {{- $v.Index }}
+            {{- if $v.IsLastItem }}{{ else }}, {{ end -}}
+        {{- end -}}
+          ],
+          "children": {
+            "kind": "literal",
+              "value": [
+        {{- range $k, $v := .MoveItemsInfo }}
+            "{{- $v.Key }}"
+            {{- if $v.IsLastItem }}{{ else }}, {{ end -}}
+        {{- end -}}
+              ]
             }
-          ]
-      {{- end }}
-    }
-  }
-]
+      }
+  ]
+}
 `
 )

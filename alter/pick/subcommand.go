@@ -71,24 +71,6 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 	// expt1.Expt1(templateMap, substitutionTemplate)
 	// expt2.Expt2(templateMap, substitutionTemplate)
 
-	// data := map[string]map[string][]string{
-	// 	"1": {
-	// 		"1.1": {
-	// 			"1.1.1",
-	// 			"1.1.2",
-	// 			"1.1.3",
-	// 		},
-	// 	},
-	// 	"2": {
-	// 		"2.1": {
-	// 			"2.1.1",
-	// 			"2.1.2",
-	// 			"2.1.3",
-	// 		},
-	// 	},
-	// }
-
-	// common.RunTemplateExpt(data, templates.T3, templateMap, tmplRootData)
 
 	content, error := common.RunTemplate( templates.PickQueryTemplate, tmplRootData)
 	if error != nil {
