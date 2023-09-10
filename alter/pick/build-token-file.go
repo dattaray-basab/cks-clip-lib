@@ -7,7 +7,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-var MakeQueryTokenFile = func(templateMap map[string]string, queryFilePath string, fullQueryId string) error {
+var MakeQueryTokenFile = func(templateMap map[string]string, moveItemMap map[string]globals.MoveItemDetailsT, queryFilePath string, fullQueryId string) error {
 	fullQueryIdWithoutQuotes := strings.ReplaceAll(fullQueryId, globals.QUOTE, "")
 	idParts := strings.Split(fullQueryIdWithoutQuotes, ".")
 	queryId := idParts[len(idParts)-1]

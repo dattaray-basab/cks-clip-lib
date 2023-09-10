@@ -5,7 +5,7 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-var MakeControlFile = func(templateMap map[string]string, moveMap map[string]string, fullQueryId string) error {
+var MakeControlFile = func(templateMap map[string]string, moveItemMap map[string]globals.MoveItemDetailsT, fullQueryId string) error {
 
 	jsonControlFileScaffold := globals.ScaffoldInfoTListT{
 

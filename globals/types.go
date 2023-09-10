@@ -6,3 +6,8 @@ type ScaffoldInfoT struct {
 }
 
 type ScaffoldInfoTListT []ScaffoldInfoT
+
+type MoveItemDetailsT struct {
+	Key   string
+	Index int
+}

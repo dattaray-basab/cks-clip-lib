@@ -7,12 +7,13 @@ import (
 	"html/template"
 	"log"
 
+	"github.com/dattaray-basab/cks-clip-lib/globals"
 	"github.com/dattaray-basab/cks-clip-lib/templates"
 )
 
 
 
-func Expt2(templateMap map[string]string, moveMap map[string]string) {
+func Expt2(templateMap map[string]string, moveItemMap map[string]globals.MoveItemDetailsT {
 
 	tmplStr := templates.T2
 

@@ -19,7 +19,7 @@ func run(text string) {
 	// fmt.Printf("”'\n\n")
 }
 
-func Expt3(templateMap map[string]string, moveMap map[string]string) {
+func Expt3(templateMap map[string]string, moveItemMap map[string]string) {
 	run(templates.T3)
 }
 

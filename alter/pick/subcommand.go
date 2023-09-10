@@ -4,14 +4,13 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
-	"strings"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 	"github.com/dattaray-basab/cks-clip-lib/logger"
 	// "github.com/dattaray-basab/cks-clip-lib/template_tests/expt1"
 	// "github.com/dattaray-basab/cks-clip-lib/template_tests/expt2"
-	"github.com/dattaray-basab/cks-clip-lib/template_tests/expt3"
+	// "github.com/dattaray-basab/cks-clip-lib/template_tests/expt3"
 )
 
 var BuildSubcommand = func(templateMap map[string]string) error {
@@ -48,40 +47,52 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		return fullQueryId, nil
 	}
 
-	var getMoveMap = func(templateMap map[string]string) map[string]string {
-		moveMap := make(map[string]string)
-		moveItems := templateMap[globals.KEY_MOVE_ITEMS]
-		moveItemParts := strings.Split(moveItems, ":")
-		for _, moveItemVal := range moveItemParts {
-			moveItemKey := strings.Replace(moveItemVal, ".", "_", -1)
-			moveMap[moveItemKey] = moveItemVal
-		}
-		// moveFile := templateMap[globals.KEY_ALTER_PATH]
-		return moveMap
+	type MoveItemDetailsT struct {
+		Key   string
+		Index int
 	}
+
+	// var GetMoveItemMap = func(templateMap map[string]string) map[string] MoveItemDetailsT {
+	// 	moveItemMap := make(map[string] MoveItemDetailsT)
+	// 	moveItems := templateMap[globals.KEY_MOVE_ITEMS]
+	// 	moveItemParts := strings.Split(moveItems, ":")
+	// 	index := 0
+	// 	for _, moveItemVal := range moveItemParts {
+	// 		moveItemKey := strings.Replace(moveItemVal, ".", "_", -1)
+	// 		MoveItemDetails := MoveItemDetailsT{moveItemVal, index}
+
+	// 		moveItemMap[moveItemKey] = MoveItemDetails
+	// 		// moveItemMap[moveItemKey.Key] = moveItemVal
+
+	// 		// moveItemMap[moveItemKey].Index = index
+	// 		index++
+	// 	}
+	// 	// moveFile := templateMap[globals.KEY_ALTER_PATH]
+	// 	return moveItemMap
+	// }
 
 	queryFilePath, err := getQueryFilePath(templateMap)
 	if err != nil {
 		return err
 	}
-	moveMap := getMoveMap(templateMap)
-	logger.Log.Debug(moveMap)
+	moveItemMap := GetMoveItemMap(templateMap)
+	logger.Log.Debug(moveItemMap)
 
-	// expt1.Expt1(templateMap, moveMap)
-	// expt2.Expt2(templateMap, moveMap)
-	expt3.Expt3(templateMap, moveMap)
+	// expt1.Expt1(templateMap, moveItemMap)
+	// expt2.Expt2(templateMap, moveItemMap)
+	// expt3.Expt3(templateMap, moveItemMap)
 
 	fullQueryId, err := getQueryId(templateMap, queryFilePath)
 	if err != nil {
 		return err
 	}
 
-	err = MakeControlFile(templateMap, moveMap, fullQueryId)
+	err = MakeControlFile(templateMap, moveItemMap, fullQueryId)
 	if err != nil {
 		return err
 	}
 
-	err = MakeQueryTokenFile(templateMap, queryFilePath, fullQueryId)
+	err = MakeQueryTokenFile(templateMap, moveItemMap, queryFilePath, fullQueryId)
 	if err != nil {
 		return err
 	}
