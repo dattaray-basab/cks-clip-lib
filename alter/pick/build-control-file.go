@@ -5,36 +5,38 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-var MakeControlFile = func(templateMap map[string]string, content string, moveItemMap map[string]globals.MoveItemDetailsT, fullQueryId string) error {
+var MakeControlFile = func(templateMap map[string]string, content string) error {
 
 	jsonControlFileScaffold := globals.ScaffoldInfoTListT{
 
 		{
 			Filepath: templateMap[globals.KEY_CONTROL_JSON_PATH],
-			Content: `
-[
-  {
-	"op": "pick",
-	"directives": {
-	  "token_id": ` + fullQueryId + `,
-	  "options": [
-		{
-		  "rel_paths": [
-			"_app.js"
-		  ],
-		  "sift": "_app_js"
-		},
-		{
-		  "rel_paths": [
-			"_document.js"
-		  ],
-		  "sift": "_document_js"
-		}
-	  ]
-	}
-  }
-]
-`,
+			Content: content,
+// 			`
+// [
+//   {
+// 	"op": "pick",
+// 	"directives": {
+// 	  "token_id": ` + fullQueryId + `,
+// 	  "options": [
+// 		{
+// 		  "rel_paths": [
+// 			"_app.js"
+// 		  ],
+// 		  "sift": "_app_js"
+// 		},
+// 		{
+// 		  "rel_paths": [
+// 			"_document.js"
+// 		  ],
+// 		  "sift": "_document_js"
+// 		}
+// 	  ]
+// 	}
+//   }
+// ]
+// `
+// ,
 		},
 	}
 

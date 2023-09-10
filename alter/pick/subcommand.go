@@ -72,19 +72,24 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 	// expt2.Expt2(templateMap, substitutionTemplate)
 
 
-	content, error := common.RunTemplate( templates.PickQueryTemplate, tmplRootData)
+	contentQuery, error := common.RunTemplate( templates.PickQueryTemplate, tmplRootData)
 	if error != nil {
 		return error
 	}
-
-	err = MakeControlFile(templateMap, content, moveItemMap, QuotedFullQueryId)
+	err = MakeQueryTokenFile(templateMap, contentQuery, queryFilePath)
 	if err != nil {
 		return err
 	}
 
-	err = MakeQueryTokenFile(templateMap, moveItemMap, queryFilePath, QuotedFullQueryId)
+	contentControl, error := common.RunTemplate( templates.PickControlTemplate, tmplRootData)
+	if error != nil {
+		return error
+	}
+	err = MakeControlFile(templateMap, contentControl)
 	if err != nil {
 		return err
 	}
+
+
 	return nil
 }

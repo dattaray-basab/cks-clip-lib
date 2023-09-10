@@ -12,7 +12,7 @@ var (
               "rel_paths": [
                 "{{ $k }}"
               ],
-              "sift": "{{ $v.Key}}"
+              "sift": "{{ $v.Key }}"
             }
           ]
       {{- end }}
