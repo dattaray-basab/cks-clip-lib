@@ -8,18 +8,20 @@ var (
           "id": {{.ShortQueryId}},
           "kind": "multiselect",
           "prompt": "enter ...",
-        {{ range $k, $v := .MoveItemsInfo -}}
           "selector": [
+        {{ range $k, $v := .MoveItemsInfo -}}
             {{ $v.Index }}
-            {{- if $v.IsLastItem -}}{{else}},{{- end -}}
+            {{- if $v.IsLastItem -}}{{else}},{{- end }}
+        {{- end }}
           ],
           "children": {
             "kind": "literal",
               "value": [
+        {{ range $k, $v := .MoveItemsInfo -}}
                   {{ $v.Key }},
+        {{- end }}
               ]
             },
-        {{- end }}
       }
   ]
 }
