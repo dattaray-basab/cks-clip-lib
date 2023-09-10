@@ -90,7 +90,7 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 
 	common.RunTemplateExpt(data, templates.T3, templateMap, tmplRootData)
 
-	content, error := common.RunTemplate(data, templates.T3, tmplRootData)
+	content, error := common.RunTemplate(data, templates.PickQueryTemplate, tmplRootData)
 	if error != nil {
 		return error
 	}
