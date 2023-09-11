@@ -8,9 +8,6 @@ import (
 
 
 var BuildSubcommand = func(templateMap map[string]string) error {
-	pickQueryTemplate := templates.PickQueryTemplate
-	pickControlTemplate := templates.PickControlTemplate
-
-	err := common.BuildAlterInfrastucture(templateMap, pickQueryTemplate, pickControlTemplate)
+	err := common.BuildAlterInfrastucture(templateMap, templates.PickQueryTemplate, templates.PickControlTemplate)
 	return err
 }

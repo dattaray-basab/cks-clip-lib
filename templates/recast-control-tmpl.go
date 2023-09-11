@@ -2,23 +2,14 @@ package templates
 var (
   RecastControlTemplate = `
 [
-  {
-	"op": "recast",
-	"directives": {
-    "token_id": "{{.FullQueryId}}",
-        "options": [
-        {{- range $k, $v := .MoveItemsInfo }}
-            {
-              "rel_paths": [
-                "{{ $k }}"
-              ],
-              "sift": "{{ $v.Key }}"
-            }
-            {{- if $v.IsLastItem }}{{ else }}, {{ end -}}
-        {{- end }}
-        ]
-    }
-  }
+	  {
+	    "op": "recast",
+		  "directives": {
+			 "declare": {
+				"name": "unknown-token-file.id_unknown_token"
+			}
+		  }
+	  }
 ]
 `
 )
