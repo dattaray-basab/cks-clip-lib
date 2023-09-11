@@ -59,18 +59,18 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 	moveItemMap := common.GetMoveItemMap(templateMap)
 	logger.Log.Debug(moveItemMap)
 	fullQueryId, err := getQueryId(templateMap, queryFilePath)
-	quotedFullQueryId := globals.QUOTE + fullQueryId + globals.QUOTE
+	// quotedFullQueryId := globals.QUOTE + fullQueryId + globals.QUOTE
 	if err != nil {
 		return err
 	}
 	queryIdParts := strings.Split(fullQueryId, ".")
 	shortQueryId := queryIdParts[len(queryIdParts)-1]
-	quotedShortQueryId := globals.QUOTE + shortQueryId + globals.QUOTE
+	// quotedShortQueryId := globals.QUOTE + shortQueryId + globals.QUOTE
 
 	tmplRootData :=
 		globals.SubstitionTemplateT{
-			FullQueryId:   quotedFullQueryId,
-			ShortQueryId:  quotedShortQueryId,
+			FullQueryId:   fullQueryId,
+			ShortQueryId:  shortQueryId,
 			MoveItemsInfo: moveItemMap,
 		}
 

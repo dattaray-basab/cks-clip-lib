@@ -12,31 +12,7 @@ var MakeControlFile = func(templateMap map[string]string, content string) error 
 		{
 			Filepath: templateMap[globals.KEY_CONTROL_JSON_PATH],
 			Content: content,
-// 			`
-// [
-//   {
-// 	"op": "pick",
-// 	"directives": {
-// 	  "token_id": ` + fullQueryId + `,
-// 	  "options": [
-// 		{
-// 		  "rel_paths": [
-// 			"_app.js"
-// 		  ],
-// 		  "sift": "_app_js"
-// 		},
-// 		{
-// 		  "rel_paths": [
-// 			"_document.js"
-// 		  ],
-// 		  "sift": "_document_js"
-// 		}
-// 	  ]
-// 	}
-//   }
-// ]
-// `
-// ,
+
 		},
 	}
 

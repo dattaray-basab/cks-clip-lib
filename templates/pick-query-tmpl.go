@@ -4,7 +4,7 @@ var (
 {
   "__CONTENT": [
       {
-          "id": {{.ShortQueryId}},
+          "id": "{{.ShortQueryId}}",
           "kind": "multiselect",
           "prompt": "enter ...",
           "selector": [

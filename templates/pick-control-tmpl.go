@@ -5,7 +5,7 @@ var (
   {
 	"op": "pick",
 	"directives": {
-    "token_id": {{.FullQueryId}},
+    "token_id": "{{.FullQueryId}}",
         "options": [
         {{- range $k, $v := .MoveItemsInfo }}
             {
