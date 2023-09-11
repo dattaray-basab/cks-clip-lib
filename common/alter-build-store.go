@@ -1,0 +1,79 @@
+package common
+
+import (
+	"errors"
+	"os"
+	"path/filepath"
+	"strings"
+
+	"github.com/dattaray-basab/cks-clip-lib/globals"
+	"github.com/dattaray-basab/cks-clip-lib/logger"
+)
+
+var BuildStore = func(templateMap map[string]string) error {
+	var buildStoreDir = func(templateMap map[string]string, writeMode bool) error {
+
+		var matches = func(list []string, item string) bool {
+			for _, listItem := range list {
+				if listItem == item {
+					return true
+				}
+			}
+			return false
+		}
+
+		move_items := strings.Split(templateMap[globals.KEY_MOVE_ITEMS], ":")
+		for i, item := range move_items {
+			move_items[i] = strings.TrimSpace(item)
+		}
+
+		logger.Log.Debug(move_items)
+
+		files, err := os.ReadDir(templateMap[globals.KEY_CODE_BLOCK_PATH])
+		if err != nil {
+			return err
+		}
+
+		faultyOrMissingItems := []string{}
+		for _, item := range files {
+			if matches(move_items, item.Name()) {
+				item_path := filepath.Join(templateMap[globals.KEY_CODE_BLOCK_PATH], item.Name())
+				if _, err := os.Stat(item_path); os.IsNotExist(err) {
+					faultyOrMissingItems = append(faultyOrMissingItems, item.Name())
+				}
+				// if common.IsDir(item_path) {
+				parentDir := filepath.Dir(item_path)
+				alterName := filepath.Base(templateMap[globals.KEY_ALTER_PATH])
+				newParent := filepath.Join(parentDir, alterName, globals.STORE_DIRNAME)
+				if writeMode {
+					err := os.MkdirAll(newParent, os.ModePerm)
+					if err != nil {
+						return err
+					}
+					new_dirpath := filepath.Join(newParent, item.Name())
+					err = os.Rename(item_path, new_dirpath)
+					if err != nil {
+						return err
+					}
+				}
+			}
+		}
+
+		if len(faultyOrMissingItems) > 0 {
+			msg := "FAILED: faulty or missing move items: " + strings.Join(faultyOrMissingItems, ", ")
+			logger.Log.Error(msg)
+			return errors.New(msg)
+		}
+		return nil
+	}
+
+	err := buildStoreDir(templateMap, false)
+	if err != nil {
+		return err
+	}
+	err = buildStoreDir(templateMap, true)
+	if err != nil {
+		return err
+	}
+	return nil
+}
