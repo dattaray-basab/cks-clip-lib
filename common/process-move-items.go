@@ -28,7 +28,7 @@ var GetMoveItemMap = func(templateMap map[string]string) (map[string]globals.Mov
 	return moveItemMap, nil
 }
 // ???	
-	// 	if _, err := os.Stat(movePath); os.IsNotExist(err) {
+	// 	if _, err := os.Stat(movePath); !os.IsNotExist(err) {
 	// 		err := fmt.Sprintf("Move path does not exist: %v", movePath) 
 	// 		panic(err)
 	// 	}
