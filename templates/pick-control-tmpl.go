@@ -1,6 +1,6 @@
 package templates
 var (
-  RecastControlTemplate = `
+  PickControlTemplate = `
 [
   {
 	"op": "pick",
