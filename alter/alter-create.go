@@ -5,7 +5,6 @@ import (
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
-	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
 var CreatePhaseFile = func(templateMap map[string]string) error {
@@ -28,6 +27,6 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 	if err != nil {
 		return err
 	}
-	logger.Log.Info("*** SUCCESS ***: add alter - with newly created phase file")
+
 	return nil
 }

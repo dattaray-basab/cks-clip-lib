@@ -49,7 +49,11 @@ var BuildAlterInfrastucture = func(templateMap map[string]string, queryTemplate,
 	if err != nil {
 		return err
 	}
-	moveItemMap := GetMoveItemMap(templateMap)
+	moveItemMap, err := GetMoveItemMap(templateMap)
+	if err != nil {
+		return err
+	}
+	
 	logger.Log.Debug(moveItemMap)
 	fullQueryId, err := getQueryId(templateMap, queryFilePath)
 	if err != nil {

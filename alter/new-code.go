@@ -40,7 +40,7 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 		if err != nil {
 			return err
 		}
-		found := false
+		foundCount := 0
 		for _, item := range files {
 			if matches(move_items, item.Name()) {
 				item_path := filepath.Join(templateMap[globals.KEY_CODE_BLOCK_PATH], item.Name())
@@ -58,11 +58,11 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 				if err != nil {
 					return err
 				}
-				found = true
+				foundCount++
 			}
 		}
-		if !found && len(move_items) > 0 {
-			msg := "*** FAILED ***: no items found to move"
+		if foundCount ==0 || len(move_items) != foundCount {
+			msg := "*** FAILED ***: atleat one move item was not found"
 			logger.Log.Error(msg)
 			return errors.New(msg)
 		}

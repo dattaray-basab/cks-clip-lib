@@ -31,6 +31,7 @@ func AddAlter(
 
 	err = addAlter(templateMap)
 	if err != nil {
+		fmt.Println("*** ERROR ***: cks-clip add alter")
 		return err
 	}
 
