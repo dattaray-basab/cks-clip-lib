@@ -62,7 +62,7 @@ var BuildNewAlterDir = func(templateMap map[string]string) error {
 			}
 		}
 		if foundCount ==0 || len(move_items) != foundCount {
-			msg := "*** FAILED ***: atleat one move item was not found"
+			msg := "*** FAILED ***: atleast one move item was not found"
 			logger.Log.Error(msg)
 			return errors.New(msg)
 		}
