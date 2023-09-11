@@ -26,7 +26,9 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 				return "", err
 			}
 		}
-		fName := templateMap[globals.KEY_ALTER_NAME] + globals.JSON_EXT
+		fullAlterPath := templateMap[globals.KEY_FULL_ALTER_PATH]
+		queryPathName := strings.Replace(fullAlterPath, "/", "", -1)
+		fName := queryPathName + globals.JSON_EXT
 		fPath := filepath.Join(dirpath, fName)
 		filePathExists := common.IsFile(fPath)
 		count := 0
