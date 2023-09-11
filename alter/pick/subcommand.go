@@ -4,10 +4,12 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 	"github.com/dattaray-basab/cks-clip-lib/logger"
+
 
 	// "github.com/dattaray-basab/cks-clip-lib/template_tests/expt1"
 	// "github.com/dattaray-basab/cks-clip-lib/template_tests/expt2"
@@ -43,7 +45,7 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		logger.Log.Debug(queryName)
 		suffix := 0
 		queryId := "ID_" + strconv.Itoa(suffix)
-		fullQueryId := globals.QUOTE + queryName + "." + queryId + globals.QUOTE
+		fullQueryId := queryName + "." + queryId //??? TODO: check if this is correct	
 
 		return fullQueryId, nil
 	}
@@ -54,17 +56,19 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 	}
 	moveItemMap := common.GetMoveItemMap(templateMap)
 	logger.Log.Debug(moveItemMap)
-	QuotedFullQueryId, err := getQueryId(templateMap, queryFilePath)
+	fullQueryId, err := getQueryId(templateMap, queryFilePath)
+	quotedFullQueryId := globals.QUOTE + fullQueryId + globals.QUOTE
 	if err != nil {
 		return err
 	}
-
-	QuotedShortQueryId := globals.QUOTE + templateMap[globals.KEY_ALTER_NAME] + globals.QUOTE
+	queryIdParts := strings.Split(fullQueryId, ".")
+	shortQueryId := queryIdParts[len(queryIdParts)-1]
+	quotedShortQueryId := globals.QUOTE + shortQueryId + globals.QUOTE
 
 	tmplRootData :=
 		globals.SubstitionTemplateT{
-			FullQueryId:   QuotedFullQueryId,
-			ShortQueryId:  QuotedShortQueryId,
+			FullQueryId:   quotedFullQueryId,
+			ShortQueryId:  quotedShortQueryId,
 			MoveItemsInfo: moveItemMap,
 		}
 

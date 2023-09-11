@@ -6,8 +6,8 @@ var (
 	"op": "pick",
 	"directives": {
     "token_id": {{.FullQueryId}},
-          "options": [
-        {{- range $k, $v := .MoveItemsInfo -}}
+        "options": [
+        {{- range $k, $v := .MoveItemsInfo }}
             {
               "rel_paths": [
                 "{{ $k }}"
@@ -16,7 +16,7 @@ var (
             }
             {{- if $v.IsLastItem }}{{ else }}, {{ end -}}
         {{- end }}
-          ]
+        ]
     }
   }
 ]
