@@ -3,7 +3,7 @@ var (
   PickControlTemplate = `
 [
   {
-	"op": "pick",
+	"op": "recast",
 	"directives": {
     "token_id": "{{.FullQueryId}}",
         "options": [
