@@ -112,6 +112,7 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 		}
 		return nil
 	}
+	
 	err := BuildNewAlterDir(templateMap)
 	if err != nil {
 		return err

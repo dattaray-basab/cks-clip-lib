@@ -2,6 +2,7 @@ package common
 
 import (
 	"errors"
+
 	"os"
 	"path/filepath"
 	"strings"
@@ -34,14 +35,14 @@ var BuildStore = func(templateMap map[string]string) error {
 			return err
 		}
 
-		faultyOrMissingItems := []string{}
+		missingItems := []string{}
+		missingMatches := []string{}
 		for _, item := range files {
 			if matches(move_items, item.Name()) {
 				item_path := filepath.Join(templateMap[globals.KEY_CODE_BLOCK_PATH], item.Name())
 				if _, err := os.Stat(item_path); os.IsNotExist(err) {
-					faultyOrMissingItems = append(faultyOrMissingItems, item.Name())
+					missingItems = append(missingItems, item.Name())
 				}
-				// if common.IsDir(item_path) {
 				parentDir := filepath.Dir(item_path)
 				alterName := filepath.Base(templateMap[globals.KEY_ALTER_PATH])
 				newParent := filepath.Join(parentDir, alterName, globals.STORE_DIRNAME)
@@ -56,14 +57,37 @@ var BuildStore = func(templateMap map[string]string) error {
 						return err
 					}
 				}
+
+			} else {
+				missingMatches = append(missingMatches, item.Name())
 			}
 		}
 
-		if len(faultyOrMissingItems) > 0 {
-			msg := "FAILED: faulty or missing move items: " + strings.Join(faultyOrMissingItems, ", ")
+		actualMisses := []string{}
+		for _, moveItem := range move_items {
+			found := false
+			for _, item := range missingMatches {
+				if item == moveItem {
+					found = true
+				}
+			}
+			if !found {
+				actualMisses = append(actualMisses, moveItem)
+			}
+		}
+
+		if len(missingItems) > 0 {
+			msg := "FAILED: move items that do not exist: " + strings.Join(missingItems, ", ")
 			logger.Log.Error(msg)
 			return errors.New(msg)
 		}
+
+		if len(actualMisses) > 0 {
+			msg := "FAILED: actual move items that do not match: " + strings.Join(actualMisses, ", ")
+			logger.Log.Error(msg)
+			return errors.New(msg)
+		}
+
 		return nil
 	}
 
