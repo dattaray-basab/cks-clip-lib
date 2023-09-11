@@ -46,7 +46,7 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	var getAlterJson = func(templateMap map[string]string) map[string]interface{} {
 		// fullAlterPathWithQuotes := templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES]
 		fullAlterPath := templateMap[globals.KEY_FULL_ALTER_PATH]
-		
+
 		fullAlterPathWithQuotes := globals.QUOTE + fullAlterPath + globals.QUOTE
 
 		jsonStr := `	{
@@ -112,6 +112,10 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 		}
 		return nil
 	}
+	err := BuildNewAlterDir(templateMap)
+	if err != nil {
+		return err
+	}
 
 	phaseContent, err := addNewAlterToPhase(templateMap)
 	if err != nil {
@@ -122,10 +126,7 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 	if err != nil {
 		return err
 	}
-	err = BuildNewAlterDir(templateMap)
-	if err != nil {
-		return err
-	}
-	logger.Log.Info("*** SUCCESS ***: add alter - with updated phase file")
+
+	logger.Log.Info("SUCCESS: add alter - with updated phase file")
 	return nil
 }

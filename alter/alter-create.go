@@ -8,10 +8,14 @@ import (
 )
 
 var CreatePhaseFile = func(templateMap map[string]string) error {
+	err := BuildNewAlterDir(templateMap)
+	if err != nil {
+		return err
+	}
 	lastPhase := templateMap[globals.KEY_LAST_PHASE]
 	phaseName := templateMap[globals.KEY_PHASE_NAME]
 	phasesPath := templateMap[globals.KEY_PHASES_PATH]
-	err := BuildNewPhaseFile(templateMap, phasesPath, phaseName, lastPhase)
+	err = BuildNewPhaseFile(templateMap, phasesPath, phaseName, lastPhase)
 	if err != nil {
 		return err
 	}
@@ -19,11 +23,6 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 
 	// substitute the templateMap values
 	err = common.ReplaceUsingTemplateMap(templateMap, fullPhasePath)
-	if err != nil {
-		return err
-	}
-
-	err = BuildNewAlterDir(templateMap)
 	if err != nil {
 		return err
 	}

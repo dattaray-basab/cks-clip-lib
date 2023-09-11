@@ -100,6 +100,6 @@ func CreateRecipe(templateMap map[string]string) error {
 
 	err = processBlockCode(templateMap, recipePath, srcAppPath)
 
-	logger.Log.Info("*** SUCCESS ***: created recipe")
+	logger.Log.Info("SUCCESS: created recipe")
 	return err
 }

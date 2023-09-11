@@ -64,7 +64,7 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
 			return err
 		}
 	}
-		logger.Log.Info("*** SUCCESS ***: add alter")
+	logger.Log.Info("SUCCESS: add alter")
 
 	return nil
 }
