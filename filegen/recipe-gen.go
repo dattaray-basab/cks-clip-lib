@@ -15,7 +15,7 @@ func CreatePhaseAndMiscFilesAndRun(baseDirpath string, tokenFileName string) err
 		return err
 	}
 	rootPath := filepath.Dir(baseDirpath)
-	
+
 	tokenFilePath := filepath.Join(rootPath, globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME, tokenFileName+globals.JSON_EXT)
 	logger.Log.Debug(tokenFilePath)
 
@@ -37,7 +37,8 @@ func CreatePhaseAndMiscFilesAndRun(baseDirpath string, tokenFileName string) err
   "MODE_LOG": false,
   "RESPONSE_CONTEXT": "1_response_context",
   "OPERATION_FOLDER_PREFIX": "__",
-  "APP_PREFIX": "__CKS."
+  "APP_PREFIX": "__cks_codegen.",
+  "ENFORCED_APP_NAME": "__CKS_codegen.nextjs"
 }
 		`,
 		},
@@ -72,7 +73,7 @@ if error is not None:
 		`,
 		},
 		{
-			Filepath: filepath.Join(rootPath, globals.RECIPE_CONFIG_),
+			Filepath: filepath.Join(baseDirpath, globals.RECIPE_LOCATOR),
 			Content: `
 [
 ]

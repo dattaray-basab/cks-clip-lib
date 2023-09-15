@@ -26,6 +26,7 @@ func CreateRecipe(templateMap map[string]string) error {
 	}
 
 	srcAppPath := templateMap[globals.KEY_SRC_APP_PATH]
+
 	recipePath := templateMap[globals.KEY_RECIPE_PATH]
 	tokenFileName := templateMap[globals.KEY_TOKEN_FILE_NAME]
 

@@ -11,7 +11,7 @@ import (
 )
 
 var BuildAlterInfrastucture = func(templateMap map[string]string, queryTemplate, controlTemplate string) error {
-	var getQueryFilePath = func(templateMap map[string]string) (string, error) {
+	var getQueryFilePath = func(templateMap map[string]string) (string, error) { //?1
 		dirpath := filepath.Join(templateMap[globals.KEY_BLUEPRINTS_PATH], globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME)
 		if !IsDir(dirpath) {
 			err := os.MkdirAll(dirpath, os.ModePerm)

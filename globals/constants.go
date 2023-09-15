@@ -9,7 +9,7 @@ const TEMPLATES_DIRNAME = "_templates"
 
 const QUOTE = "\""
 
-const RECIPE = "recipe"
+const RECIPE = "RECIPE"
 const PHASE = "phase"
 const ALTER = "alter"
 const SPECIAL_DIR_PREFIX_ = "__"
@@ -38,7 +38,7 @@ const RUN_PY = "run.py"
 const JSON_EXT = ".json"
 const DIRECTIVES_lc = "directives"
 const DIRECTIVES_JSON = DIRECTIVES_lc + JSON_EXT
-const RECIPE_CONFIG_ = "__RECIPE_CONFIG.json"
+const RECIPE_LOCATOR = "recipe_locator.json"
 const KEY_TARGET = "{{target}}"
 const KEY_PHASE_NAME = "{{phase-name}}"
 const KEY_CODE_BLOCK_NAME = "{{code-block-name}}"

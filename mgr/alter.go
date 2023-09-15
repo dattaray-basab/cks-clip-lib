@@ -90,6 +90,7 @@ func addAlter(templateMap map[string]string) error {
 		recipeDirpath := templateMap[globals.KEY_RECIPE_PATH]
 		target := templateMap[globals.KEY_TARGET]
 
+//?1
 		blueprintsPath := filepath.Join(
 			recipeDirpath,
 			globals.BLUEPRINTS_DIRNAME)
@@ -98,6 +99,7 @@ func addAlter(templateMap map[string]string) error {
 		templateMap[globals.KEY_CODE_BLOCK_ROOT_PATH] = filepath.Join(recipeDirpath, globals.CODE_BLOCK_ROOT)
 		templateMap[globals.KEY_CODE_BLOCK_PATH] = codeBlockPath
 
+//?1
 		targetFromBlueprint, err := getTargetNameFromBlueprint(blueprintsPath)
 		if err != nil {
 			return err
@@ -108,6 +110,8 @@ func addAlter(templateMap map[string]string) error {
 			targetName = target
 		}
 
+
+//?1
 		phasePath := filepath.Join(blueprintsPath, targetName, globals.PHASES_DIRNAME)
 
 		logger.Log.Debug(phasePath)

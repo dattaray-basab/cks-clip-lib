@@ -31,7 +31,7 @@ func CreateOrUpdatePhaseFile(templateMap map[string]string) error {
 		}
 		return false, nil
 	}
-
+//?1
 	templateMap[globals.KEY_PHASES_PATH] = filepath.Join(templateMap[globals.KEY_BLUEPRINTS_PATH], templateMap[globals.KEY_TARGET], globals.PHASES_DIRNAME)
 	phasesPath := templateMap[globals.KEY_PHASES_PATH]
 
