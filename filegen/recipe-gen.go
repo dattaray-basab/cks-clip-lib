@@ -34,9 +34,10 @@ func CreatePhaseAndMiscFilesAndRun(baseDirpath string, tokenFileName string) err
 			Content: `
 {
   "LOG_LEVEL": 10,
-  "MODE_LOG": true,
+  "MODE_LOG": false,
   "RESPONSE_CONTEXT": "1_response_context",
-  "OPERATION_FOLDER_PREFIX": "__"
+  "OPERATION_FOLDER_PREFIX": "__",
+  "APP_PREFIX": "__CKS."
 }
 		`,
 		},
