@@ -50,9 +50,9 @@ func CreateRecipe(templateMap map[string]string) error {
 		}
 		return nil
 	}
-	var processPhaseAndMisc = func(templateMap map[string]string, recipePath string, srcTargetPath string) error {
+	var processPhaseAndMiscAndRun = func(templateMap map[string]string, recipePath string, srcTargetPath string) error {
 
-		err := filegen.CreatePhaseAndMiscFiles(recipePath, tokenFileName)
+		err := filegen.CreatePhaseAndMiscFilesAndRun(recipePath, tokenFileName)
 		if err != nil {
 			return err
 		}
@@ -93,7 +93,7 @@ func CreateRecipe(templateMap map[string]string) error {
 	}
 
 	// dst_recipe_dirpath := filepath.Join(absPathToSource, globals.RECIPE_ROOT_DIR_)
-	err = processPhaseAndMisc(templateMap, recipePath, srcAppPath)
+	err = processPhaseAndMiscAndRun(templateMap, recipePath, srcAppPath)
 	if err != nil {
 		return err
 	}

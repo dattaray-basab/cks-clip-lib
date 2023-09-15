@@ -9,12 +9,13 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
-func CreatePhaseAndMiscFiles(baseDirpath string, tokenFileName string) error {
+func CreatePhaseAndMiscFilesAndRun(baseDirpath string, tokenFileName string) error {
 	err := os.RemoveAll(baseDirpath)
 	if err != nil {
 		return err
 	}
 	rootPath := filepath.Dir(baseDirpath)
+	
 	tokenFilePath := filepath.Join(rootPath, globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME, tokenFileName+globals.JSON_EXT)
 	logger.Log.Debug(tokenFilePath)
 
@@ -62,7 +63,7 @@ func CreatePhaseAndMiscFiles(baseDirpath string, tokenFileName string) error {
 		{
 			Filepath: filepath.Join(rootPath, globals.RUN_PY),
 			Content: `
-from code_transformer.src.main._main_generator import fn_start
+from cks_codegen.main._main_generator import fn_start
 
 error, _ = fn_start(__file__)
 if error is not None:
@@ -73,7 +74,6 @@ if error is not None:
 			Filepath: filepath.Join(rootPath, globals.RECIPE_CONFIG_),
 			Content: `
 [
-  "../../__BLUEPRINTS"
 ]
 		`,
 		},
