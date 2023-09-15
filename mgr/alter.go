@@ -48,7 +48,10 @@ func addAlter(templateMap map[string]string) error {
 		}
 
 		codeBlockName := templateMap[globals.KEY_CODE_BLOCK_NAME]
-		recipeDirpath := templateMap[globals.KEY_RECIPE_PATH]
+		recipeDirpath, err := filepath.Abs(templateMap[globals.KEY_RECIPE_PATH])
+		if err != nil {
+			return "", err
+		}
 		alterName := templateMap[globals.KEY_ALTER_NAME]
 
 
