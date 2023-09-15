@@ -89,12 +89,9 @@ func ReplaceUsingTemplateMap(templateMap map[string]string, dirpath string) erro
 					return err
 				}
 
-				if fileInfo.IsDir() {
-					dirname := filepath.Base(path)
-					if strings.HasPrefix(dirname, CONTENT_START) && strings.HasSuffix(dirname, CONTENT_END) {
-						cleanupList = append(cleanupList, path)
-					}
-					return nil
+				pathName := filepath.Base(path)
+				if strings.Contains(pathName, CONTENT_START) || strings.Contains(pathName, CONTENT_END) {
+					cleanupList = append(cleanupList, path)
 				}
 				return nil
 			})
@@ -113,11 +110,9 @@ func ReplaceUsingTemplateMap(templateMap map[string]string, dirpath string) erro
 	}
 
 	for _, path := range cleanupList {
-		if IsDir(path) {
-			err = os.RemoveAll(path)
-			if err != nil {
-				return err
-			}
+		err = os.RemoveAll(path)
+		if err != nil {
+			return err
 		}
 	}
 	return nil
