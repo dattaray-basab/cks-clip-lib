@@ -85,6 +85,7 @@ var BuildStore = func(templateMap map[string]string) error {
 		if len(actualMisses) > 0 {
 			msg := "FAILED: actual move items that do not match: " + strings.Join(actualMisses, ", ")
 			logger.Log.Error(msg)
+
 			return errors.New(msg)
 		}
 

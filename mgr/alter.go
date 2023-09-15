@@ -64,12 +64,6 @@ func addAlter(templateMap map[string]string) error {
 			err := fmt.Errorf("full-alter-path %s already exists", fullAlterPath)
 			return fullAlterPath, err
 		}
-	
-		// err := os.MkdirAll(fullAlterPath, os.ModePerm)
-		// if err != nil {
-		// 	err := fmt.Errorf("could not create full-alter-path %s", fullAlterPath)
-		// 	return fullAlterPath, err
-		// }
 
 		return fullAlterPath, nil
 	}

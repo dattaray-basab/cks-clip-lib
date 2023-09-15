@@ -6,17 +6,21 @@ import (
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
 	"github.com/dattaray-basab/cks-clip-lib/globals"
+	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
 
-func CreateAllRecipeFiles(baseDirpath string, tokenFileName string) error {
+func CreatePhaseAndMiscFiles(baseDirpath string, tokenFileName string) error {
 	err := os.RemoveAll(baseDirpath)
 	if err != nil {
 		return err
 	}
+	rootPath := filepath.Dir(baseDirpath)
+	tokenFilePath := filepath.Join(rootPath, globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME, tokenFileName+globals.JSON_EXT)
+	logger.Log.Debug(tokenFilePath)
 
 	recipeScaffold := globals.ScaffoldInfoTListT{
 		{
-			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME, tokenFileName+globals.JSON_EXT),
+			Filepath: tokenFilePath,
 			Content: `
 {
   "__CONTENT": [
@@ -25,7 +29,7 @@ func CreateAllRecipeFiles(baseDirpath string, tokenFileName string) error {
 		`,
 		},
 		{
-			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, "{{target}}", globals.MISC_DIRNAME, globals.DIRECTIVES_JSON),
+			Filepath: filepath.Join(baseDirpath, globals.MISC_DIRNAME, globals.DIRECTIVES_JSON),
 			Content: `
 {
   "LOG_LEVEL": 10,
@@ -36,7 +40,7 @@ func CreateAllRecipeFiles(baseDirpath string, tokenFileName string) error {
 		`,
 		},
 		{
-			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, "{{target}}", globals.PHASES_DIRNAME, "{{phase-name}}"+globals.JSON_EXT),
+			Filepath: filepath.Join(baseDirpath, globals.PHASES_DIRNAME, "{{phase-name}}"+globals.JSON_EXT),
 			Content: `
 {
   "__CODE_BLOCK": "{{code-block-name}}",
@@ -56,7 +60,7 @@ func CreateAllRecipeFiles(baseDirpath string, tokenFileName string) error {
 		`,
 		},
 		{
-			Filepath: filepath.Join(baseDirpath, globals.BLUEPRINTS_DIRNAME, "{{target}}", globals.RUN_PY),
+			Filepath: filepath.Join(rootPath, globals.RUN_PY),
 			Content: `
 from code_transformer.src.main._main_generator import fn_start
 
@@ -66,7 +70,7 @@ if error is not None:
 		`,
 		},
 		{
-			Filepath: filepath.Join(baseDirpath, globals.RECIPE_CONFIG_),
+			Filepath: filepath.Join(rootPath, globals.RECIPE_CONFIG_),
 			Content: `
 [
   "../../__BLUEPRINTS"
