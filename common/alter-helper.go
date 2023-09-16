@@ -19,18 +19,18 @@ var BuildAlterInfrastucture = func(templateMap map[string]string, queryTemplate,
 				return "", err
 			}
 		}
-		fullAlterPath := templateMap[globals.KEY_FULL_ALTER_REL_PATH]
-		queryPathName := strings.Replace(fullAlterPath, "/", "", -1)
+		fullAlterRelPath := templateMap[globals.KEY_FULL_ALTER_REL_PATH]
+		queryPathName := strings.Replace(fullAlterRelPath, "/", "", -1)
 		fName := queryPathName + globals.JSON_EXT
 		fPath := filepath.Join(dirpath, fName)
-		filePathExists := IsFile(fPath)
-		count := 0
-		for filePathExists {
-			fName = fName + strconv.Itoa(count) + globals.JSON_EXT
-			fPath = filepath.Join(dirpath, fName)
-			filePathExists = IsFile(fPath)
-			count++
-		}
+		// filePathExists := IsFile(fPath)
+		// count := 0
+		// for filePathExists {
+		// 	fName = fName + strconv.Itoa(count) + globals.JSON_EXT
+		// 	fPath = filepath.Join(dirpath, fName)
+		// 	filePathExists = IsFile(fPath)
+		// 	count++
+		// }
 		return fPath, nil
 	}
 

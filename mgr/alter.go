@@ -19,6 +19,7 @@ var codeBlockPath string
 func AddAlter(
 	templateMap map[string]string,
 ) error {
+
 	forceAsString := templateMap[globals.KEY_FORCE]
 	force, err := strconv.ParseBool(forceAsString)
 	msg := fmt.Sprintf("force: %v", force)
@@ -26,6 +27,9 @@ func AddAlter(
 	if err != nil {
 		force = false
 	}
+
+	templateMap[globals.KEY_TARGET_PATH] = filepath.Dir(templateMap[globals.KEY_RECIPE_PATH])
+	templateMap[globals.KEY_PHASES_PATH] = filepath.Join(templateMap[globals.KEY_RECIPE_PATH], globals.PHASES_DIRNAME)
 
 	err = addAlter(templateMap)
 	if err != nil {

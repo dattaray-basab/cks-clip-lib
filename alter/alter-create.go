@@ -1,10 +1,8 @@
 package alter
 
 import (
-	"path/filepath"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
-	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
 var CreatePhaseFile = func(templateMap map[string]string) error {
@@ -12,17 +10,15 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 	if err != nil {
 		return err
 	}
-	lastPhase := templateMap[globals.KEY_LAST_PHASE]
-	phaseName := templateMap[globals.KEY_PHASE_NAME]
-	phasesPath := templateMap[globals.KEY_PHASES_PATH]
-	err = BuildNewPhaseFile(templateMap, phasesPath, phaseName, lastPhase)
+
+	phaseFilepath, err := BuildNewPhaseFile(templateMap)
 	if err != nil {
 		return err
 	}
-	fullPhasePath := filepath.Join(phasesPath, phaseName+globals.JSON_EXT)
+	// fullPhasePath := filepath.Join(phasesPath, phaseName+globals.JSON_EXT)
 
 	// substitute the templateMap values
-	err = common.ReplaceUsingTemplateMap(templateMap, fullPhasePath)
+	err = common.ReplaceUsingTemplateMap(templateMap, phaseFilepath)
 	if err != nil {
 		return err
 	}
