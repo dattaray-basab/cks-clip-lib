@@ -1,4 +1,5 @@
-package templates
+package recast
+
 var (
   RecastControlTemplate = `
 [

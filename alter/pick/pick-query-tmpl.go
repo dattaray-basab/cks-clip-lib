@@ -1,6 +1,7 @@
-package templates
+package pick
+
 var (
-  RecastQueryTemplate = `
+	QueryTemplate = `
 {
   "__CONTENT": [
       {

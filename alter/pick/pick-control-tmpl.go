@@ -1,6 +1,7 @@
-package templates
+package pick
+
 var (
-  PickControlTemplate = `
+	ControlTemplate = `
 [
   {
 	"op": "pick",
