@@ -59,9 +59,6 @@ var BuildStore = func(templateMap map[string]string) error {
 					}
 				}
 			}
-			// } else {
-			// 	missingMatches = append(missingMatches, item.Name())
-			// }
 		}
 
 // are all the move items found?
@@ -77,31 +74,11 @@ var BuildStore = func(templateMap map[string]string) error {
 			}
 		}
 
-		// actualMisses := []string{}
-		// for _, moveItem := range move_items {
-		// 	found := false
-		// 	for _, item := range missingMatches {
-		// 		if item == moveItem {
-		// 			found = true
-		// 		}
-		// 	}
-		// 	if !found {
-		// 		actualMisses = append(actualMisses, moveItem)
-		// 	}
-		// }
-
 		if len(missingItems) > 0 {
-			msg := "FAILED: move items that do not exist: " + strings.Join(missingItems, ", ")
+			msg := "FAILED: the following move-items do not exist: " + strings.Join(missingItems, ", ")
 			logger.Log.Error(msg)
 			return errors.New(msg)
 		}
-
-		// if len(actualMisses) > 0 {
-		// 	msg := "FAILED: actual move items that do not match: " + strings.Join(actualMisses, ", ")
-		// 	logger.Log.Error(msg)
-
-		// 	return errors.New(msg)
-		// }
 
 		return nil
 	}
