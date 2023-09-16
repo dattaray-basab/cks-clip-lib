@@ -15,7 +15,6 @@ var CreatePhaseFile = func(templateMap map[string]string) error {
 	if err != nil {
 		return err
 	}
-	// fullPhasePath := filepath.Join(phasesPath, phaseName+globals.JSON_EXT)
 
 	// substitute the templateMap values
 	err = common.ReplaceUsingTemplateMap(templateMap, phaseFilepath)
