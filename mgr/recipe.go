@@ -69,7 +69,7 @@ func CreateRecipe(templateMap map[string]string) error {
 		var err error
 		code_block := templateMap[globals.KEY_CODE_BLOCK_NAME]
 
-		target_code_path := filepath.Join(recipePath, globals.CODE_BLOCK_ROOT, code_block)
+		target_code_path := filepath.Join(recipePath, globals.CODE_DIRNAME, code_block)
 
 		err = os.RemoveAll(target_code_path)
 		if err != nil {

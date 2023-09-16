@@ -34,15 +34,16 @@ var BuildStore = func(templateMap map[string]string) error {
 		if err != nil {
 			return err
 		}
-
+		foundItems := []string{}
 		missingItems := []string{}
-		missingMatches := []string{}
+		// missingMatches := []string{}
 		for _, item := range files {
 			if matches(move_items, item.Name()) {
+				foundItems = append(foundItems, item.Name())
 				item_path := filepath.Join(templateMap[globals.KEY_CODE_BLOCK_PATH], item.Name())
-				if _, err := os.Stat(item_path); os.IsNotExist(err) {
-					missingItems = append(missingItems, item.Name())
-				}
+				// if _, err := os.Stat(item_path); os.IsNotExist(err) {
+				// 	missingItems = append(missingItems, item.Name())
+				// }
 				parentDir := filepath.Dir(item_path)
 				alterName := filepath.Base(templateMap[globals.KEY_ALTER_PATH])
 				newParent := filepath.Join(parentDir, alterName, globals.STORE_DIRNAME)
@@ -57,24 +58,37 @@ var BuildStore = func(templateMap map[string]string) error {
 						return err
 					}
 				}
-
-			} else {
-				missingMatches = append(missingMatches, item.Name())
 			}
+			// } else {
+			// 	missingMatches = append(missingMatches, item.Name())
+			// }
 		}
 
-		actualMisses := []string{}
+// are all the move items found?
 		for _, moveItem := range move_items {
 			found := false
-			for _, item := range missingMatches {
+			for _, item := range foundItems {
 				if item == moveItem {
 					found = true
 				}
 			}
 			if !found {
-				actualMisses = append(actualMisses, moveItem)
+				missingItems = append(missingItems, moveItem)
 			}
 		}
+
+		// actualMisses := []string{}
+		// for _, moveItem := range move_items {
+		// 	found := false
+		// 	for _, item := range missingMatches {
+		// 		if item == moveItem {
+		// 			found = true
+		// 		}
+		// 	}
+		// 	if !found {
+		// 		actualMisses = append(actualMisses, moveItem)
+		// 	}
+		// }
 
 		if len(missingItems) > 0 {
 			msg := "FAILED: move items that do not exist: " + strings.Join(missingItems, ", ")
@@ -82,12 +96,12 @@ var BuildStore = func(templateMap map[string]string) error {
 			return errors.New(msg)
 		}
 
-		if len(actualMisses) > 0 {
-			msg := "FAILED: actual move items that do not match: " + strings.Join(actualMisses, ", ")
-			logger.Log.Error(msg)
+		// if len(actualMisses) > 0 {
+		// 	msg := "FAILED: actual move items that do not match: " + strings.Join(actualMisses, ", ")
+		// 	logger.Log.Error(msg)
 
-			return errors.New(msg)
-		}
+		// 	return errors.New(msg)
+		// }
 
 		return nil
 	}

@@ -45,7 +45,7 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 
 	var getAlterJson = func(templateMap map[string]string) map[string]interface{} {
 		// fullAlterPathWithQuotes := templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES]
-		fullAlterPath := templateMap[globals.KEY_FULL_ALTER_PATH]
+		fullAlterPath := templateMap[globals.KEY_FULL_ALTER_REL_PATH]
 
 		fullAlterPathWithQuotes := globals.QUOTE + fullAlterPath + globals.QUOTE
 
@@ -112,7 +112,7 @@ var UpdatePhaseFile = func(templateMap map[string]string) error {
 		}
 		return nil
 	}
-	
+
 	err := BuildNewAlterDir(templateMap)
 	if err != nil {
 		return err

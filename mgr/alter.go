@@ -2,7 +2,6 @@ package mgr
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -27,7 +26,6 @@ func AddAlter(
 	if err != nil {
 		force = false
 	}
-
 
 	err = addAlter(templateMap)
 	if err != nil {
@@ -54,8 +52,7 @@ func addAlter(templateMap map[string]string) error {
 		}
 		alterName := templateMap[globals.KEY_ALTER_NAME]
 
-
-		alterDirPath := templateMap[globals.KEY_ALTER_DIR_PATH]
+		alterDirPath := templateMap[globals.KEY_ALTER_REL_PATH]
 		cutAlterDirPath := strings.TrimPrefix(alterDirPath, prefix)
 		cutAlterDirParts := strings.Split(cutAlterDirPath, prefix)
 		codeBlockPath = filepath.Join(recipeDirpath, "__CODE", codeBlockName)
@@ -71,54 +68,52 @@ func addAlter(templateMap map[string]string) error {
 		return fullAlterPath, nil
 	}
 
-	var addCommand = func() error {
-		var getTargetNameFromBlueprint = func(blueprintPath string) (string, error) {
-			files, err := os.ReadDir(blueprintPath)
-			if err != nil {
-				return "", err
-			}
+	var processAddAlterCommand = func() error {
+		// var getTargetNameFromBlueprint = func(blueprintPath string) (string, error) {
+		// 	files, err := os.ReadDir(blueprintPath)
+		// 	if err != nil {
+		// 		return "", err
+		// 	}
 
-			targetFromBlueprint := ""
-			for _, file := range files {
-				if file.IsDir() {
-					if file.Name() != globals.TOKENS_DIRNAME {
-						targetFromBlueprint = file.Name()
-						return targetFromBlueprint, nil
-					}
-				}
-			}
-			return "", nil
-		}
+		// 	targetFromBlueprint := ""
+		// 	for _, file := range files {
+		// 		if file.IsDir() {
+		// 			if file.Name() != globals.TOKENS_DIRNAME {
+		// 				targetFromBlueprint = file.Name()
+		// 				return targetFromBlueprint, nil
+		// 			}
+		// 		}
+		// 	}
+		// 	return "", nil
+		// }
 
-		recipeDirpath := templateMap[globals.KEY_RECIPE_PATH]
-		target := templateMap[globals.KEY_TARGET]
+		
+		// targetName := templateMap[globals.KEY_TARGET]
 
-//?1
-		blueprintsPath := filepath.Join(
-			recipeDirpath,
-			globals.BLUEPRINTS_DIRNAME)
-		templateMap[globals.KEY_BLUEPRINTS_PATH] = blueprintsPath
+		//?1
+		// blueprintsPath := filepath.Join(
+		// 	recipeDirpath,
+		// 	globals.BLUEPRINTS_DIRNAME)
+		// templateMap[globals.KEY_BLUEPRINTS_PATH] = blueprintsPath
 
-		templateMap[globals.KEY_CODE_BLOCK_ROOT_PATH] = filepath.Join(recipeDirpath, globals.CODE_BLOCK_ROOT)
-		templateMap[globals.KEY_CODE_BLOCK_PATH] = codeBlockPath
+		// templateMap[globals.KEY_CODE_BLOCK_ROOT_PATH] = filepath.Join(recipeDirpath, globals.CODE_BLOCK_ROOT)
+		// templateMap[globals.KEY_CODE_BLOCK_PATH] = codeBlockPath
 
-//?1
-		targetFromBlueprint, err := getTargetNameFromBlueprint(blueprintsPath)
-		if err != nil {
-			return err
-		}
+		// //?1
+		// targetFromBlueprint, err := getTargetNameFromBlueprint(blueprintsPath)
+		// if err != nil {
+		// 	return err
+		// }
 
-		targetName := targetFromBlueprint
-		if len(target) > 0 {
-			targetName = target
-		}
+		// targetName := targetFromBlueprint
+		// if len(target) > 0 {
+		// 	targetName = target
+		// }
 
+		//?1
+		// rootPathForPhases := filepath.Join(recipeDirpath, targetName, globals.PHASES_DIRNAME)
 
-//?1
-		phasePath := filepath.Join(blueprintsPath, targetName, globals.PHASES_DIRNAME)
-
-		logger.Log.Debug(phasePath)
-		err = filegen.CreateOrUpdatePhaseFile(templateMap)
+		err := filegen.CreateOrUpdatePhaseFile(templateMap)
 		if err != nil {
 			return err
 		}
@@ -131,12 +126,11 @@ func addAlter(templateMap map[string]string) error {
 	}
 	templateMap[globals.KEY_ALTER_PATH] = alterPath
 
-
-	fullAlterPath := filepath.Join(templateMap[globals.KEY_ALTER_DIR_PATH], globals.SPECIAL_DIR_PREFIX_+templateMap[globals.KEY_ALTER_NAME])
-	templateMap[globals.KEY_FULL_ALTER_PATH] = fullAlterPath
+	fullRelativeAlterPath := filepath.Join(templateMap[globals.KEY_ALTER_REL_PATH], globals.SPECIAL_DIR_PREFIX_+templateMap[globals.KEY_ALTER_NAME])
+	templateMap[globals.KEY_FULL_ALTER_REL_PATH] = fullRelativeAlterPath
 	// templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES] = QUOTE + fullAlterPath + QUOTE
 
-	err = addCommand()
+	err = processAddAlterCommand()
 	if err != nil {
 		return err
 	}

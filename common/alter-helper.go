@@ -12,14 +12,14 @@ import (
 
 var BuildAlterInfrastucture = func(templateMap map[string]string, queryTemplate, controlTemplate string) error {
 	var getQueryFilePath = func(templateMap map[string]string) (string, error) { //?1
-		dirpath := filepath.Join(templateMap[globals.KEY_BLUEPRINTS_PATH], globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME)
+		dirpath := filepath.Join(templateMap[globals.KEY_TARGET_PATH], globals.TOKENS_DIRNAME, globals.QUERY_DIRNAME)
 		if !IsDir(dirpath) {
 			err := os.MkdirAll(dirpath, os.ModePerm)
 			if err != nil {
 				return "", err
 			}
 		}
-		fullAlterPath := templateMap[globals.KEY_FULL_ALTER_PATH]
+		fullAlterPath := templateMap[globals.KEY_FULL_ALTER_REL_PATH]
 		queryPathName := strings.Replace(fullAlterPath, "/", "", -1)
 		fName := queryPathName + globals.JSON_EXT
 		fPath := filepath.Join(dirpath, fName)
@@ -53,7 +53,7 @@ var BuildAlterInfrastucture = func(templateMap map[string]string, queryTemplate,
 	if err != nil {
 		return err
 	}
-	
+
 	logger.Log.Debug(moveItemMap)
 	fullQueryId, err := getQueryId(templateMap, queryFilePath)
 	if err != nil {
