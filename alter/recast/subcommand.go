@@ -2,6 +2,7 @@ package recast
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -10,6 +11,7 @@ import (
 )
 
 var BuildSubcommand = func(templateMap map[string]string) error {
+	
 	storePath := filepath.Join(templateMap[globals.KEY_ALTER_PATH], globals.STORE_DIRNAME)
 	if !common.IsDir(storePath) {
 		err := fmt.Errorf("store-path %s does not exist", storePath)
@@ -26,9 +28,12 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 	fmt.Println(firstMoveItem)
 
 	changeMap := make(map[string]string)
-	changeMap["{{name}}"] = firstMoveItem
+	changeMap[firstMoveItem] = "{{name}}" 
 
-	err := common.ReplaceUsingTemplateMap(changeMap, storePath)
+	oldPath := filepath.Join(storePath, firstMoveItem)
+	newPath := filepath.Join(storePath, "{{name}}")
+
+	err := os.Rename(oldPath, newPath)
 	if err != nil {
 		return err
 	}
