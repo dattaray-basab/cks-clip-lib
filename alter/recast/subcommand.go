@@ -10,8 +10,6 @@ import (
 )
 
 var BuildSubcommand = func(templateMap map[string]string) error {
-
-
 	var replaceFirstMoveItemFileNameWithToken = func(templateMap map[string]string) error {
 		firstMoveItem, err  := common.GetFirstMoveItem(templateMap)
 		if err != nil {
@@ -35,7 +33,6 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		}
 		return nil
 	}
-
 	err := replaceFirstMoveItemFileNameWithToken(templateMap)
 	if err != nil {
 		return err
