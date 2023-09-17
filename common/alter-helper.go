@@ -1,6 +1,7 @@
 package common
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -9,6 +10,17 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 	"github.com/dattaray-basab/cks-clip-lib/logger"
 )
+
+var GetFirstMoveItem = func(templateMap map[string]string) (string, error) {
+	moveItems := templateMap[globals.KEY_MOVE_ITEMS]
+	moveItemParts := strings.Split(moveItems, ":")
+	if len(moveItemParts) == 0 {
+		err := fmt.Errorf("no move-item is available")
+		return "", err
+	}
+	firstMoveItem := moveItemParts[0]
+	return firstMoveItem, nil
+}
 
 var BuildAlterInfrastucture = func(templateMap map[string]string, queryTemplate, controlTemplate string) error {
 	var getQueryFilePath = func(templateMap map[string]string) (string, error) { //?1
