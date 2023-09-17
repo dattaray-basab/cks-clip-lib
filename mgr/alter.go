@@ -73,50 +73,6 @@ func addAlter(templateMap map[string]string) error {
 	}
 
 	var processAddAlterCommand = func() error {
-		// var getTargetNameFromBlueprint = func(blueprintPath string) (string, error) {
-		// 	files, err := os.ReadDir(blueprintPath)
-		// 	if err != nil {
-		// 		return "", err
-		// 	}
-
-		// 	targetFromBlueprint := ""
-		// 	for _, file := range files {
-		// 		if file.IsDir() {
-		// 			if file.Name() != globals.TOKENS_DIRNAME {
-		// 				targetFromBlueprint = file.Name()
-		// 				return targetFromBlueprint, nil
-		// 			}
-		// 		}
-		// 	}
-		// 	return "", nil
-		// }
-
-		
-		// targetName := templateMap[globals.KEY_TARGET]
-
-		//?1
-		// blueprintsPath := filepath.Join(
-		// 	recipeDirpath,
-		// 	globals.BLUEPRINTS_DIRNAME)
-		// templateMap[globals.KEY_BLUEPRINTS_PATH] = blueprintsPath
-
-		// templateMap[globals.KEY_CODE_BLOCK_ROOT_PATH] = filepath.Join(recipeDirpath, globals.CODE_BLOCK_ROOT)
-		// templateMap[globals.KEY_CODE_BLOCK_PATH] = codeBlockPath
-
-		// //?1
-		// targetFromBlueprint, err := getTargetNameFromBlueprint(blueprintsPath)
-		// if err != nil {
-		// 	return err
-		// }
-
-		// targetName := targetFromBlueprint
-		// if len(target) > 0 {
-		// 	targetName = target
-		// }
-
-		//?1
-		// rootPathForPhases := filepath.Join(recipeDirpath, targetName, globals.PHASES_DIRNAME)
-
 		err := filegen.CreateOrUpdatePhaseFile(templateMap)
 		if err != nil {
 			return err
@@ -132,7 +88,6 @@ func addAlter(templateMap map[string]string) error {
 
 	fullRelativeAlterPath := filepath.Join(templateMap[globals.KEY_ALTER_REL_PATH], globals.SPECIAL_DIR_PREFIX_+templateMap[globals.KEY_ALTER_NAME])
 	templateMap[globals.KEY_FULL_ALTER_REL_PATH] = fullRelativeAlterPath
-	// templateMap[globals.KEY_FULL_ALTER_PATH_WITH_QUOTES] = QUOTE + fullAlterPath + QUOTE
 
 	err = processAddAlterCommand()
 	if err != nil {

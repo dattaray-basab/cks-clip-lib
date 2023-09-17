@@ -63,6 +63,7 @@ const KEY_SRC_APP_PATH = "{{src-app-path}}"
 const KEY_ALTER_SUB_COMMAND = "{{alter-sub-command}}"
 const KEY_RECIPE_CONTAINER_PATH = "{{recipe-container-path}}"
 const KEY_TARGET_PATH = "{{target-path}}"
+const KEY_STORE_PATH = "{{store-path}}"
 
 const CONTROL_JSON_FILE = "control.json"
 const STORE_lc = "store"
