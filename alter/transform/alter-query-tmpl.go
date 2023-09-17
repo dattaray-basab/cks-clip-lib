@@ -7,7 +7,7 @@ var (
       "id": "{{.ShortQueryId}}",
       "kind": "text",
       "prompt": "enter ...:",
-      "value": "{{.FirstWordInFirstFile}}",
+      "value": "{{.FirstWordInFirstFile}}"
     }
   ]
 }
