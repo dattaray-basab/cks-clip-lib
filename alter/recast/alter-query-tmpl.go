@@ -1,6 +1,6 @@
 package recast
 var (
-  RecastQueryTemplate = `
+  QueryTemplate = `
 {
   "__CONTENT": [
       {
@@ -9,16 +9,14 @@ var (
           "prompt": "enter ...",
           "selector": [
         {{- range $k, $v := .MoveItemsInfo }}
-            {{- $v.Index }}
-            {{- if $v.IsLastItem }}{{ else }}, {{ end -}}
+            {{- if $v.IsFirstItem }}{{- $v.Index }}{{ else }}{{ end -}}
         {{- end -}}
           ],
           "children": {
             "kind": "literal",
               "value": [
         {{- range $k, $v := .MoveItemsInfo }}
-            "{{- $v.Key }}"
-            {{- if $v.IsLastItem }}{{ else }}, {{ end -}}
+            {{- if $v.IsFirstItem }}"{{- $v.Key }}"{{ else }}{{ end -}}
         {{- end -}}
               ]
             }

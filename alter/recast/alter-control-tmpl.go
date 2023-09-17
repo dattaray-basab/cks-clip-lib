@@ -1,16 +1,16 @@
 package recast
 
 var (
-  RecastControlTemplate = `
+	ControlTemplate = `
 [
-	  {
-	    "op": "recast",
-		  "directives": {
-			 "declare": {
-				"name": "unknown-token-file.id_unknown_token"
-			}
-		  }
+  {
+	"op": "recast",
+	"directives": {
+	  "declare": {
+		"name": "{{.FullQueryId}}"
 	  }
+	}
+  }
 ]
 `
 )

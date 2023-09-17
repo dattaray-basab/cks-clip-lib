@@ -7,6 +7,6 @@ import (
 
 
 var BuildSubcommand = func(templateMap map[string]string) error {
-	err := common.BuildAlterInfrastucture(templateMap, RecastQueryTemplate, RecastControlTemplate)
+	err := common.BuildAlterInfrastucture(templateMap, QueryTemplate, ControlTemplate)
 	return err
 }

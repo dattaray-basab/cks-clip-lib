@@ -23,14 +23,6 @@ var BuildAlterInfrastucture = func(templateMap map[string]string, queryTemplate,
 		queryPathName := strings.Replace(fullAlterRelPath, "/", "", -1)
 		fName := queryPathName + globals.JSON_EXT
 		fPath := filepath.Join(dirpath, fName)
-		// filePathExists := IsFile(fPath)
-		// count := 0
-		// for filePathExists {
-		// 	fName = fName + strconv.Itoa(count) + globals.JSON_EXT
-		// 	fPath = filepath.Join(dirpath, fName)
-		// 	filePathExists = IsFile(fPath)
-		// 	count++
-		// }
 		return fPath, nil
 	}
 

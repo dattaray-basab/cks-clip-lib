@@ -11,6 +11,7 @@ type MoveItemDetailsT struct {
 	Key   string
 	Index int
 	IsLastItem bool 
+	IsFirstItem bool
 }
 
 type SubstitionTemplateT struct {
