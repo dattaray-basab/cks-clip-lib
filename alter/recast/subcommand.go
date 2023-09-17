@@ -26,9 +26,6 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		templateMap[globals.KEY_STORE_PATH] = storePath
 
 
-		changeMap := make(map[string]string)
-		changeMap[firstMoveItem] = "{{name}}"
-
 		oldPath := filepath.Join(storePath, firstMoveItem)
 		newPath := filepath.Join(storePath, "{{name}}")
 
