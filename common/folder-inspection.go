@@ -10,42 +10,20 @@ import (
 	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
-var GetFirstFileInRootDir = func(filePath string) (string, error) {
-	firstFile := ""
-	err := filepath.WalkDir(filePath, func(s string, d fs.DirEntry, err error) error {
+var GetFirstFilePathInRootDir = func(rootDirPath string) (string, error) {
+	firstFilePath := ""
+	err := filepath.WalkDir(rootDirPath, func(s string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
 		if !d.IsDir() {
-			firstFile = s
+			firstFilePath = s
 			return filepath.SkipDir
 		}
 		return nil
 	})
-	return firstFile, err
+	return firstFilePath, err
 }
-
-var GetFirstLineOfFirstFile = func(templateMap map[string]string) (string, error) {
-	storePath := filepath.Join(templateMap[globals.KEY_ALTER_PATH], globals.STORE_DIRNAME)
-	if !IsDir(storePath) {
-		err := fmt.Errorf("store-path %s does not exist", storePath)
-		return "", err
-	}
-
-	firstFile, err := GetFirstFileInRootDir(storePath)
-	if err != nil {
-		return "", err
-	}
-
-	wordList, err := GetWordsFromFile(firstFile)
-	if err != nil {
-		return "", err
-	}
-	firstWordInFirstFile := wordList[0]
-
-	return firstWordInFirstFile, nil
-}
-
 var GetWordsFromFile = func(filePath string) ([]string, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -69,4 +47,25 @@ var GetWordsFromFile = func(filePath string) ([]string, error) {
 		return nil, err
 	}
 	return words, nil
+}
+
+var GetFirstLineOfFirstFile = func(templateMap map[string]string) (string, string, error) {
+	storePath := filepath.Join(templateMap[globals.KEY_ALTER_PATH], globals.STORE_DIRNAME)
+	if !IsDir(storePath) {
+		err := fmt.Errorf("store-path %s does not exist", storePath)
+		return "", "", err
+	}
+
+	firstFilePath, err := GetFirstFilePathInRootDir(storePath)
+	if err != nil {
+		return "", "", err
+	}
+
+	wordList, err := GetWordsFromFile(firstFilePath)
+	if err != nil {
+		return "", "", err
+	}
+	firstWordInFirstFile := wordList[0]
+
+	return firstFilePath, firstWordInFirstFile, nil
 }

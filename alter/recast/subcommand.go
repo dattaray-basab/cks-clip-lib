@@ -38,6 +38,6 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		return err
 	}
 
-	err = common.BuildAlterInfrastucture(templateMap, QueryTemplate, ControlTemplate)
+	_, err = common.BuildAlterInfrastucture(templateMap, QueryTemplate, ControlTemplate)
 	return err
 }

@@ -19,4 +19,5 @@ type SubstitionTemplateT struct {
 	ShortQueryId         string
 	MoveItemsInfo        map[string]MoveItemDetailsT
 	FirstWordInFirstFile string
+	FirstFilePath 	  string
 }
