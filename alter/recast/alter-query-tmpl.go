@@ -1,6 +1,7 @@
 package recast
+
 var (
-  QueryTemplate = `
+	QueryTemplate = `
 {
   "__CONTENT": [
       {

@@ -66,11 +66,19 @@ var BuildAlterInfrastucture = func(templateMap map[string]string, queryTemplate,
 	queryIdParts := strings.Split(fullQueryId, ".")
 	shortQueryId := queryIdParts[len(queryIdParts)-1]
 
+	firstWordInFirstFile, err := GetFirstLineOfFirstFile(templateMap)
+	if err != nil {
+		return err
+	}
+	logger.Log.Debug(firstWordInFirstFile)
+	templateMap[globals.KEY_FIRST_WORD_IN_FIRST_FILE] = firstWordInFirstFile
+
 	tmplRootData :=
 		globals.SubstitionTemplateT{
-			FullQueryId:   fullQueryId,
-			ShortQueryId:  shortQueryId,
-			MoveItemsInfo: moveItemMap,
+			FullQueryId:          fullQueryId,
+			ShortQueryId:         shortQueryId,
+			FirstWordInFirstFile: firstWordInFirstFile,
+			MoveItemsInfo:        moveItemMap,
 		}
 
 	contentQuery, error := RunTemplate(queryTemplate, tmplRootData)

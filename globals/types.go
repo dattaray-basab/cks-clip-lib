@@ -8,15 +8,15 @@ type ScaffoldInfoT struct {
 type ScaffoldInfoTListT []ScaffoldInfoT
 
 type MoveItemDetailsT struct {
-	Key   string
-	Index int
-	IsLastItem bool 
+	Key         string
+	Index       int
+	IsLastItem  bool
 	IsFirstItem bool
 }
 
 type SubstitionTemplateT struct {
-	FullQueryId string
-	ShortQueryId string
-	MoveItemsInfo map[string]MoveItemDetailsT
+	FullQueryId          string
+	ShortQueryId         string
+	MoveItemsInfo        map[string]MoveItemDetailsT
+	FirstWordInFirstFile string
 }
-
