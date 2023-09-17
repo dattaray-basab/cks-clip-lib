@@ -3,9 +3,6 @@ var (
   TransformQueryTemplate = `
 {
   "__CONTENT": [
-      {
-
-      }
   ]
 }
 `

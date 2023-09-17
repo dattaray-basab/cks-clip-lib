@@ -71,7 +71,7 @@ error, _ = fn_start(__file__)
 if error is not None:
 	print(error)
     exit(1)
-		`,
+`,
 		},
 		{
 			Filepath: filepath.Join(baseDirpath, globals.RECIPE_LOCATOR),
