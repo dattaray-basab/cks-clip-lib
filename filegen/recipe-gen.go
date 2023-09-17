@@ -69,9 +69,8 @@ from cks_codegen.main._main_generator import fn_start
 
 error, _ = fn_start(__file__)
 if error is not None:
-	print(error)
-    exit(1)
-`,
+  print(error)
+  exit(1)`,
 		},
 		{
 			Filepath: filepath.Join(baseDirpath, globals.RECIPE_LOCATOR),
