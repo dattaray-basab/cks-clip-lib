@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/dattaray-basab/cks-clip-lib/common"
+	"github.com/dattaray-basab/cks-clip-lib/globals"
 )
 
 var BuildSubcommand = func(templateMap map[string]string) error {
@@ -24,9 +25,9 @@ var BuildSubcommand = func(templateMap map[string]string) error {
 		return err
 	}
 
-	// quotedFullQueryId := globals.QUOTE + alterRecord.FullQueryId + globals.QUOTE
+	quotedFullQueryId := globals.QUOTE + alterRecord.FullQueryId + globals.QUOTE
 
-	prependString := "{%- set name = val(tokens, " +  alterRecord.FullQueryId + " -%}" + "\n"
+	prependString := "{%- set name = val(tokens, " +  quotedFullQueryId + ") -%}" + "\n"
 
 	err = common.PrependToFile(alterRecord.FirstFilePath, prependString)
 	return err
